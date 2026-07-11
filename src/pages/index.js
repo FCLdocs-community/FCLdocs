@@ -4,12 +4,8 @@ import Link from '@docusaurus/Link';
 import styles from './index.module.css';
 
 const features = [
-  { title: '首次安装', desc: '下载 APK、安装、权限设置', link: '/docs/install', icon: '📦' },
-  { title: '版本下载', desc: '如何选择和下载游戏版本', link: '/docs/download-version', icon: '⬇️' },
-  { title: '模组安装', desc: 'Forge/Fabric/模组包安装', link: '/docs/mods', icon: '🧩' },
-  { title: '光影配置', desc: '安装和配置渲染器、光影', link: '/docs/shaders', icon: '✨' },
-  { title: '联机教程', desc: '局域网联机和远程联机', link: '/docs/multiplayer', icon: '🌐' },
-  { title: '故障排除', desc: '闪退、黑屏、卡顿解决', link: '/docs/troubleshoot', icon: '🔧' },
+  { title: '首页', desc: '下载 APK、安装、权限设置', link: '/docs/intro', icon: '📦' },
+  { title: '手机小白必看', desc: '如何选择和下载游戏版本', link: '/docs/手机小白必看', icon: '📱' },
 ];
 
 export default function Home() {

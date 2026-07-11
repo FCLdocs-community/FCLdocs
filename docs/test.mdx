@@ -1,0 +1,107 @@
+---
+sidebar_position: 1
+---
+
+import DocCard from '@theme/DocCard';
+import DocCardList from '@theme/DocCardList';
+
+# 文档创作示例
+
+本页面是 **test 页面**，以方便开发者复制代码进行文档创作。
+
+---
+
+## 二级菜单标题
+
+二级菜单标题使用 `##` 标记，用于划分文档的主要章节。
+
+### 三级菜单（正文标题）
+
+三级菜单使用 `###` 标记，适合作为正文中的小标题。可以**顺便加粗**关键词，方便读者快速定位。
+
+---
+
+## 正文内容
+
+- **加粗**：`**必须开启**`
+- *斜体*：`*Forge*`
+- 行内代码：`` `/storage/emulated/0/FCL/.minecraft/` ``
+- [链接跳转](https://foldcraftlauncher.cn)
+
+### 专有名词提示
+
+:::tip 专有名词
+本文涉及的专有名词：**Forge**、**Fabric**、**Quilt**、**OptiFine**、**VPN**
+:::
+
+---
+
+## 图片
+
+![FCL 下载界面](/img/docs/download-page.jpg)
+
+> **图片说明**：这是一张开了itt3.2光影的图片
+
+---
+
+## 警告内容
+
+:::danger 警告
+**你必须开启版本隔离**，否则当你安装多个版本（带模组之类）时，会出现不同版本用相同的模组，导致游戏崩溃。
+:::
+
+---
+
+## 注意内容
+
+:::warning 注意
+云控本身是中性的技术，用来推送更新、远程诊断是好事。但厂商**怎么用、用在哪、是否告知用户**，才是关键。买手机时可以查一下该厂商的云控口碑。
+:::
+---
+
+## 提示内容
+
+:::info 提示
+模组的路径位于 `/storage/emulated/0/FCL/.minecraft/versions/版本文件夹/mods`，
+光影的路径位于 `./minecraft/versions/版本文件夹/shaderpacks`。
+
+本文教程到此结束，希望能对你有所帮助！
+:::
+
+---
+
+## 笔记内容
+
+:::note 笔记
+这是一个笔记
+:::
+
+---
+
+## 时间
+
+| 项目 | 时间 |
+|------|------|
+| **创建时间** | 2025年10月9日 |
+| **最近更新时间** | 2025年11月27日 |
+
+---
+
+## 跳转按钮（Docusaurus 原生）
+
+Docusaurus 文档页面底部**自动生成**上一篇/下一篇导航按钮，无需手动添加。
+
+如果你想在文档内部添加导航卡片，可以使用 DocCardList：
+
+```jsx
+<DocCardList />
+```
+或者手动指定卡片：
+```
+<DocCard item={{
+  type: 'link',
+  label: '上一篇：账号登录',
+  docId: 'account-login',
+  href: '/docs/account-login'
+}} />
+```

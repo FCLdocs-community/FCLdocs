@@ -4,15 +4,17 @@ import Link from '@docusaurus/Link';
 import styles from './index.module.css';
 
 const features = [
-  { title: '首页', desc: '下载 APK、安装、权限设置', link: '/docs/intro', icon: '📦' },
-  { title: '手机小白必看', desc: '如何选择和下载游戏版本', link: '/docs/手机小白必看/intro', icon: '📱' },
+  { title: '首页', desc: '本文档的开始', link: '/docs/intro', icon: '📦' },
+  { title: '手机小白必看', desc: '学习一部分计算机知识', link: '/docs/手机小白必看/intro', icon: '📱' },
+  { title: 'FCL 下载与安装', desc: '解决下载上的难题', link: '/docs/FCL 的下载与安装/intro', icon: '⬇️' },
+  { title: 'FCL 基础教程', desc: '教会新手使用FCL启动器', link: '/docs/FCL 基础教程/首次使用', icon: '🚀' },
 ];
 
 export default function Home() {
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <Layout title="FCL 新手教程" description="Fold Craft Launcher 喂饭级教程">
+    <Layout title="FCL 新手教程" description="Fold Craft Launcher 新手小白易看懂的教程">
       {/* Hero 区域 */}
       <header className={styles.hero}>
         <div className={styles.heroContent}>

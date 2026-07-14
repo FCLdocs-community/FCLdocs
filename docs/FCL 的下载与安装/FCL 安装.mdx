@@ -1,5 +1,5 @@
 ---
-sidebar_position: 2
+sidebar_position: 3
 title: FCL 安装
 ---
 
@@ -24,6 +24,7 @@ title: FCL 安装
 ---
 
 import BrandSteps, { BrandStep } from '@site/src/components/BrandSteps';
+import SlideButton from '@site/src/components/SlideButton';
 
 <BrandSteps>
   <BrandStep brand="xiaomi">
@@ -73,8 +74,46 @@ import BrandSteps, { BrandStep } from '@site/src/components/BrandSteps';
 
     1. 点击 FCL 安装包，若提示"禁止安装"，点击**设置** → 允许来自此来源的应用
     2. 返回安装界面，点击**继续安装**
-    3. 若弹出风险提示，点击**了解风险** → **仍要安装**
-    4. 等待安装完成，点击**完成**
+    
+    ![vivo安装0](/img/docs/FCL%20的下载与安装/FCL%20安装/vivo手机/0.jpg)
+    
+    <SlideButton label="开了超级防护">
+      <SlideButton.Yes>
+        3. 若弹出风险提示，点击**了解风险**，再点击右上角齿轮，并输入密码
+        
+        ![vivo安装1](/img/docs/FCL%20的下载与安装/FCL%20安装/vivo手机/1.jpg)
+        ![vivo安装chaoji1](/img/docs/FCL%20的下载与安装/FCL%20安装/vivo手机/chaoji1.jpg)
+        
+        4. 找到**超级防护**选项
+        
+        ![vivo安装chaoji2](/img/docs/FCL%20的下载与安装/FCL%20安装/vivo手机/chaoji2.jpg)
+        
+        5. 点击“**关闭超级防护**”，然后返回
+        
+        ![vivo安装chaoji3](/img/docs/FCL%20的下载与安装/FCL%20安装/vivo手机/chaoji3.jpg)
+        
+        6. 点击**继续安装**
+        
+        ![vivo安装2](/img/docs/FCL%20的下载与安装/FCL%20安装/vivo手机/2.jpg)
+        
+        7. 等待安装完成，点击**完成**
+        
+        ![vivo安装3](/img/docs/FCL%20的下载与安装/FCL%20安装/vivo手机/3.jpg)
+        ![vivo安装4](/img/docs/FCL%20的下载与安装/FCL%20安装/vivo手机/4.jpg)
+      </SlideButton.Yes>
+
+      <SlideButton.No>
+        3. 若弹出风险提示，点击**了解风险** → **仍要安装**
+        
+        ![vivo安装1](/img/docs/FCL%20的下载与安装/FCL%20安装/vivo手机/1.jpg)
+        ![vivo安装2](/img/docs/FCL%20的下载与安装/FCL%20安装/vivo手机/2.jpg)
+        
+        4. 等待安装完成，点击**完成**
+        
+        ![vivo安装3](/img/docs/FCL%20的下载与安装/FCL%20安装/vivo手机/3.jpg)
+        ![vivo安装4](/img/docs/FCL%20的下载与安装/FCL%20安装/vivo手机/4.jpg)
+      </SlideButton.No>
+    </SlideButton>
 
     :::caution 注意
     vivo 部分机型会弹出"该应用未经过安全检测"的警告，这是正常现象，点击**仍要安装**即可。

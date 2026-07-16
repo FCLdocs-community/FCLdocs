@@ -28,4 +28,4 @@ sidebar_position: 1
 
 ## 关于协议
 
-本教程采用 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 协议发布。
+本教程采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/legalcode.txt) 协议发布。

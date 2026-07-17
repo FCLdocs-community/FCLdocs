@@ -1,19 +1,42 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { marked } from 'marked';
 import styles from './styles.module.css';
 
-// 全局缓存：path -> md原始文本
 const mdCache = new Map();
+const ANIMATION_DURATION = 200; // 和 CSS 动画时长保持一致
 
-// ========== 弹窗 ==========
+// ========== 弹窗（带关闭动画）==========
 function TermModal({ html, loading, error, onClose }) {
+  const [isClosing, setIsClosing] = useState(false);
+
+  // 统一关闭入口：先播动画，再真正卸载
+  const handleClose = useCallback(() => {
+    if (isClosing) return;
+    setIsClosing(true);
+    setTimeout(() => {
+      onClose();
+    }, ANIMATION_DURATION);
+  }, [isClosing, onClose]);
+
+  // ESC 键关闭
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === 'Escape') handleClose();
+    };
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, [handleClose]);
+
+  const overlayClass = `${styles.overlay} ${isClosing ? styles.closing : ''}`;
+  const modalClass = `${styles.modal} ${isClosing ? styles.closing : ''}`;
+
   return (
-    <div className={styles.overlay} onClick={onClose}>
-      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+    <div className={overlayClass} onClick={handleClose}>
+      <div className={modalClass} onClick={(e) => e.stopPropagation()}>
         <button
           className={styles.closeBtn}
-          onClick={onClose}
+          onClick={handleClose}
           aria-label="关闭"
         >
           ×
@@ -39,7 +62,7 @@ function TermModal({ html, loading, error, onClose }) {
   );
 }
 
-// ========== 术语链接 ==========
+// ========== 术语链接（不变）==========
 export function TermLink({ path, color, children }) {
   const { siteConfig } = useDocusaurusContext();
   const baseUrl = siteConfig.baseUrl || '/';
@@ -49,7 +72,6 @@ export function TermLink({ path, color, children }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // 确保颜色带 # 前缀
   const hexColor = color.startsWith('#') ? color : `#${color}`;
 
   const handleClick = useCallback(
@@ -76,7 +98,6 @@ export function TermLink({ path, color, children }) {
           mdCache.set(path, mdContent);
         }
 
-        // marked 解析 Markdown → HTML
         const parsed = marked.parse(mdContent);
         setHtml(parsed);
       } catch (err) {

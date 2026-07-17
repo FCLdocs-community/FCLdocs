@@ -18,8 +18,13 @@
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  animation: fadeIn 0.2s ease;
   padding: 1rem;
+  animation: fadeIn 0.2s ease;
+}
+
+/* ✅ 关闭动画 */
+.overlay.closing {
+  animation: fadeOut 0.2s ease forwards;
 }
 
 /* 弹窗卡片 */
@@ -36,6 +41,11 @@
   flex-direction: column;
   position: relative;
   animation: slideUp 0.2s ease;
+}
+
+/* ✅ 关闭动画 */
+.modal.closing {
+  animation: slideDown 0.2s ease forwards;
 }
 
 /* 关闭按钮 */
@@ -60,7 +70,7 @@
   background: var(--ifm-color-emphasis-200);
 }
 
-/* 内容区 —— 可滚动 + Markdown 样式 */
+/* 内容区 */
 .content {
   color: var(--ifm-font-color-base);
   line-height: 1.7;
@@ -81,7 +91,7 @@
   border-radius: 3px;
 }
 
-/* Markdown 元素样式（继承 Docusaurus 变量） */
+/* Markdown 样式（不变，省略...） */
 .content h1,
 .content h2,
 .content h3,
@@ -182,13 +192,23 @@
   margin-bottom: 0.5rem;
 }
 
-/* 动画 */
+/* ===== 动画定义 ===== */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
 }
 
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
 @keyframes slideUp {
   from { transform: translateY(16px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideDown {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(16px); opacity: 0; }
 }

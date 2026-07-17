@@ -1,0 +1,214 @@
+/* 术语链接 */
+.termLink {
+  cursor: pointer;
+  border-bottom: 1px dashed currentColor;
+  transition: opacity 0.2s;
+}
+
+.termLink:hover {
+  opacity: 0.75;
+}
+
+/* 遮罩层 */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  animation: fadeIn 0.2s ease;
+}
+
+/* ✅ 关闭动画 */
+.overlay.closing {
+  animation: fadeOut 0.2s ease forwards;
+}
+
+/* 弹窗卡片 */
+.modal {
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: var(--ifm-global-radius);
+  box-shadow: var(--ifm-global-shadow-lw);
+  padding: 1.5rem;
+  max-width: 560px;
+  width: 100%;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  animation: slideUp 0.2s ease;
+}
+
+/* ✅ 关闭动画 */
+.modal.closing {
+  animation: slideDown 0.2s ease forwards;
+}
+
+/* 关闭按钮 */
+.closeBtn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--ifm-color-emphasis-500);
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--ifm-global-radius);
+  transition: all 0.2s;
+  z-index: 1;
+}
+
+.closeBtn:hover {
+  color: var(--ifm-color-emphasis-900);
+  background: var(--ifm-color-emphasis-200);
+}
+
+/* 内容区 */
+.content {
+  color: var(--ifm-font-color-base);
+  line-height: 1.7;
+  font-size: 0.95rem;
+  max-height: 60vh;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--ifm-color-emphasis-300) transparent;
+}
+
+.content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.content::-webkit-scrollbar-thumb {
+  background: var(--ifm-color-emphasis-300);
+  border-radius: 3px;
+}
+
+/* Markdown 样式（不变，省略...） */
+.content h1,
+.content h2,
+.content h3,
+.content h4 {
+  color: var(--ifm-heading-color);
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.content h1:first-child,
+.content h2:first-child,
+.content h3:first-child {
+  margin-top: 0;
+}
+
+.content p {
+  margin-bottom: 1rem;
+}
+
+.content ul,
+.content ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.content li {
+  margin-bottom: 0.25rem;
+}
+
+.content code {
+  background: var(--ifm-code-background);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.9em;
+}
+
+.content pre {
+  background: var(--ifm-pre-background);
+  padding: 1rem;
+  border-radius: var(--ifm-global-radius);
+  overflow-x: auto;
+  margin-bottom: 1rem;
+}
+
+.content pre code {
+  background: none;
+  padding: 0;
+}
+
+.content blockquote {
+  border-left: 4px solid var(--ifm-color-emphasis-300);
+  padding-left: 1rem;
+  margin-left: 0;
+  color: var(--ifm-color-emphasis-700);
+  margin-bottom: 1rem;
+}
+
+.content a {
+  color: var(--ifm-link-color);
+  text-decoration: var(--ifm-link-decoration);
+}
+
+.content a:hover {
+  text-decoration: var(--ifm-link-hover-decoration);
+}
+
+.content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+
+.content th,
+.content td {
+  border: 1px solid var(--ifm-table-border-color);
+  padding: 0.5rem;
+}
+
+.content th {
+  background: var(--ifm-table-stripe-background);
+}
+
+/* 状态 */
+.loading {
+  text-align: center;
+  padding: 2rem;
+  color: var(--ifm-color-emphasis-600);
+}
+
+.error {
+  color: var(--ifm-color-danger);
+  padding: 1rem 0;
+}
+
+.error strong {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+/* ===== 动画定义 ===== */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(16px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideDown {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(16px); opacity: 0; }
+}

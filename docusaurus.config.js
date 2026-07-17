@@ -1,3 +1,5 @@
+const remarkWindowPlugin = require('./src/plugins/remarkWindowPlugin');
+
 module.exports = {
   title: 'FCL新手文档',
   tagline: 'Documentation',
@@ -21,6 +23,8 @@ module.exports = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl: 'https://github.com/your-org/FCL-website/edit/main/',
+          // 添加以下配置
+          remarkPlugins: [remarkWindowPlugin],
         },
         blog: false,
         theme: {
@@ -29,6 +33,7 @@ module.exports = {
       },
     ],
   ],
+
 
   themeConfig: {
     colorMode: {
@@ -54,9 +59,7 @@ module.exports = {
         configureWebpack(config, isServer, utils) {
           return {
             watchOptions: {
-              // 使用 polling 代替原生监听（Termux 兼容更好）
               poll: 1000,
-              // 忽略无权限的父目录
               ignored: ['**/node_modules/**', '/data/**', '/data/data/**', '/**'],
             },
           };

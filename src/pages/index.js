@@ -25,7 +25,7 @@ const features = [
   { title: '首页', desc: '本文档的开始', link: '/docs/intro', icon: faBoxOpen },
   { title: '手机小白必看', desc: '学习一部分计算机知识', link: '/docs/手机小白必看/intro', icon: faMobileScreen },
   { title: 'FCL 下载与安装', desc: '解决下载上的难题', link: '/docs/FCL 的下载与安装/intro', icon: faDownload },
-  { title: 'FCL 基础教程', desc: '教会新手使用FCL启动器', link: '/docs/FCL 基础教程/首次使用', icon: faRocket },
+  { title: 'FCL 基础教程', desc: '教会新手使用FCL启动器', link: '/docs/FCL-基础教程/首次使用', icon: faRocket },
 ];
 
 export default function Home() {

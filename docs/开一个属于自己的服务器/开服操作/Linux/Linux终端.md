@@ -1,5 +1,5 @@
 ---
 sidebar_position: 2
-title: 电脑Linux开服
+title: Linux终端
 ---
 

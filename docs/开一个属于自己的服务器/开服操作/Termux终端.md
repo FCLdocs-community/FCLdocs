@@ -1,5 +1,5 @@
 ---
 sidebar_position: 4
-title: 手机termux开服
+title: Termux终端
 ---
 

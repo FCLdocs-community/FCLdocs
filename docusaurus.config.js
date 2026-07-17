@@ -11,6 +11,11 @@ module.exports = {
   organizationName: 'Fclce',
   projectName: 'FCL-website',
 
+  i18n: {
+    defaultLocale: 'zh-Hans',
+    locales: ['zh-Hans'],
+  },
+
   presets: [
     [
       '@docusaurus/preset-classic',
@@ -31,6 +36,10 @@ module.exports = {
 
 
   themeConfig: {
+    colorMode: {
+      defaultMode: 'dark',
+      respectPrefersColorScheme: false,
+    },
     navbar: {
       title: 'FCL教程',
       items: [

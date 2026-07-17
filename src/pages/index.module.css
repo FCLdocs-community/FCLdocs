@@ -1,139 +1,146 @@
+.homePage {
+  min-height: 100vh;
+}
+
+.homeOverlay {
+  min-height: 100vh;
+  padding: 0 1rem;
+}
+
+/* Hero */
 .hero {
   text-align: center;
-  padding: 5rem 2rem 5rem;
-  background: linear-gradient(180deg, #1A1A2E 0%, #16213E 50%, #0F3460 100%);
-  color: #fff;
-  position: relative;
-  overflow: hidden;
-}
-
-.hero::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image:
-    radial-gradient(circle at 20% 50%, rgba(93, 140, 58, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 50%, rgba(74, 237, 217, 0.08) 0%, transparent 50%);
-  pointer-events: none;
-}
-
-.heroContent {
-  position: relative;
-  z-index: 1;
+  padding: 5rem 1rem 4rem;
   max-width: 800px;
   margin: 0 auto;
 }
 
 .hero h1 {
-  font-size: 2.8rem;
+  font-size: clamp(1.75rem, 5vw, 3rem);
+  color: var(--ifm-heading-color);
   margin-bottom: 1rem;
-  background: linear-gradient(135deg, #5D8C3A 0%, #4AEDD9 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  line-height: 1.2;
+}
+
+.heroIcon {
+  color: var(--ifm-color-primary);
+  margin-right: 0.5rem;
+  font-size: 0.85em;
+  vertical-align: middle;
 }
 
 .hero p {
-  font-size: 1.2rem;
-  color: #a0aec0;
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  color: var(--ifm-color-emphasis-700);
   margin-bottom: 2rem;
 }
 
 .startBtn {
-  display: inline-block;
-  padding: 0.9rem 2.5rem;
-  background: linear-gradient(135deg, #5D8C3A 0%, #4A7C2A 100%);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--ifm-color-primary);
   color: #fff;
-  border-radius: 12px;
+  border-radius: var(--ifm-button-border-radius);
+  font-weight: 600;
   text-decoration: none;
-  font-weight: bold;
-  font-size: 1.1rem;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(93, 140, 58, 0.3);
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .startBtn:hover {
+  opacity: 0.9;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(93, 140, 58, 0.4);
   color: #fff;
   text-decoration: none;
 }
 
-/* 介绍区域 - 往下拉 */
+/* Main */
 .main {
-  max-width: 1200px;
+  max-width: 900px;
   margin: 0 auto;
-  padding: 0 2rem;
 }
 
+/* 图标间距 */
+.icon {
+  margin-right: 0.5rem;
+}
+
+/* 介绍区域 */
 .introSection {
-  margin: 2rem auto 3rem;
-  max-width: 900px;
-  position: relative;
-  z-index: 2;
+  margin-bottom: 3rem;
 }
 
 .introToggle {
   width: 100%;
-  padding: 1.2rem 1.5rem;
-  background: var(--ifm-card-background-color, #fff);
-  border: 2px solid var(--ifm-color-emphasis-200, #e5e7eb);
-  border-radius: 12px;
-  font-size: 1.1rem;
+  padding: 1rem 1.25rem;
+  background: var(--home-card-bg);
+  border: 1px solid var(--home-card-border);
+  border-radius: var(--ifm-card-border-radius);
+  color: var(--ifm-heading-color);
+  font-size: var(--ifm-h4-font-size);
   font-weight: 600;
-  color: var(--ifm-font-color-base, #1f2937);
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.introToggleExpanded {
+  border-radius: var(--ifm-card-border-radius) var(--ifm-card-border-radius) 0 0;
 }
 
 .introToggle:hover {
-  border-color: #5D8C3A;
-  box-shadow: 0 4px 12px rgba(93, 140, 58, 0.1);
+  background: var(--home-card-hover-bg);
+}
+
+.introToggle span:first-child {
+  display: inline-flex;
+  align-items: center;
 }
 
 .arrow {
-  font-size: 0.9rem;
-  color: var(--ifm-color-emphasis-500, #6b7280);
-  transition: transform 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  color: var(--ifm-color-emphasis-600);
 }
 
 .introContent {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.4s ease-out;
+  transition: max-height 0.35s ease-out;
 }
 
 .introContent.expanded {
-  max-height: 800px;
-  transition: max-height 0.5s ease-in;
+  max-height: 900px;
+  transition: max-height 0.45s ease-in;
 }
 
 .introInner {
   padding: 1.5rem;
-  background: var(--ifm-card-background-color, #fff);
-  border: 2px solid var(--ifm-color-emphasis-200, #e5e7eb);
+  background: var(--home-card-bg);
+  border: 1px solid var(--home-card-border);
   border-top: none;
-  border-radius: 0 0 12px 12px;
-  margin-top: -2px;
+  border-radius: 0 0 var(--ifm-card-border-radius) var(--ifm-card-border-radius);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
 }
 
 .introInner p {
   line-height: 1.8;
-  color: var(--ifm-font-color-base, #374151);
+  color: var(--ifm-font-color-base);
   margin-bottom: 1.5rem;
 }
 
 .introInner h4 {
-  color: #5D8C3A;
+  color: var(--ifm-heading-color);
   margin: 1.5rem 0 0.8rem;
-  font-size: 1.1rem;
+  font-size: var(--ifm-h4-font-size);
 }
 
 .introInner ul {
@@ -144,17 +151,12 @@
 
 .introInner li {
   padding: 0.4rem 0;
-  padding-left: 1.5rem;
-  position: relative;
-  color: var(--ifm-font-color-base, #4b5563);
+  color: var(--ifm-font-color-base);
 }
 
-.introInner li::before {
-  content: '▸';
-  position: absolute;
-  left: 0;
-  color: #5D8C3A;
-  font-weight: bold;
+.checkIcon {
+  color: var(--ifm-color-primary);
+  margin-right: 0.5rem;
 }
 
 .introLinks {
@@ -163,93 +165,83 @@
   flex-wrap: wrap;
   margin-top: 1.5rem;
   padding-top: 1.5rem;
-  border-top: 1px solid var(--ifm-color-emphasis-200, #e5e7eb);
+  border-top: 1px solid var(--home-card-border);
 }
 
 .introLinks a {
+  display: inline-flex;
+  align-items: center;
   padding: 0.5rem 1rem;
-  background: var(--ifm-color-emphasis-100, #f3f4f6);
-  border-radius: 8px;
-  color: var(--ifm-font-color-base, #374151);
+  background: var(--ifm-color-emphasis-100);
+  border-radius: var(--ifm-button-border-radius);
+  color: var(--ifm-font-color-base);
   text-decoration: none;
   font-size: 0.9rem;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
 }
 
 .introLinks a:hover {
-  background: #5D8C3A;
+  background: var(--ifm-color-primary);
   color: #fff;
   text-decoration: none;
 }
 
-/* 快速导航 - 一行两个 */
+/* 快速导航 */
 .featuresSection {
   padding: 2rem 0 4rem;
+  text-align: center;
 }
 
 .featuresSection h2 {
-  text-align: center;
-  font-size: 1.8rem;
   margin-bottom: 2rem;
-  color: var(--ifm-font-color-base, #1f2937);
+  color: var(--ifm-heading-color);
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
 }
 
 .card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 2rem 1.5rem;
-  border-radius: 16px;
-  background: var(--ifm-card-background-color, #fff);
-  border: 2px solid var(--ifm-color-emphasis-200, #e5e7eb);
+  background: var(--home-card-bg);
+  border: 1px solid var(--home-card-border);
+  border-radius: var(--ifm-card-border-radius);
   text-decoration: none;
-  color: inherit;
-  transition: all 0.3s ease;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, #5D8C3A, #4AEDD9);
-  transform: scaleX(0);
-  transition: transform 0.3s ease;
+  color: var(--ifm-font-color-base);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
-  border-color: #5D8C3A;
+  transform: translateY(-4px);
+  background: var(--home-card-hover-bg);
+  border-color: var(--ifm-color-primary);
+  color: var(--ifm-font-color-base);
   text-decoration: none;
-  color: inherit;
-}
-
-.card:hover::before {
-  transform: scaleX(1);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1);
 }
 
 .cardIcon {
-  font-size: 2.5rem;
+  font-size: 2rem;
+  color: var(--ifm-color-primary);
   margin-bottom: 1rem;
 }
 
 .card h3 {
-  font-size: 1.3rem;
+  font-size: var(--ifm-h4-font-size);
   margin-bottom: 0.5rem;
-  color: var(--ifm-font-color-base, #1f2937);
+  color: var(--ifm-heading-color);
 }
 
 .card p {
-  color: var(--ifm-color-emphasis-600, #6b7280);
+  color: var(--ifm-color-emphasis-600);
   font-size: 0.95rem;
   margin: 0;
 }
@@ -257,17 +249,17 @@
 /* 底部信息 */
 .footerInfo {
   text-align: center;
-  padding: 3rem 2rem;
-  border-top: 1px solid var(--ifm-color-emphasis-200, #e5e7eb);
-  margin-bottom: 2rem;
+  padding: 2rem 1rem 4rem;
 }
 
 .versionBadge {
-  display: inline-block;
-  padding: 0.6rem 1.2rem;
-  background: linear-gradient(135deg, #5D8C3A 0%, #4A7C2A 100%);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--ifm-color-primary);
   color: #fff;
-  border-radius: 20px;
+  border-radius: 9999px;
   font-weight: 600;
   font-size: 0.95rem;
   margin-bottom: 1.5rem;
@@ -282,66 +274,42 @@
 }
 
 .footerLinks a {
-  color: var(--ifm-color-emphasis-600, #6b7280);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--ifm-color-emphasis-700);
   text-decoration: none;
   font-size: 0.95rem;
-  transition: color 0.2s;
+  transition: color 0.2s ease;
 }
 
 .footerLinks a:hover {
-  color: #5D8C3A;
+  color: var(--ifm-color-primary);
   text-decoration: none;
 }
 
 .divider {
-  color: var(--ifm-color-emphasis-300, #d1d5db);
+  color: var(--ifm-color-emphasis-300);
 }
 
-/* 深色模式适配 */
-[data-theme='dark'] .introToggle,
-[data-theme='dark'] .introInner,
-[data-theme='dark'] .card {
-  background: #1e1e2e;
-  border-color: #2d2d44;
-}
-
-[data-theme='dark'] .introToggle:hover,
-[data-theme='dark'] .card:hover {
-  border-color: #5D8C3A;
-}
-
-[data-theme='dark'] .introInner p,
-[data-theme='dark'] .introInner li,
-[data-theme='dark'] .card h3 {
-  color: #e2e8f0;
-}
-
-[data-theme='dark'] .card p {
-  color: #94a3b8;
-}
-
-[data-theme='dark'] .introLinks a {
-  background: #2d2d44;
-  color: #e2e8f0;
-}
-
-[data-theme='dark'] .introLinks a:hover {
-  background: #5D8C3A;
-  color: #fff;
-}
-
-/* 响应式 - 手机上一行一个 */
+/* 移动端适配 */
 @media (max-width: 768px) {
-  .hero h1 {
-    font-size: 2rem;
+  .hero {
+    padding: 3rem 0.5rem 2.5rem;
   }
 
-  .hero p {
-    font-size: 1rem;
+  .startBtn {
+    padding: 0.65rem 1.25rem;
+    font-size: 0.95rem;
   }
 
-  .grid {
-    grid-template-columns: 1fr;
+  .introToggle,
+  .introInner {
+    padding: 0.9rem 1rem;
+  }
+
+  .card {
+    padding: 1.5rem 1rem;
   }
 
   .introLinks {
@@ -349,6 +317,10 @@
   }
 
   .introLinks a {
-    text-align: center;
+    justify-content: center;
+  }
+
+  .footerLinks {
+    gap: 0.75rem;
   }
 }

@@ -1,6 +1,6 @@
 // src/components/TermSystem/index.js
 import React, { useState, useCallback } from 'react';
-import { useDocusaurusContext } from '@docusaurus/useDocusaurusContext';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';  // ← 去掉花括号
 import styles from './styles.module.css';
 
 // 全局缓存：path -> jsonData
@@ -67,13 +67,10 @@ export function TermLink({ id, path, children }) {
       setError(null);
 
       try {
-        // 自动补全 .json：/term/colors → /term/colors.json
         const jsonPath = path.endsWith('.json') ? path : `${path}.json`;
-
         let data = jsonCache.get(jsonPath);
 
         if (!data) {
-          // 拼接 baseUrl，处理末尾斜杠
           const cleanBase = baseUrl.replace(/\/$/, '');
           const fullPath = `${cleanBase}${jsonPath}`;
 

@@ -1,8 +1,7 @@
 /* 术语链接 */
 .termLink {
-  color: var(--ifm-color-primary);
   cursor: pointer;
-  border-bottom: 1px dashed var(--ifm-color-primary);
+  border-bottom: 1px dashed currentColor;
   transition: opacity 0.2s;
 }
 
@@ -30,9 +29,9 @@
   border-radius: var(--ifm-global-radius);
   box-shadow: var(--ifm-global-shadow-lw);
   padding: 1.5rem;
-  max-width: 520px;
+  max-width: 560px;
   width: 100%;
-  max-height: 80vh;           /* 整体不超过视口 80% */
+  max-height: 80vh;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -61,25 +60,14 @@
   background: var(--ifm-color-emphasis-200);
 }
 
-/* 标题 */
-.title {
-  margin: 0 0 0.75rem 0;
-  padding-right: 2rem;        /* 给关闭按钮留空间 */
-  font-size: 1.25rem;
-  font-weight: 600;
-}
-
-/* 内容区 —— 关键：溢出滚动 */
+/* 内容区 —— 可滚动 + Markdown 样式 */
 .content {
   color: var(--ifm-font-color-base);
   line-height: 1.7;
   font-size: 0.95rem;
-  
-  max-height: 50vh;           /* 内容区最大高度 */
-  overflow-y: auto;           /* 超出出滚动条 */
-  padding-right: 0.5rem;      /* 滚动条不压文字 */
-  
-  /* 滚动条样式 */
+  max-height: 60vh;
+  overflow-y: auto;
+  padding-right: 0.5rem;
   scrollbar-width: thin;
   scrollbar-color: var(--ifm-color-emphasis-300) transparent;
 }
@@ -93,8 +81,88 @@
   border-radius: 3px;
 }
 
-.content::-webkit-scrollbar-track {
-  background: transparent;
+/* Markdown 元素样式（继承 Docusaurus 变量） */
+.content h1,
+.content h2,
+.content h3,
+.content h4 {
+  color: var(--ifm-heading-color);
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.content h1:first-child,
+.content h2:first-child,
+.content h3:first-child {
+  margin-top: 0;
+}
+
+.content p {
+  margin-bottom: 1rem;
+}
+
+.content ul,
+.content ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.content li {
+  margin-bottom: 0.25rem;
+}
+
+.content code {
+  background: var(--ifm-code-background);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.9em;
+}
+
+.content pre {
+  background: var(--ifm-pre-background);
+  padding: 1rem;
+  border-radius: var(--ifm-global-radius);
+  overflow-x: auto;
+  margin-bottom: 1rem;
+}
+
+.content pre code {
+  background: none;
+  padding: 0;
+}
+
+.content blockquote {
+  border-left: 4px solid var(--ifm-color-emphasis-300);
+  padding-left: 1rem;
+  margin-left: 0;
+  color: var(--ifm-color-emphasis-700);
+  margin-bottom: 1rem;
+}
+
+.content a {
+  color: var(--ifm-link-color);
+  text-decoration: var(--ifm-link-decoration);
+}
+
+.content a:hover {
+  text-decoration: var(--ifm-link-hover-decoration);
+}
+
+.content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+
+.content th,
+.content td {
+  border: 1px solid var(--ifm-table-border-color);
+  padding: 0.5rem;
+}
+
+.content th {
+  background: var(--ifm-table-stripe-background);
 }
 
 /* 状态 */

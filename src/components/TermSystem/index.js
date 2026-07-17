@@ -1,13 +1,13 @@
-// src/components/TermSystem/index.js
 import React, { useState, useCallback } from 'react';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';  // ← 去掉花括号
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { marked } from 'marked';
 import styles from './styles.module.css';
 
-// 全局缓存：path -> jsonData
-const jsonCache = new Map();
+// 全局缓存：path -> md原始文本
+const mdCache = new Map();
 
-// ========== 弹窗组件 ==========
-function TermModal({ term, loading, error, onClose }) {
+// ========== 弹窗 ==========
+function TermModal({ html, loading, error, onClose }) {
   return (
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
@@ -28,34 +28,29 @@ function TermModal({ term, loading, error, onClose }) {
           </div>
         )}
 
-        {term && !loading && !error && (
-          <>
-            <h3
-              className={styles.title}
-              style={{ color: term.color || 'inherit' }}
-            >
-              {term.title || ''}
-            </h3>
-            <div
-              className={styles.content}
-              dangerouslySetInnerHTML={{ __html: term.content || '' }}
-            />
-          </>
+        {html && !loading && !error && (
+          <div
+            className={styles.content}
+            dangerouslySetInnerHTML={{ __html: html }}
+          />
         )}
       </div>
     </div>
   );
 }
 
-// ========== 术语链接组件 ==========
-export function TermLink({ id, path, children }) {
+// ========== 术语链接 ==========
+export function TermLink({ path, color, children }) {
   const { siteConfig } = useDocusaurusContext();
   const baseUrl = siteConfig.baseUrl || '/';
 
   const [isOpen, setIsOpen] = useState(false);
-  const [term, setTerm] = useState(null);
+  const [html, setHtml] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  // 确保颜色带 # 前缀
+  const hexColor = color.startsWith('#') ? color : `#${color}`;
 
   const handleClick = useCallback(
     async (e) => {
@@ -67,39 +62,35 @@ export function TermLink({ id, path, children }) {
       setError(null);
 
       try {
-        const jsonPath = path.endsWith('.json') ? path : `${path}.json`;
-        let data = jsonCache.get(jsonPath);
+        let mdContent = mdCache.get(path);
 
-        if (!data) {
+        if (!mdContent) {
           const cleanBase = baseUrl.replace(/\/$/, '');
-          const fullPath = `${cleanBase}${jsonPath}`;
+          const fullPath = `${cleanBase}${path}`;
 
           const res = await fetch(fullPath);
           if (!res.ok) {
             throw new Error(`HTTP ${res.status}: ${res.statusText}`);
           }
-          data = await res.json();
-          jsonCache.set(jsonPath, data);
+          mdContent = await res.text();
+          mdCache.set(path, mdContent);
         }
 
-        const found = data[id];
-        if (!found) {
-          throw new Error(`术语 "${id}" 在 ${jsonPath} 中未找到`);
-        }
-
-        setTerm(found);
+        // marked 解析 Markdown → HTML
+        const parsed = marked.parse(mdContent);
+        setHtml(parsed);
       } catch (err) {
         setError(err.message);
       } finally {
         setLoading(false);
       }
     },
-    [id, path, baseUrl, isOpen]
+    [path, baseUrl, isOpen]
   );
 
   const handleClose = useCallback(() => {
     setIsOpen(false);
-    setTerm(null);
+    setHtml('');
     setError(null);
   }, []);
 
@@ -107,6 +98,7 @@ export function TermLink({ id, path, children }) {
     <>
       <span
         className={styles.termLink}
+        style={{ color: hexColor }}
         onClick={handleClick}
         role="button"
         tabIndex={0}
@@ -118,7 +110,7 @@ export function TermLink({ id, path, children }) {
       </span>
       {isOpen && (
         <TermModal
-          term={term}
+          html={html}
           loading={loading}
           error={error}
           onClose={handleClose}

@@ -1,4 +1,3 @@
-// src/plugins/remarkTermPlugin.js
 const { visit } = require('unist-util-visit');
 
 function remarkTermPlugin() {
@@ -6,21 +5,31 @@ function remarkTermPlugin() {
     visit(tree, 'link', (node, index, parent) => {
       if (!node.url || !node.url.startsWith('window:')) return;
 
-      // 解析 window:/term/colors.json#green
       const raw = node.url.replace(/^window:/, '');
-      const hashIndex = raw.indexOf('#');
-      
-      let path, id;
+
+      // 最后一个 # 后面是颜色 hex
+      const hashIndex = raw.lastIndexOf('#');
+      let path, color;
+
       if (hashIndex === -1) {
-        // 没写 #，整个当 path，id 从链接文本取（不推荐）
         path = raw;
-        id = '';
+        color = 'var(--ifm-color-primary)';
       } else {
         path = raw.slice(0, hashIndex);
-        id = raw.slice(hashIndex + 1);
+        color = raw.slice(hashIndex + 1);
+
+        // 校验是否是 6 位 hex（兼容带 # 和不带 #）
+        const hexRegex = /^#?[0-9a-fA-F]{6}$/;
+        if (!hexRegex.test(color)) {
+          // 不是有效颜色，回退
+          path = raw;
+          color = 'var(--ifm-color-primary)';
+        }
       }
 
-      // 提取链接文本
+      // 自动补全 .md
+      const mdPath = path.endsWith('.md') ? path : `${path}.md`;
+
       const text = node.children
         .map(child => child.value || '')
         .join('');
@@ -29,8 +38,8 @@ function remarkTermPlugin() {
         type: 'mdxJsxTextElement',
         name: 'TermLink',
         attributes: [
-          { type: 'mdxJsxAttribute', name: 'id', value: id },
-          { type: 'mdxJsxAttribute', name: 'path', value: path },
+          { type: 'mdxJsxAttribute', name: 'path', value: mdPath },
+          { type: 'mdxJsxAttribute', name: 'color', value: color },
         ],
         children: [{ type: 'text', value: text }],
       };

@@ -7853,6 +7853,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"marked@npm:^18.0.6":
+  version: 18.0.6
+  resolution: "marked@npm:18.0.6"
+  bin:
+    marked: bin/marked.js
+  checksum: 10c0/85827aa9d7293b0eb5470c40bb0f60bdbd4a1d6647cfce3602afaa3b8e42ed229c74d1d61d3c41d4e7822d56df179862da970f2e11012e94c1a788387e69d36d
+  languageName: node
+  linkType: hard
+
 "math-intrinsics@npm:^1.1.0":
   version: 1.1.0
   resolution: "math-intrinsics@npm:1.1.0"
@@ -10971,6 +10980,7 @@ __metadata:
     "@docusaurus/preset-classic": "npm:^3.7.0"
     "@mdx-js/react": "npm:^3.1.1"
     "@types/react": "npm:^19.2.17"
+    marked: "npm:^18.0.6"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
     unist-util-visit: "npm:^5.1.0"

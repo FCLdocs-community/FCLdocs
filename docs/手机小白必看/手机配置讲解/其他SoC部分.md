@@ -77,7 +77,7 @@ DSP 比 CPU 省电，比 NPU 通用，介于两者之间。日常用得不多，
 
 ## 安全模块（Secure Processor / TEE）
 
-现代 SoC 里还有专门的安全模块，比如高通的 **[SPU](/docs/technical-term/SPU)**、ARM 的 **[TrustZone](/docs/technical-term/TrustZone)**。它们负责：
+现代 SoC 里还有专门的安全模块，比如高通的 **[SPU](window:/term/SPU)**、ARM 的 **[TrustZone](window:/term/TrustZone)**。它们负责：
 
 - 指纹、人脸数据的安全存储
 - 支付宝/微信支付的密钥

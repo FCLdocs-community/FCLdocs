@@ -308,3 +308,47 @@
   from { transform: translateY(0); opacity: 1; }
   to { transform: translateY(16px); opacity: 0; }
 }
+
+/* ===== Docusaurus Admonition 兼容 ===== */
+.admonition {
+  margin: 1rem 0;
+  padding: 1rem;
+  border-radius: var(--ifm-global-radius);
+  border-left: 6px solid var(--admonition-border, var(--ifm-color-emphasis-500));
+  background: var(--ifm-color-emphasis-100);
+}
+
+.admonitionHeading {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: var(--ifm-font-color-base);
+}
+
+.admonitionContent > :last-child {
+  margin-bottom: 0;
+}
+
+.admonitionContent > :first-child {
+  margin-top: 0;
+}
+
+.admonitionNote {
+  --admonition-border: var(--ifm-color-secondary);
+}
+
+.admonitionTip {
+  --admonition-border: var(--ifm-color-success);
+}
+
+.admonitionWarning {
+  --admonition-border: var(--ifm-color-warning);
+}
+
+.admonitionDanger {
+  --admonition-border: var(--ifm-color-danger);
+}
+
+.admonitionInfo {
+  --admonition-border: var(--ifm-color-info);
+}

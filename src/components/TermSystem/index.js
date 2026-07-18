@@ -6,6 +6,27 @@ import styles from './styles.module.css';
 const mdCache = new Map();
 const ANIMATION_DURATION = 200;
 
+function preprocessDocusaurus(md) {
+  if (!md) return md;
+  md = md.replace(
+    /^:::(\w+)(?:\s+([^\n]*))?\n([\s\S]*?)\n^:::/gm,
+    (match, type, title, content) => {
+      const displayTitle = title ? title.trim() : type.charAt(0).toUpperCase() + type.slice(1);
+      const admonitionClass = `admonition${type.charAt(0).toUpperCase() + type.slice(1)}`;
+      const parsedContent = marked.parse(content);
+      return `<div class="${styles.admonition} ${styles[admonitionClass]}">
+        <div class="${styles.admonitionHeading}">${displayTitle}</div>
+        <div class="${styles.admonitionContent}">${parsedContent}</div>
+      </div>`;
+    }
+  );
+
+  // 去掉代码块 title 属性，让 marked 正常解析
+  md = md.replace(/```(\w+)\s+title="[^"]*"/g, '```$1');
+
+  return md;
+}
+
 // 提取 [brief]...[/brief] 和 [detail]...[/detail]
 function processTermMarkdown(mdContent, termId) {
   const briefMatch = mdContent.match(/\[brief\]([\s\S]*?)\[\/brief\]/);
@@ -16,15 +37,15 @@ function processTermMarkdown(mdContent, termId) {
   let detailHtml = '';
 
   if (briefMatch) {
-    briefHtml = marked.parse(briefMatch[1].trim());
+    briefHtml = marked.parse(preprocessDocusaurus(briefMatch[1].trim()));
     mainContent = mainContent.replace(briefMatch[0], '');
   }
   if (detailMatch) {
-    detailHtml = marked.parse(detailMatch[1].trim());
+    detailHtml = marked.parse(preprocessDocusaurus(detailMatch[1].trim()));
     mainContent = mainContent.replace(detailMatch[0], '');
   }
 
-  const prefixHtml = marked.parse(mainContent.trim());
+  const prefixHtml = marked.parse(preprocessDocusaurus(mainContent.trim()));
 
   if (briefHtml || detailHtml) {
     const switcherHtml = `

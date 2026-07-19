@@ -322,7 +322,7 @@ export default function AboutSite() {
           <p style={descStyle}>
             查看最近更新内容，了解我们做了什么
           </p>
-          <Link to="/changelog" style={linkStyle}>
+          <Link to="/docs/changelog" style={linkStyle}>
             查看更新 →
           </Link>
         </div>

@@ -3,13 +3,13 @@ const remarkWindowPlugin = require('./src/plugins/remarkWindowPlugin');
 module.exports = {
   title: 'FCL新手文档',
   tagline: 'Documentation',
-  url: 'https://example.com',
+  url: 'https://fcldocs.top',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
-  organizationName: 'Fclce',
-  projectName: 'FCL-website',
+  organizationName: 'Fcl-community',
+  projectName: 'FCLdocs',
 
   i18n: {
     defaultLocale: 'zh-Hans',
@@ -22,7 +22,7 @@ module.exports = {
       {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/your-org/FCL-website/edit/main/',
+          editUrl: 'https://github.com/FCLdocs-community/FCLdocs/edit/main/',
           // 添加以下配置
           remarkPlugins: [remarkWindowPlugin],
         },
@@ -44,7 +44,7 @@ module.exports = {
       title: 'FCL教程',
       items: [
         {
-          to: '/docs/intro',
+          to: '/docs',
           label: 'Docs',
           position: 'left',
         },

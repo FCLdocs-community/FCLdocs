@@ -40,7 +40,7 @@ export default function Home() {
               <img src="/img/fcl-icon.png" alt="FCL 图标" className={styles.heroLogo} />
               <h1>FCL 启动器新手教程</h1>
               <p>从零开始，在 Android 手机上畅玩 Minecraft Java 版</p>
-              <Link className={styles.startBtn} to="/docs/intro">
+              <Link className={styles.startBtn} to="/docs">
                 <FontAwesomeIcon icon={faBookOpen} />
                 开始看教程
               </Link>

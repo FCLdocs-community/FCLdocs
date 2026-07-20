@@ -38,4 +38,4 @@ jobs:
           publish_dir: ./build
           publish_branch: docs
           force_orphan: true
-          cname: fcl-docs.350430.xyz
+          cname: GuGuIsNotAPigeon.github.io

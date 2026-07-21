@@ -1,0 +1,88 @@
+.slideContainer {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 8px;
+  background-color: var(--ifm-background-surface-color);
+  transition: border-color 0.2s ease-in-out;
+}
+
+.slideContainer:hover {
+  border-color: var(--ifm-color-primary);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.labelText {
+  font-weight: bold;
+  font-size: 1rem;
+  color: var(--ifm-color-emphasis-800);
+}
+
+.statusText {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--ifm-color-primary);
+  min-width: 20px; /* 保持宽度一致，避免抖动 */
+}
+
+/* 滑动开关样式 */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .3s;
+  border-radius: 24px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .3s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--ifm-color-primary);
+}
+
+input:focus-visible + .slider {
+  box-shadow: 0 0 1px var(--ifm-color-primary);
+}
+
+input:checked + .slider:before {
+  transform: translateX(20px);
+}
+
+.contentArea {
+  padding-top: 0.5rem;
+  border-top: 1px dashed var(--ifm-color-emphasis-200);
+}

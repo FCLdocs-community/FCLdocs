@@ -59,6 +59,12 @@ import AboutBackButton from '@site/src/components/AboutBackButton';
   contributions="修改了文档的首页，加入了加载动画"
 />
 
+<ContributorCard
+  name="GuGuIsNotAPigeon"
+  avatar="https://avatars.githubusercontent.com/u/212193102?v=4"
+  contributions="贡献了“开服教程”，修复了一些语法错误"
+/>
+
 </div>
 
 # 🙏 致谢
@@ -75,8 +81,8 @@ import AboutBackButton from '@site/src/components/AboutBackButton';
 
 感谢以下小伙伴的热心反馈，帮助我们发现并修正问题，让内容更加准确完善！
 
-- [！？强 强？！](tencent://message/?uin=483***515)
 - [6VuI1c4Q](tencent://message/?uin=378***1256)
+- [⁧！？强 强？！](tencent://message/?uin=483***515)
 
 ---
 

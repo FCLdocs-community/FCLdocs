@@ -5,12 +5,12 @@ const BRANDS = [
   { id: 'xiaomi', label: '小米' },
   { id: 'vivo', label: 'vivo' },
   { id: 'oppo', label: 'OPPO' },
+  { id: 'oneplus', label: '一加' },
+  { id: 'realme', label: 'realme' },
   { id: 'huawei', label: '华为' },
   { id: 'honor', label: '荣耀' },
   { id: 'samsung', label: '三星' },
-  { id: 'oneplus', label: '一加' },
   { id: 'meizu', label: '魅族' },
-  { id: 'realme', label: 'realme' },
 ];
 
 const STORAGE_KEY = 'docs-preferred-brand';

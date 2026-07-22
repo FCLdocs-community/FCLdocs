@@ -1,38 +1,28 @@
 :root {
   --ifm-color-primary: #25c2a0;
-  --site-bg-image: url('/img/bj/樱花-浅.png');
-  --site-bg-overlay: rgba(255, 255, 255, 0.82);
-  --home-card-bg: rgba(255, 255, 255, 0.72);
+  --home-card-bg: rgba(255, 255, 255, 0.85);
   --home-card-border: rgba(0, 0, 0, 0.12);
-  --home-card-hover-bg: rgba(255, 255, 255, 0.86);
+  --home-card-hover-bg: rgba(255, 255, 255, 0.95);
+  --content-bg: rgba(255, 255, 255, 0.80);
 }
 
 [data-theme='dark'] {
-  --site-bg-image: url('/img/bj/樱花-暗.png');
-  --site-bg-overlay: rgba(13, 15, 20, 0.85);
-  --home-card-bg: rgba(28, 30, 38, 0.65);
+  --home-card-bg: rgba(28, 30, 38, 0.78);
   --home-card-border: rgba(255, 255, 255, 0.14);
-  --home-card-hover-bg: rgba(38, 41, 52, 0.78);
+  --home-card-hover-bg: rgba(38, 41, 52, 0.90);
+  --content-bg: rgba(22, 24, 32, 0.80);
 }
 
+/* 让 html 背景透明，这样 #fcl-site-bg 的 z-index:-1 背景层才能透出来 */
 html {
-  background: var(--site-bg-image) center / cover fixed no-repeat;
-}
-
-html::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background: var(--site-bg-overlay);
-  z-index: -1;
-  pointer-events: none;
+  background: transparent !important;
 }
 
 body {
   background: transparent;
 }
 
+/* 内容层半透明白色蒙版，保证文字可读 */
 .main-wrapper {
-  background-color: transparent;
+  background-color: var(--content-bg);
 }
-

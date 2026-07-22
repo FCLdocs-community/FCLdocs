@@ -56,9 +56,7 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.65);
   border: 2px solid rgba(255, 255, 255, 0.15);
   color: #fff;
   font-size: 18px;
@@ -68,18 +66,17 @@
   align-items: center;
   justify-content: center;
   padding: 0;
-  transition: transform 0.15s ease, background 0.2s ease;
+  transition: background 0.2s ease;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   z-index: 10;
 }
 
 .closeBtn:hover {
   background: rgba(0, 0, 0, 0.7);
-  transform: scale(1.1);
 }
 
 .closeBtn:active {
-  transform: scale(0.9);
+  background: rgba(0, 0, 0, 0.85);
 }
 
 /* ===== 内容区 ===== */
@@ -300,13 +297,13 @@
 }
 
 @keyframes slideUp {
-  from { transform: translateY(16px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes slideDown {
-  from { transform: translateY(0); opacity: 1; }
-  to { transform: translateY(16px); opacity: 0; }
+  from { opacity: 1; }
+  to { opacity: 0; }
 }
 
 /* ===== Docusaurus Admonition 兼容 ===== */

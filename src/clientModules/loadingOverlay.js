@@ -1,6 +1,7 @@
 const OVERLAY_ID = 'fcl-loading-overlay';
 const HIDDEN_CLASS = 'fcl-loading-hidden';
-const REMOVE_FALLBACK_MS = 500;
+const TRANSITION_MS = 350;
+const REMOVE_FALLBACK_MS = TRANSITION_MS * 3 + 100; // ~1150ms，确保 transition 一定结束
 
 function getTheme() {
   try {
@@ -25,15 +26,28 @@ function hideOverlay() {
   const overlay = document.getElementById(OVERLAY_ID);
   if (!overlay || overlay.classList.contains(HIDDEN_CLASS)) return;
 
+  // 提示浏览器创建独立合成层，opacity 过渡不会触发 repaint/layout
+  overlay.style.willChange = 'opacity';
+
   overlay.classList.add(HIDDEN_CLASS);
+
+  let removed = false;
+  const cleanup = () => {
+    if (removed) return;
+    removed = true;
+    overlay.remove();
+  };
+
   overlay.addEventListener(
     'transitionend',
     (e) => {
-      if (e.propertyName === 'opacity') overlay.remove();
+      if (e.propertyName === 'opacity') cleanup();
     },
-    { once: true }
+    { once: true },
   );
-  setTimeout(() => overlay.remove(), REMOVE_FALLBACK_MS);
+
+  // fallback：如果 transitionend 没有触发（设备掉帧/Gpu 合成异常），兜底移除
+  setTimeout(cleanup, REMOVE_FALLBACK_MS);
 }
 
 if (typeof window !== 'undefined') {
@@ -76,8 +90,12 @@ export function onRouteDidUpdate({ previousLocation, location }) {
   if (!previousLocation) return;
 
   if (location.pathname === '/') {
-    // 根路径：新页面渲染完后淡出
-    requestAnimationFrame(() => setTimeout(hideOverlay, 50));
+    // 根路径：等两帧确保新页面内容已渲染到屏幕，再淡出 overlay
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        setTimeout(hideOverlay, 50);
+      });
+    });
   } else {
     // 非根路径：确保 overlay 绝对不存在
     const overlay = document.getElementById(OVERLAY_ID);

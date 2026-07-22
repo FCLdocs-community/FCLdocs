@@ -101,17 +101,32 @@ module.exports = {
   // 首屏加载覆盖层：内联进 HTML，JS bundle 加载完成前就显示，
   // 由 src/clientModules/loadingOverlay.js 在资源就绪后淡出移除
   headTags: [
-    // P0: 样式必须内联，不能等 CSS 文件下载
+    // P0: 背景层 + 加载覆盖层样式，内联不受 webpack/css-minimizer 处理
     {
       tagName: 'style',
       attributes: {},
       innerHTML: `
+        /* 背景层：fixed div + gradient overlay + 底图 */
+        #fcl-site-bg {
+          position: fixed; inset: 0; z-index: -1;
+          background:
+            linear-gradient(rgba(255,255,255,0.15), rgba(255,255,255,0.15)),
+            url('/img/bj/樱花-浅.png') center / cover no-repeat;
+        }
+        html[data-theme='dark'] #fcl-site-bg {
+          background:
+            linear-gradient(rgba(13,15,20,0.25), rgba(13,15,20,0.25)),
+            url('/img/bj/樱花-暗.png') center / cover no-repeat;
+        }
+
+        /* 加载覆盖层 */
         #fcl-loading-overlay {
           position: fixed; inset: 0; z-index: 99999;
           display: flex; flex-direction: column;
           align-items: center; justify-content: center;
           background: #0d0f14; color: #e8e8e8;
           transition: opacity 0.35s ease;
+          will-change: opacity;
         }
         #fcl-loading-overlay[data-theme='light'] {
           background: #ffffff; color: #1c1e21;
@@ -133,23 +148,31 @@ module.exports = {
         @keyframes fcl-loading-spin { to { transform: rotate(360deg); } }
       `,
     },
-    // P0: 同步创建 overlay，在 body 任何内容渲染前执行
-  // P0: 同步创建 overlay，仅在根路径
+    // P0: 同步创建背景层（所有页面）+ 加载覆盖层（仅首页）
     {
       tagName: 'script',
       attributes: {},
       innerHTML: `
         (function () {
-          if (location.pathname !== '/') return;
           var theme = 'dark';
           try { theme = localStorage.getItem('theme') || 'dark'; } catch (e) {}
-          var overlay = document.createElement('div');
-          overlay.id = 'fcl-loading-overlay';
-          overlay.setAttribute('data-theme', theme === 'light' ? 'light' : 'dark');
-          overlay.innerHTML =
-            '<div class="fcl-loading-spinner"></div>' +
-            '<div class="fcl-loading-text">FCL 新手文档</div>';
-          (document.body || document.documentElement).appendChild(overlay);
+          document.documentElement.setAttribute('data-theme', theme);
+
+          // 背景层：所有页面都需要
+          var bg = document.createElement('div');
+          bg.id = 'fcl-site-bg';
+          document.documentElement.appendChild(bg);
+
+          // 加载覆盖层：仅首页
+          if (location.pathname === '/') {
+            var overlay = document.createElement('div');
+            overlay.id = 'fcl-loading-overlay';
+            overlay.setAttribute('data-theme', theme === 'light' ? 'light' : 'dark');
+            overlay.innerHTML =
+              '<div class="fcl-loading-spinner"></div>' +
+              '<div class="fcl-loading-text">FCL 新手文档</div>';
+            (document.body || document.documentElement).appendChild(overlay);
+          }
         })();
       `,
     },

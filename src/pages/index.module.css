@@ -46,12 +46,11 @@
   border-radius: var(--ifm-button-border-radius);
   font-weight: 600;
   text-decoration: none;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: opacity 0.2s ease;
 }
 
 .startBtn:hover {
   opacity: 0.9;
-  transform: translateY(-2px);
   color: #fff;
   text-decoration: none;
 }
@@ -85,8 +84,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
   transition: background 0.2s ease, box-shadow 0.2s ease;
 }
@@ -127,8 +124,6 @@
   border: 1px solid var(--home-card-border);
   border-top: none;
   border-radius: 0 0 var(--ifm-card-border-radius) var(--ifm-card-border-radius);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
 }
 
@@ -178,7 +173,7 @@
   color: var(--ifm-font-color-base);
   text-decoration: none;
   font-size: 0.9rem;
-  transition: all 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
 .introLinks a:hover {
@@ -214,14 +209,11 @@
   border-radius: var(--ifm-card-border-radius);
   text-decoration: none;
   color: var(--ifm-font-color-base);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .card:hover {
-  transform: translateY(-4px);
   background: var(--home-card-hover-bg);
   border-color: var(--ifm-color-primary);
   color: var(--ifm-font-color-base);

@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-手机小白必看/什么是图形渲染器" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.10.2">
+<title data-rh="true">什么是图形渲染器？ | FCL新手文档</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://fcldocs.top/docs/手机小白必看/什么是图形渲染器"><meta data-rh="true" property="og:locale" content="zh_Hans"><meta data-rh="true" name="docusaurus_locale" content="zh-Hans"><meta data-rh="true" name="docsearch:language" content="zh-Hans"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="什么是图形渲染器？ | FCL新手文档"><meta data-rh="true" name="description" content="用大白话讲清楚什么是图形渲染器、它和图形 API 的关系、GLSL 是什么、为什么 Minecraft 要换渲染器。"><meta data-rh="true" property="og:description" content="用大白话讲清楚什么是图形渲染器、它和图形 API 的关系、GLSL 是什么、为什么 Minecraft 要换渲染器。"><link data-rh="true" rel="icon" href="/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://fcldocs.top/docs/手机小白必看/什么是图形渲染器"><link data-rh="true" rel="alternate" href="https://fcldocs.top/docs/手机小白必看/什么是图形渲染器" hreflang="zh-Hans"><link data-rh="true" rel="alternate" href="https://fcldocs.top/docs/手机小白必看/什么是图形渲染器" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"手机小白必看","item":"https://fcldocs.top/docs/手机小白必看/"},{"@type":"ListItem","position":2,"name":"什么是图形渲染器？","item":"https://fcldocs.top/docs/手机小白必看/什么是图形渲染器"}]}</script><link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="FCL新手文档 RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="FCL新手文档 Atom Feed">
+
+
+
+
+
+
+<style>
+        /* 背景层：fixed div + gradient overlay + 底图 */
+        #fcl-site-bg {
+          position: fixed; inset: 0; z-index: -1;
+          background:
+            linear-gradient(rgba(255,255,255,0.15), rgba(255,255,255,0.15)),
+            url('/img/bj/樱花-浅.png') center / cover no-repeat;
+        }
+        html[data-theme='dark'] #fcl-site-bg {
+          background:
+            linear-gradient(rgba(13,15,20,0.25), rgba(13,15,20,0.25)),
+            url('/img/bj/樱花-暗.png') center / cover no-repeat;
+        }
+
+        /* 加载覆盖层 */
+        #fcl-loading-overlay {
+          position: fixed; inset: 0; z-index: 99999;
+          display: flex; flex-direction: column;
+          align-items: center; justify-content: center;
+          background: #0d0f14; color: #e8e8e8;
+          transition: opacity 0.35s ease;
+          will-change: opacity;
+        }
+        #fcl-loading-overlay[data-theme='light'] {
+          background: #ffffff; color: #1c1e21;
+        }
+        #fcl-loading-overlay.fcl-loading-hidden {
+          opacity: 0; pointer-events: none;
+        }
+        #fcl-loading-overlay .fcl-loading-spinner {
+          width: 42px; height: 42px; border-radius: 50%;
+          border: 3px solid rgba(128,128,128,0.3);
+          border-top-color: #25c2a0;
+          animation: fcl-loading-spin 0.8s linear infinite;
+        }
+        #fcl-loading-overlay .fcl-loading-text {
+          margin-top: 14px; font-size: 15px;
+          font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+          letter-spacing: 2px; opacity: 0.8;
+        }
+        @keyframes fcl-loading-spin { to { transform: rotate(360deg); } }
+      </style>
+<script>!function(){var e="dark";try{e=localStorage.getItem("theme")||"dark"}catch(e){}document.documentElement.setAttribute("data-theme",e);var t=document.createElement("div");if(t.id="fcl-site-bg",document.documentElement.appendChild(t),"/"===location.pathname){var d=document.createElement("div");d.id="fcl-loading-overlay",d.setAttribute("data-theme","light"===e?"light":"dark"),d.innerHTML='<div class="fcl-loading-spinner"></div><div class="fcl-loading-text">FCL 新手文档</div>',(document.body||document.documentElement).appendChild(d)}}()</script><link rel="stylesheet" href="/assets/css/styles.a5131acf.css">
+<script src="/assets/js/runtime~main.0576b245.js" defer="defer"></script>
+<script src="/assets/js/main.e1e97b67.js" defer="defer"></script>
+</head>
+<body>
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||"dark"),document.documentElement.setAttribute("data-theme-choice",t||"dark")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><div role="region" aria-label="跳到主要内容"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">跳到主要内容</a></div><nav aria-label="主导航" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="切换导航栏" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/"><b class="navbar__title text--truncate">FCL 教程</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/docs">FCL 教程文档</a><a href="https://github.com/FCL-Team/FoldCraftLauncher" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">FCL 代码仓库</a><a href="https://foldcraftlauncher.cn" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">FCL 下载站(非官方)</a><a class="navbar__item navbar__link" href="/about">关于本站</a><a class="navbar__item navbar__link" href="/blog">更新内容</a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="切换浅色/暗黑模式（当前为system mode）"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"><div class="navbar__search searchBarContainer_NW3z" dir="ltr"><input placeholder="搜索" aria-label="Search" class="navbar__search-input searchInput_YFbd" value=""><div class="loadingRing_RJI3 searchBarLoadingRing_YnHq"><div></div><div></div><div></div><div></div></div></div></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="回到顶部" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="文档侧边栏" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/"><span class="linkLabel_WmDU">介绍</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/test"><span class="linkLabel_WmDU">文档创作示例</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--active" href="/docs/手机小白必看/"><span class="categoryLinkLabel_W154">手机小白必看</span></a><button aria-label="折叠侧边栏分类 &#x27;手机小白必看&#x27;" aria-expanded="true" type="button" class="clean-btn menu__caret"></button></div><ul class="menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/docs/手机小白必看/手机配置讲解/如何查看手机配置"><span class="categoryLinkLabel_W154">手机配置讲解</span></a></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/手机小白必看/手机云控介绍"><span class="linkLabel_WmDU">手机云控介绍</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/手机小白必看/data文件夹访问限制"><span class="linkLabel_WmDU">data 文件夹访问限制</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/手机小白必看/手机权限"><span class="linkLabel_WmDU">手机权限</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/docs/手机小白必看/文件后缀名介绍/后缀名的介绍与列举"><span class="categoryLinkLabel_W154">文件后缀名介绍</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/docs/手机小白必看/下载和安装apk/应用商店"><span class="categoryLinkLabel_W154">下载和安装 APK</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/docs/手机小白必看/mt管理器的使用/系统文件管理局限性"><span class="categoryLinkLabel_W154">MT 管理器的使用</span></a></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/手机小白必看/什么是java"><span class="linkLabel_WmDU">什么是 Java？</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/手机小白必看/什么是minecraft"><span class="linkLabel_WmDU">什么是 Minecraft？</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/手机小白必看/什么是图形api"><span class="linkLabel_WmDU">什么是图形 API？</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/docs/手机小白必看/什么是图形渲染器"><span class="linkLabel_WmDU">什么是图形渲染器？</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/手机小白必看/minecraft移植到手机"><span class="linkLabel_WmDU">Minecraft Java版 如何被移植在手机上的？</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/docs/FCL 的下载与安装/"><span class="categoryLinkLabel_W154">FCL 的下载与安装</span></a><button aria-label="展开侧边栏分类 &#x27;FCL 的下载与安装&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/docs/FCL-基础教程/"><span class="categoryLinkLabel_W154">FCL 基础教程</span></a><button aria-label="展开侧边栏分类 &#x27;FCL 基础教程&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/docs/FCL-高阶教程/按键制作/"><span class="categoryLinkLabel_W154">FCL-高阶教程</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/docs/开一个属于自己的服务器/认识服务器核心"><span class="categoryLinkLabel_W154">开一个属于自己的服务器</span></a></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/FAQ问题集合/"><span class="linkLabel_WmDU">FAQ 问题</span></a></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="页面路径"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="主页面" class="breadcrumbs__link" href="/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><a class="breadcrumbs__link" href="/docs/手机小白必看/"><span>手机小白必看</span></a></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">什么是图形渲染器？</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">本页总览</button></div><div class="theme-doc-markdown markdown"><div class="theme-admonition theme-admonition-tip admonition_xJq3 alert alert--success"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></span>专有名词</div><div class="admonitionContent_BuS1"><p>本文涉及到的专有名词：<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">光影</span> 、<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">Mod</span></p></div></div>
+<header><h1>什么是图形渲染器？</h1></header>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="渲染器是什么">渲染器是什么？<a href="#渲染器是什么" class="hash-link" aria-label="渲染器是什么？的直接链接" title="渲染器是什么？的直接链接" translate="no">​</a></h2>
+<p><strong>渲染器</strong>（Renderer）是<strong>负责把 3D 数据变成 2D 画面</strong>的程序。它接收场景数据（模型、材质、光照、相机），输出最终显示在屏幕上的像素。</p>
+<p>打个比方：你是个导演，要拍一部电影。你给摄影师（<strong>渲染器</strong>）一份剧本（<strong>场景数据</strong>：演员站位、灯光、镜头角度），摄影师拍出画面（<strong>像素</strong>）给你。渲染器就是「<strong>画面的摄影师</strong>」。</p>
+<p>具体到 Minecraft：</p>
+<ul>
+<li class=""><strong>场景数据</strong>：方块、生物、玩家位置、光照、视角。</li>
+<li class=""><strong>渲染器</strong>：负责把这些数据画成画面。</li>
+<li class=""><strong>输出</strong>：屏幕上看到的方块世界。</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="渲染器--图形-api--自定义-glsl">渲染器 = 图形 API + 自定义 GLSL<a href="#渲染器--图形-api--自定义-glsl" class="hash-link" aria-label="渲染器 = 图形 API + 自定义 GLSL的直接链接" title="渲染器 = 图形 API + 自定义 GLSL的直接链接" translate="no">​</a></h2>
+<p>这是渲染器的核心公式。意思是：<strong>一个完整的渲染器，由两部分组成</strong>：</p>
+<ol>
+<li class=""><strong>图形 API</strong>：负责和 GPU 对话的底层接口（OpenGL、Vulkan、DirectX 等，上一篇讲过）。</li>
+<li class=""><strong>自定义 GLSL</strong>：负责具体画图逻辑的着色器代码（GLSL 是 OpenGL 的着色器语言）。</li>
+</ol>
+<p>打个比方：</p>
+<ul>
+<li class=""><strong>图形 API</strong> 是「<strong>画笔和画布</strong>」——它提供工具，但不告诉你怎么画。</li>
+<li class=""><strong>GLSL</strong> 是「<strong>画法</strong>」——具体怎么调色、怎么打光、怎么处理材质。</li>
+<li class=""><strong>渲染器</strong> = 画笔画布 + 画法 = 一幅完整的画。</li>
+</ul>
+<p>光有图形 API 不够，因为 API 只能画三角形、设颜色，<strong>画不出 Minecraft 那种方块风格、光影效果</strong>。要写出 GLSL 着色器，告诉 GPU「<strong>这个方块怎么画、光怎么打、阴影怎么算</strong>」，才能渲染出 Minecraft 的画面。</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="什么是-glsl">什么是 GLSL？<a href="#什么是-glsl" class="hash-link" aria-label="什么是 GLSL？的直接链接" title="什么是 GLSL？的直接链接" translate="no">​</a></h2>
+<p><strong>GLSL</strong> 全称 <strong>OpenGL Shading Language</strong>，中文「<strong>OpenGL 着色语言</strong>」。它是 OpenGL 用的<strong>编程语言</strong>，专门写给 GPU 跑的。</p>
+<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>名词解释</div><div class="admonitionContent_BuS1"><p><strong>着色器（Shader）</strong>：一段写给 GPU 跑的程序，负责决定每个像素、每个顶点怎么画。着色器用 GLSL（OpenGL）、HLSL（DirectX）、MSL（Metal）等语言写。</p></div></div>
+<p>GLSL 程序分两类：</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-顶点着色器vertex-shader">1. 顶点着色器（Vertex Shader）<a href="#1-顶点着色器vertex-shader" class="hash-link" aria-label="1. 顶点着色器（Vertex Shader）的直接链接" title="1. 顶点着色器（Vertex Shader）的直接链接" translate="no">​</a></h3>
+<p>负责处理<strong>顶点</strong>（3D 模型的角点）。它接收顶点的位置、颜色、纹理坐标，输出顶点在屏幕上的最终位置。简单说：<strong>决定每个点画在屏幕哪里</strong>。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-片段着色器fragment-shader">2. 片段着色器（Fragment Shader）<a href="#2-片段着色器fragment-shader" class="hash-link" aria-label="2. 片段着色器（Fragment Shader）的直接链接" title="2. 片段着色器（Fragment Shader）的直接链接" translate="no">​</a></h3>
+<p>负责处理<strong>像素</strong>（屏幕上的点）。它接收顶点着色器的输出，决定每个像素的最终颜色。简单说：<strong>决定每个点是什么颜色</strong>。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-几何着色器geometry-shader">3. 几何着色器（Geometry Shader）<a href="#3-几何着色器geometry-shader" class="hash-link" aria-label="3. 几何着色器（Geometry Shader）的直接链接" title="3. 几何着色器（Geometry Shader）的直接链接" translate="no">​</a></h3>
+<p>可选的着色器阶段，运行在顶点着色器和片段着色器之间。它可以接收一个或多个顶点组成的图元（如点、线、三角形），并能够<strong>生成新的图元</strong>，从而实现一些高级效果，如动态粒子系统、阴影体生成等</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="现代图形-api-中的其他着色器类型">现代图形 API 中的其他着色器类型<a href="#现代图形-api-中的其他着色器类型" class="hash-link" aria-label="现代图形 API 中的其他着色器类型的直接链接" title="现代图形 API 中的其他着色器类型的直接链接" translate="no">​</a></h2>
+<p>在更现代的 OpenGL（以及 Vulkan、DirectX 12）中，还存在其他类型的着色器：</p>
+<ul>
+<li class=""><strong>曲面细分着色器</strong>：用于动态细分几何体，增加模型细节，实现平滑曲面。</li>
+<li class=""><strong>计算着色器</strong>：用于通用计算，不直接参与图形渲染管线，可用于物理模拟、图像处理等任务。</li>
+</ul>
+<p>但 Minecraft 原版及大多数光影包主要使用顶点着色器和片段着色器。</p>
+<p>举例：画一个方块，顶点着色器决定方块的 8 个角点在屏幕哪里，片段着色器决定方块表面每个像素是泥土色、草色还是石头色。</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="为什么-minecraft-的渲染器在不断演进与替换">为什么 Minecraft 的渲染器在不断演进与替换？<a href="#为什么-minecraft-的渲染器在不断演进与替换" class="hash-link" aria-label="为什么 Minecraft 的渲染器在不断演进与替换？的直接链接" title="为什么 Minecraft 的渲染器在不断演进与替换？的直接链接" translate="no">​</a></h2>
+<p>提到“换渲染器”，其实在 Minecraft 的语境下包含<strong>官方演进</strong>和<strong>社区替换</strong>两个层面的动作：</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-官方层面mojang-的底层重构">1. 官方层面（Mojang 的底层重构）<a href="#1-官方层面mojang-的底层重构" class="hash-link" aria-label="1. 官方层面（Mojang 的底层重构）的直接链接" title="1. 官方层面（Mojang 的底层重构）的直接链接" translate="no">​</a></h3>
+<p>Mojang 其实一直在迭代 Java 版的渲染引擎。为了提升性能和支撑新特性，官方在 1.17 版本进行了大修，引入了全新的底层渲染引擎 <strong>Blaze3D</strong>，重写了大量图形渲染逻辑。</p>
+<p>但出于 Java 版跨平台兼容性的考量，<strong>Mojang 始终坚守 OpenGL 作为图形 API</strong>，且官方内置的 GLSL 着色器非常基础，只为保证游戏能正常运行，画面表现相对朴素。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-社区层面玩家与-mod-开发者的替换">2. 社区层面（玩家与 Mod 开发者的替换）<a href="#2-社区层面玩家与-mod-开发者的替换" class="hash-link" aria-label="2. 社区层面（玩家与 Mod 开发者的替换）的直接链接" title="2. 社区层面（玩家与 Mod 开发者的替换）的直接链接" translate="no">​</a></h3>
+<p>虽然官方进行了重构，但玩家对<strong>极致性能</strong>和<strong>电影级画质</strong>的追求是无止境的。官方保守的策略无法满足这些个性化需求，于是社区选择通过第三方模组来直接“替换”掉原版的渲染逻辑。这又分为两个方向：</p>
+<ul>
+<li class="">
+<p><strong>为了画质（换 GLSL 着色器）</strong>：
+玩家觉得原版画面太素，想要真实的光影、阴影、反射。于是出现了<strong>光影包</strong>（Shader Packs，如 <a href="https://bitslablab.com/bslshaders/" target="_blank" rel="noopener noreferrer" class="">BSL</a>、<a href="https://continuum.graphics/" target="_blank" rel="noopener noreferrer" class="">Continuum</a>）。<strong>光影包本质上就是一套用 GLSL 编写的自定义着色器代码集合</strong>，它替换了原版的 简单着色器，把画面从「方块像素风」变成了「电影级真实感」。为了加载这些光影，社区开发了 <a href="https://optifine.net/" target="_blank" rel="noopener noreferrer" class="">OptiFine</a>、<a href="https://irisshaders.dev/" target="_blank" rel="noopener noreferrer" class="">Iris</a> 等光影加载器。</p>
+</li>
+<li class="">
+<p><strong>为了性能（换图形 API 或重写逻辑）</strong>：
+原版 OpenGL 的 CPU 开销较大，老旧设备容易卡顿。于是社区开发了 <strong><a href="https://github.com/CaffeineMC/sodium" target="_blank" rel="noopener noreferrer" class="">Sodium</a></strong>（用现代 OpenGL 重写渲染逻辑，大幅提升帧率），甚至出现了 <strong><a href="https://github.com/xCollateral/VulkanMod" target="_blank" rel="noopener noreferrer" class="">VulkanMod</a></strong>（直接把图形 API 从 OpenGL 替换为 Vulkan，以降低 CPU 开销）。</p>
+</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="minecraft-主流渲染器--优化-mod">Minecraft 主流渲染器 / 优化 mod<a href="#minecraft-主流渲染器--优化-mod" class="hash-link" aria-label="Minecraft 主流渲染器 / 优化 mod的直接链接" title="Minecraft 主流渲染器 / 优化 mod的直接链接" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-原版渲染器">1. 原版渲染器<a href="#1-原版渲染器" class="hash-link" aria-label="1. 原版渲染器的直接链接" title="1. 原版渲染器的直接链接" translate="no">​</a></h3>
+<ul>
+<li class="">用 OpenGL + Mojang 写的 GLSL。</li>
+<li class="">性能一般，画面朴素。</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-optifine">2. OptiFine<a href="#2-optifine" class="hash-link" aria-label="2. OptiFine的直接链接" title="2. OptiFine的直接链接" translate="no">​</a></h3>
+<ul>
+<li class="">优化原版渲染器，提升帧率。</li>
+<li class="">支持光影包（Shader Packs），换 GLSL 实现真实光影。</li>
+<li class="">老牌，但更新慢，和 绝大部分MOD 不兼容。</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-iris-shaders">3. Iris Shaders<a href="#3-iris-shaders" class="hash-link" aria-label="3. Iris Shaders的直接链接" title="3. Iris Shaders的直接链接" translate="no">​</a></h3>
+<ul>
+<li class="">新一代光影 mod，和 Sodium 兼容。</li>
+<li class="">性能比 OptiFine 好。</li>
+<li class="">支持主流光影包（BSL、Continuum、SEUS 等）。</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-sodium">4. Sodium<a href="#4-sodium" class="hash-link" aria-label="4. Sodium的直接链接" title="4. Sodium的直接链接" translate="no">​</a></h3>
+<ul>
+<li class="">用现代 OpenGL + 优化算法，<strong>大幅提升帧率</strong>（2–7 倍）。</li>
+<li class="">不加光影，只优化。</li>
+<li class="">是 Fabric mod，和 Iris 配合用。</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-vulkanmod">5. VulkanMod<a href="#5-vulkanmod" class="hash-link" aria-label="5. VulkanMod的直接链接" title="5. VulkanMod的直接链接" translate="no">​</a></h3>
+<ul>
+<li class="">把 Minecraft 的图形 API 从 OpenGL <strong>换成 Vulkan</strong>。</li>
+<li class="">性能更好（理论上），但兼容性差，部分 mod 不支持。</li>
+<li class="">实验性项目。</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="6-canvas-renderer">6. Canvas Renderer<a href="#6-canvas-renderer" class="hash-link" aria-label="6. Canvas Renderer的直接链接" title="6. Canvas Renderer的直接链接" translate="no">​</a></h3>
+<ul>
+<li class="">一个新的渲染框架，支持自定义着色器。</li>
+<li class="">兼容 Fabric，和 Sodium 配合。</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="渲染器和图形-api-的关系">渲染器和图形 API 的关系<a href="#渲染器和图形-api-的关系" class="hash-link" aria-label="渲染器和图形 API 的关系的直接链接" title="渲染器和 图形 API 的关系的直接链接" translate="no">​</a></h2>
+<p>回顾公式：<strong>渲染器 = 图形 API + 自定义 GLSL</strong>。</p>
+<table><thead><tr><th>渲染器</th><th>图形 API</th><th>GLSL</th></tr></thead><tbody><tr><td>Minecraft 原版</td><td>OpenGL</td><td>Mojang 写的简单着色器</td></tr><tr><td>OptiFine</td><td>OpenGL</td><td>OptiFine 写的复杂着色器</td></tr><tr><td>Iris + Sodium</td><td>OpenGL</td><td>Iris 写的优化着色器</td></tr><tr><td>VulkanMod</td><td>Vulkan</td><td>Vulkan 着色器（SPIR-V）</td></tr><tr><td>Canvas</td><td>OpenGL</td><td>Canvas 写的着色器</td></tr></tbody></table>
+<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>名词解释</div><div class="admonitionContent_BuS1"><p><strong>SPIR-V</strong>：Vulkan 的着色器文件格式，类似 GLSL 但给 Vulkan 用）</p></div></div>
+<p>换渲染器 = 换图形 API（可能）+ 换 GLSL（一定）。<strong>换 GLSL 是核心</strong>，因为 GLSL 决定画面长什么样。</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="glsl-怎么工作">GLSL 怎么工作？<a href="#glsl-怎么工作" class="hash-link" aria-label="GLSL 怎么工作？的直接链接" title="GLSL 怎么工作？的直接链接" translate="no">​</a></h2>
+<p>GLSL 是 C 语言风格，写完编译成 GPU 能跑的机器码。一个简单的片段着色器例子：</p>
+<div class="language-glsl codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-glsl codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">#version 330 core</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">in vec3 color;  // 从顶点着色器传来的颜色</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">out vec4 fragColor;  // 输出的像素颜色</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">void main() {</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">    fragColor = vec4(color, 1.0);  // 把颜色画出来</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">}</span><br></div></code></pre></div></div>
+<p>这段代码告诉 GPU：每个像素的颜色就是顶点着色器传来的颜色。复杂的光影着色器会有几百行，计算光照、阴影、反射、雾效等。</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="手机上的渲染器">手机上的渲染器<a href="#手机上的渲染器" class="hash-link" aria-label="手机上的渲染器的直接链接" title="手机上的渲染器的直接链接" translate="no">​</a></h2>
+<p>手机跑 Minecraft Java 版时，渲染器要适配手机：</p>
+<ul>
+<li class=""><strong>图形 API</strong>：OpenGL → 翻译成 OpenGL ES / Vulkan（用 GL4ES / Virgl / ANGLE）。</li>
+<li class=""><strong>GLSL</strong>：GLSL → 翻译成 GLSL ES（移动版）或 SPIR-V（Vulkan）。</li>
+</ul>
+<p>所以手机上跑光影 mod 性能比电脑差 ，因为多了一层翻译。但中高端手机能跑基础光影。</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="小结">小结<a href="#小结" class="hash-link" aria-label="小结的直接链接" title="小结的直接链接" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>渲染器 = 把 3D 数据变成 2D 画面的程序</strong>。</li>
+<li class=""><strong>渲染器 = 图形 API + 自定义 GLSL</strong>：<!-- -->
+<ul>
+<li class="">图形 API：和 GPU 对话的底层接口（OpenGL、Vulkan 等）。</li>
+<li class="">GLSL：具体画图逻辑的着色器代码。</li>
+</ul>
+</li>
+<li class=""><strong>GLSL</strong>：OpenGL 着色语言，分顶点着色器和片段着色器。</li>
+<li class="">Minecraft 换渲染器 = 换 GLSL（核心）+ 可能换图形 API。</li>
+<li class="">主流渲染器 / 优化 mod：原版、OptiFine、Iris、Sodium、VulkanMod、Canvas。</li>
+<li class="">手机跑 Java 版要翻译 OpenGL → OpenGL ES / Vulkan，性能不如电脑。</li>
+</ul>
+<blockquote>
+<p>💡 <strong>关于 Minecraft 基岩版</strong>：需要说明的是，Minecraft 基岩版使用完全不同的 <strong>RenderDragon</strong> 渲染引擎，它原生支持 Vulkan、DirectX 12 等现代图形 API，并内置了光线追踪功能，但其光影生态与 Java 版不通用</p>
+</blockquote>
+<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>名词解释</div><div class="admonitionContent_BuS1"><p><strong>光线追踪</strong>：是一种超真实的画面技术，能模拟真实光线的反射、折射和阴影，让水面、玻璃、镜子看起来和真的一样</p></div></div></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/FCLdocs-community/FCLdocs/edit/main/docs/手机小白必看/什么是图形渲染器.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>编辑此页</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="文件选项卡"><a class="pagination-nav__link pagination-nav__link--prev" href="/docs/手机小白必看/什么是图形api"><div class="pagination-nav__sublabel">上一页</div><div class="pagination-nav__label">什么是图形 API？</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/docs/手机小白必看/minecraft移植到手机"><div class="pagination-nav__sublabel">下一页</div><div class="pagination-nav__label">Minecraft Java版 如何被移植在手机上的？</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#渲染器是什么" class="table-of-contents__link toc-highlight">渲染器是什么？</a></li><li><a href="#渲染器--图形-api--自定义-glsl" class="table-of-contents__link toc-highlight">渲染器 = 图形 API + 自定义 GLSL</a></li><li><a href="#什么是-glsl" class="table-of-contents__link toc-highlight">什么是 GLSL？</a><ul><li><a href="#1-顶点着色器vertex-shader" class="table-of-contents__link toc-highlight">1. 顶点着色器（Vertex Shader）</a></li><li><a href="#2-片段着色器fragment-shader" class="table-of-contents__link toc-highlight">2. 片段着色器（Fragment Shader）</a></li><li><a href="#3-几何着色器geometry-shader" class="table-of-contents__link toc-highlight">3. 几何着色器（Geometry Shader）</a></li></ul></li><li><a href="#现代图形-api-中的其他着色器类型" class="table-of-contents__link toc-highlight">现代图形 API 中的其他着色器类型</a></li><li><a href="#为什么-minecraft-的渲染器在不断演进与替换" class="table-of-contents__link toc-highlight">为什么 Minecraft 的渲染器在不断演进与替换？</a><ul><li><a href="#1-官方层面mojang-的底层重构" class="table-of-contents__link toc-highlight">1. 官方层面（Mojang 的底层重构）</a></li><li><a href="#2-社区层面玩家与-mod-开发者的替换" class="table-of-contents__link toc-highlight">2. 社区层面（玩家与 Mod 开发者的替换）</a></li></ul></li><li><a href="#minecraft-主流渲染器--优化-mod" class="table-of-contents__link toc-highlight">Minecraft 主流渲染器 / 优化 mod</a><ul><li><a href="#1-原版渲染器" class="table-of-contents__link toc-highlight">1. 原版渲染器</a></li><li><a href="#2-optifine" class="table-of-contents__link toc-highlight">2. OptiFine</a></li><li><a href="#3-iris-shaders" class="table-of-contents__link toc-highlight">3. Iris Shaders</a></li><li><a href="#4-sodium" class="table-of-contents__link toc-highlight">4. Sodium</a></li><li><a href="#5-vulkanmod" class="table-of-contents__link toc-highlight">5. VulkanMod</a></li><li><a href="#6-canvas-renderer" class="table-of-contents__link toc-highlight">6. Canvas Renderer</a></li></ul></li><li><a href="#渲染器和图形-api-的关系" class="table-of-contents__link toc-highlight">渲染器和图形 API 的关系</a></li><li><a href="#glsl-怎么工作" class="table-of-contents__link toc-highlight">GLSL 怎么工作？</a></li><li><a href="#手机上的渲染器" class="table-of-contents__link toc-highlight">手机上的渲染器</a></li><li><a href="#小结" class="table-of-contents__link toc-highlight">小结</a></li></ul></div></div></div></div></main></div></div></div></div>
+</body>
+</html>

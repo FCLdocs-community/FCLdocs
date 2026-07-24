@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-手机小白必看/什么是图形api" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.10.2">
+<title data-rh="true">什么是图形 API？ | FCL新手文档</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://fcldocs.top/docs/手机小白必看/什么是图形api"><meta data-rh="true" property="og:locale" content="zh_Hans"><meta data-rh="true" name="docusaurus_locale" content="zh-Hans"><meta data-rh="true" name="docsearch:language" content="zh-Hans"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="什么是图形 API？ | FCL新手文档"><meta data-rh="true" name="description" content="用大白话讲清楚什么是图形 API、主流的 OpenGL、Vulkan、DirectX、Metal 各有什么特点。"><meta data-rh="true" property="og:description" content="用大白话讲清楚什么是图形 API、主流的 OpenGL、Vulkan、DirectX、Metal 各有什么特点。"><link data-rh="true" rel="icon" href="/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://fcldocs.top/docs/手机小白必看/什么是图形api"><link data-rh="true" rel="alternate" href="https://fcldocs.top/docs/手机小白必看/什么是图形api" hreflang="zh-Hans"><link data-rh="true" rel="alternate" href="https://fcldocs.top/docs/手机小白必看/什么是图形api" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"手机小白必看","item":"https://fcldocs.top/docs/手机小白必看/"},{"@type":"ListItem","position":2,"name":"什么是图形 API？","item":"https://fcldocs.top/docs/手机小白必看/什么是图形api"}]}</script><link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="FCL新手文档 RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="FCL新手文档 Atom Feed">
+
+
+
+
+
+
+<style>
+        /* 背景层：fixed div + gradient overlay + 底图 */
+        #fcl-site-bg {
+          position: fixed; inset: 0; z-index: -1;
+          background:
+            linear-gradient(rgba(255,255,255,0.15), rgba(255,255,255,0.15)),
+            url('/img/bj/樱花-浅.png') center / cover no-repeat;
+        }
+        html[data-theme='dark'] #fcl-site-bg {
+          background:
+            linear-gradient(rgba(13,15,20,0.25), rgba(13,15,20,0.25)),
+            url('/img/bj/樱花-暗.png') center / cover no-repeat;
+        }
+
+        /* 加载覆盖层 */
+        #fcl-loading-overlay {
+          position: fixed; inset: 0; z-index: 99999;
+          display: flex; flex-direction: column;
+          align-items: center; justify-content: center;
+          background: #0d0f14; color: #e8e8e8;
+          transition: opacity 0.35s ease;
+          will-change: opacity;
+        }
+        #fcl-loading-overlay[data-theme='light'] {
+          background: #ffffff; color: #1c1e21;
+        }
+        #fcl-loading-overlay.fcl-loading-hidden {
+          opacity: 0; pointer-events: none;
+        }
+        #fcl-loading-overlay .fcl-loading-spinner {
+          width: 42px; height: 42px; border-radius: 50%;
+          border: 3px solid rgba(128,128,128,0.3);
+          border-top-color: #25c2a0;
+          animation: fcl-loading-spin 0.8s linear infinite;
+        }
+        #fcl-loading-overlay .fcl-loading-text {
+          margin-top: 14px; font-size: 15px;
+          font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+          letter-spacing: 2px; opacity: 0.8;
+        }
+        @keyframes fcl-loading-spin { to { transform: rotate(360deg); } }
+      </style>
+<script>!function(){var e="dark";try{e=localStorage.getItem("theme")||"dark"}catch(e){}document.documentElement.setAttribute("data-theme",e);var t=document.createElement("div");if(t.id="fcl-site-bg",document.documentElement.appendChild(t),"/"===location.pathname){var d=document.createElement("div");d.id="fcl-loading-overlay",d.setAttribute("data-theme","light"===e?"light":"dark"),d.innerHTML='<div class="fcl-loading-spinner"></div><div class="fcl-loading-text">FCL 新手文档</div>',(document.body||document.documentElement).appendChild(d)}}()</script><link rel="stylesheet" href="/assets/css/styles.a5131acf.css">
+<script src="/assets/js/runtime~main.0576b245.js" defer="defer"></script>
+<script src="/assets/js/main.e1e97b67.js" defer="defer"></script>
+</head>
+<body>
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||"dark"),document.documentElement.setAttribute("data-theme-choice",t||"dark")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><div role="region" aria-label="跳到主要内容"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">跳到主要内容</a></div><nav aria-label="主导航" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="切换导航栏" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/"><b class="navbar__title text--truncate">FCL 教程</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/docs">FCL 教程文档</a><a href="https://github.com/FCL-Team/FoldCraftLauncher" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">FCL 代码仓库</a><a href="https://foldcraftlauncher.cn" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">FCL 下载站(非官方)</a><a class="navbar__item navbar__link" href="/about">关于本站</a><a class="navbar__item navbar__link" href="/blog">更新内容</a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="切换浅色/暗黑模式（当前为system mode）"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"><div class="navbar__search searchBarContainer_NW3z" dir="ltr"><input placeholder="搜索" aria-label="Search" class="navbar__search-input searchInput_YFbd" value=""><div class="loadingRing_RJI3 searchBarLoadingRing_YnHq"><div></div><div></div><div></div><div></div></div></div></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="回到顶部" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="文档侧边栏" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/"><span class="linkLabel_WmDU">介绍</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/test"><span class="linkLabel_WmDU">文档创作示例</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--active" href="/docs/手机小白必看/"><span class="categoryLinkLabel_W154">手机小白必看</span></a><button aria-label="折叠侧边栏分类 &#x27;手机小白必看&#x27;" aria-expanded="true" type="button" class="clean-btn menu__caret"></button></div><ul class="menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/docs/手机小白必看/手机配置讲解/如何查看手机配置"><span class="categoryLinkLabel_W154">手机配置讲解</span></a></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/手机小白必看/手机云控介绍"><span class="linkLabel_WmDU">手机云控介绍</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/手机小白必看/data文件夹访问限制"><span class="linkLabel_WmDU">data 文件夹访问限制</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/手机小白必看/手机权限"><span class="linkLabel_WmDU">手机权限</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/docs/手机小白必看/文件后缀名介绍/后缀名的介绍与列举"><span class="categoryLinkLabel_W154">文件后缀名介绍</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/docs/手机小白必看/下载和安装apk/应用商店"><span class="categoryLinkLabel_W154">下载和安装 APK</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/docs/手机小白必看/mt管理器的使用/系统文件管理局限性"><span class="categoryLinkLabel_W154">MT 管理器的使用</span></a></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/手机小白必看/什么是java"><span class="linkLabel_WmDU">什么是 Java？</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/手机小白必看/什么是minecraft"><span class="linkLabel_WmDU">什么是 Minecraft？</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/docs/手机小白必看/什么是图形api"><span class="linkLabel_WmDU">什么是图形 API？</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/手机小白必看/什么是图形渲染器"><span class="linkLabel_WmDU">什么是图形渲染器？</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/手机小白必看/minecraft移植到手机"><span class="linkLabel_WmDU">Minecraft Java版 如何被移植在手机上的？</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/docs/FCL 的下载与安装/"><span class="categoryLinkLabel_W154">FCL 的下载与安装</span></a><button aria-label="展开侧边栏分类 &#x27;FCL 的下载与安装&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/docs/FCL-基础教程/"><span class="categoryLinkLabel_W154">FCL 基础教程</span></a><button aria-label="展开侧边栏分类 &#x27;FCL 基础教程&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/docs/FCL-高阶教程/按键制作/"><span class="categoryLinkLabel_W154">FCL-高阶教程</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/docs/开一个属于自己的服务器/认识服务器核心"><span class="categoryLinkLabel_W154">开一个属于自己的服务器</span></a></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/FAQ问题集合/"><span class="linkLabel_WmDU">FAQ 问题</span></a></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="页面路径"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="主页面" class="breadcrumbs__link" href="/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><a class="breadcrumbs__link" href="/docs/手机小白必看/"><span>手机小白必看</span></a></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">什么是图形 API？</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">本页总览</button></div><div class="theme-doc-markdown markdown"><div class="theme-admonition theme-admonition-tip admonition_xJq3 alert alert--success"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></span>专有名词</div><div class="admonitionContent_BuS1"><p>本文涉及到的专有名词：<a class="" href="/docs/手机小白必看/手机配置讲解/soc介绍">SoC</a> 、<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">GPU</span> 、<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">Android</span> 、<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">Windows</span> 、<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">Linux</span></p></div></div>
+<header><h1>什么是图形 API？</h1></header>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="图形-api-是什么">图形 API 是什么？<a href="#图形-api-是什么" class="hash-link" aria-label="图形 API 是什么？的直接链接" title="图形 API 是什么？的直接链接" translate="no">​</a></h2>
+<p><strong>图形 API</strong>（Graphics API）是<strong>程序和显卡（GPU）之间的「翻译官」</strong>。它定义了一套<strong>标准化的命令</strong>，让程序能用统一的方式让 GPU 画图。</p>
+<p>打个比方：你（程序）想让工厂（GPU）生产一批零件（画图），但你不会开机器。于是你写了一份<strong>操作手册</strong>（图形 API），手册里规定了「<strong>按这个按钮机器就这么动</strong>」。你只要按手册操作，工厂就能生产。不同工厂（不同 GPU）都遵守同一份手册，所以你不用管具体工厂细节。</p>
+<p>更具体的比喻：</p>
+<ul>
+<li class=""><strong>没有图形 API</strong>：每个程序都要直接和每种显卡打交道，写一遍 NVIDIA 的代码、再写一遍 AMD 的代码、再写一遍 Intel 的代码……累死。</li>
+<li class=""><strong>有图形 API</strong>：程序只对 API 说话（「画一个三角形」），API 翻译给 GPU 听，不管 GPU 是哪家产的。<strong>一次编写，所有 GPU 都能跑</strong>。</li>
+</ul>
+<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>名词解释</div><div class="admonitionContent_BuS1"><p><strong>API</strong>：Application Programming Interface，应用程序编程接口。简单说就是「<strong>程序之间对话的标准</strong>」。图形 API 就是「程序和 GPU 对话的标准」。</p></div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="主流图形-api-有哪些">主流图形 API 有哪些？<a href="#主流图形-api-有哪些" class="hash-link" aria-label="主流图形 API 有哪些？的直接链接" title="主流图形 API 有哪些？的直接链接" translate="no">​</a></h2>
+<p>世界上主流的图形 API 有四个，分别属于不同平台：</p>
+<table><thead><tr><th>图形 API</th><th>由谁开发</th><th>用在哪</th><th>特点</th></tr></thead><tbody><tr><td><strong>OpenGL</strong></td><td>SGI → Khronos</td><td>跨平台（电脑、手机、嵌入式）</td><td>老牌，跨平台，但已停止更新</td></tr><tr><td><strong>Vulkan</strong></td><td>Khronos</td><td>跨平台（电脑、手机）</td><td>现代，性能强，但难写</td></tr><tr><td><strong>DirectX (Direct3D)</strong></td><td>微软</td><td>Windows、Xbox</td><td>Windows 专用，性能强</td></tr><tr><td><strong>Metal</strong></td><td>苹果</td><td>iOS、macOS</td><td>苹果专用，性能强</td></tr><tr><td><strong>OpenGL ES</strong></td><td>Khronos</td><td>手机、嵌入式</td><td>OpenGL 的移动版</td></tr></tbody></table>
+<p>下面分别讲。</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="一opengl">一、OpenGL<a href="#一opengl" class="hash-link" aria-label="一、OpenGL的直接链接" title="一、OpenGL的直接链接" translate="no">​</a></h2>
+<p><strong>OpenGL</strong>（Open Graphics Library）是 1992 年 SGI 公司发布的图形 API，现在由 <strong>Khronos Group</strong> 维护。它是<strong>最老牌、最通用</strong>的图形 API。</p>
+<p>特点：</p>
+<ul>
+<li class=""><strong>跨平台</strong>：Windows、Mac、Linux、手机（通过 OpenGL ES）都能用。</li>
+<li class=""><strong>状态机模型</strong>：OpenGL 是「状态机」，你设置好状态（颜色、纹理），然后画图，状态一直保持。打个比方：状态机就像<strong>洗衣机</strong>——你选好「标准洗、水温 40 度」，然后按开始，机器就按这个设定一直运行，直到你手动改设置。</li>
+<li class=""><strong>简单易用</strong>：API 设计直观，初学者好上手。</li>
+<li class=""><strong>已停止更新</strong>：Khronos 不再添加新功能，主推 Vulkan。但 OpenGL 4.6 仍然够用。</li>
+</ul>
+<p>Minecraft Java 版用的就是 OpenGL（通过 LWJGL 库）。这也是为什么 Minecraft Java 版跨平台——OpenGL 在 Windows、Mac、Linux 都有实现。</p>
+<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>名词解释</div><div class="admonitionContent_BuS1"><p><strong>Khronos Group</strong>：一个开放标准联盟，由多家公司（Apple、Intel、NVIDIA、AMD、Google 等）组成，维护 OpenGL、Vulkan、OpenCL 等开放标准。</p></div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="二vulkan">二、Vulkan<a href="#二vulkan" class="hash-link" aria-label="二、Vulkan的直接链接" title="二、Vulkan的直接链接" translate="no">​</a></h2>
+<p><strong>Vulkan</strong> 是 Khronos 2016 年发布的<strong>现代图形 API</strong>，是 OpenGL 的继任者。</p>
+<p>特点：</p>
+<ul>
+<li class=""><strong>跨平台</strong>：Windows、Linux、Android 都能用（Mac 通过 MoltenVK 转 Metal）。MoltenVK 就是一个「翻译官」，把 Vulkan 的指令翻译成 Mac 能听懂的 Metal 指令，让 Mac 也能跑 Vulkan 程序。</li>
+<li class=""><strong>性能强</strong>：比 OpenGL 快 20%–50%，因为<strong>降低 CPU 开销</strong>。CPU 开销 = CPU 干活的时间和精力。开销越低，CPU 越轻松，游戏越流畅。</li>
+<li class=""><strong>多线程友好</strong>：能利用多核 CPU 并行提交渲染命令。<strong>多线程</strong> = 多个任务同时跑，就像食堂多个窗口同时打饭，比只有一个窗口快。<strong>渲染命令</strong> = 让 GPU 画什么的指令，比如「画个三角形、涂成红色」。</li>
+<li class=""><strong>显式控制</strong>：程序员要管内存、管同步、管管线，<strong>更复杂但更高效</strong>。显式控制就像<strong>手动挡汽车</strong>：离合、换挡、油门都得自己操作，比自动挡麻烦，但老司机能开得更快更省油。这里的「内存」是显存（GPU 的临时仓库），「同步」是协调 GPU 和 CPU 别抢活，「管线」是 GPU 画图的流水线工序。</li>
+<li class=""><strong>难写</strong>：API 底层、显式，初学者难上手。</li>
+</ul>
+<p>Vulkan 适合追求性能的 <strong>AAA 游戏</strong>、<strong>引擎</strong>（DOOM、Quake、Id Tech 引擎都用 Vulkan）。</p>
+<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>名词解释</div><div class="admonitionContent_BuS1"><ul>
+<li class=""><strong>AAA 游戏</strong> = 俗称「3A 大作」，就是投入大、画面好、规模大的顶级游戏（比如 GTA、赛博朋克）</li>
+<li class=""><strong>引擎</strong> = 游戏的「发动机」，一套现成的工具，开发者不用从零造轮子。</li>
+</ul></div></div>
+<p>从 Minecraft 26.2 版本开始，Mojang 往里面塞了图形 API 选项，可以自由切换成 Vulkan 选项，以提高帧率。</p>
+<div class="theme-admonition theme-admonition-tip admonition_xJq3 alert alert--success"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></span>提示</div><div class="admonitionContent_BuS1"><p>目前只有以下移动端 SoC 内置的 GPU 部分可以运行 Vulkan 下的 Minecraft：</p><ul>
+<li class="">Qualcomm 高通骁龙 Adreno</li>
+<li class="">三星使用的 AMD RDNA 的 Xclipse</li>
+<li class="">Apple Silicon 苹果</li>
+<li class="">Imagination Technologies 的 PowerVR</li>
+</ul><p>其它移动端 SoC 内置的 GPU 部分缺少了一个 Vulkan 特性：<strong>fillModeNonSolid</strong>。简单说，这个功能就是能画「线框模式」和「点模式」（把实体模型变成只看骨架的线框）。即使 Vulkan API 版本满足要求，因为缺少这个特性，Minecraft 无法运行，会产生 &quot;Device[GPU] does not have required feature[fillModeNonSolid]&quot; 的报错，导致游戏崩溃。</p></div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="三directxdirect3d">三、DirectX（Direct3D）<a href="#三directxdirect3d" class="hash-link" aria-label="三、DirectX（Direct3D）的直接链接" title="三、DirectX（Direct3D）的直接链接" translate="no">​</a></h2>
+<p><strong>DirectX</strong> 是微软 1995 年推出的<strong>多媒体 API</strong> 集合，其中负责 3D 图形的部分叫 <strong>Direct3D</strong>（D3D）。多媒体 API = 不止管画图，还管声音、手柄、网络的一套工具箱。</p>
+<p>特点：</p>
+<ul>
+<li class=""><strong>Windows 专用</strong>：只能在 Windows、Xbox 上用。</li>
+<li class=""><strong>性能强</strong>：和 Vulkan 同级，比 OpenGL 快。</li>
+<li class=""><strong>生态成熟</strong>：Windows 游戏基本都用 DirectX。</li>
+<li class=""><strong>版本</strong>：DirectX 9、10、11、12。<strong>DirectX 12</strong> 是最新，2015 年发布，类似 Vulkan 的底层 API。</li>
+</ul>
+<p>主流 PC 游戏（赛博朋克 2077、原神 PC 版、GTA V）都用 DirectX。但 DirectX <strong>不能在手机、Mac、Linux 上跑</strong>（除非用<strong>翻译层</strong>，比如 Wine 的 DXVK 把 DirectX 翻译成 Vulkan）。</p>
+<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>名词解释</div><div class="admonitionContent_BuS1"><ul>
+<li class=""><strong>翻译层</strong> = 两个不同语言的人之间，负责实时翻译的中间人。</li>
+<li class=""><strong>Wine</strong> = 让 Linux/Mac 能跑 Windows 程序的兼容工具。</li>
+<li class=""><strong>DXVK</strong> = Wine 里的一个「翻译官」，把 DirectX 的画图指令翻译成 Vulkan。</li>
+</ul></div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="四metal">四、Metal<a href="#四metal" class="hash-link" aria-label="四、Metal的直接链接" title="四、Metal的直接链接" translate="no">​</a></h2>
+<p><strong>Metal</strong> 是苹果 2014 年推出的图形 API，<strong>只用在苹果设备</strong>（iPhone、iPad、Mac）。</p>
+<p>特点：</p>
+<ul>
+<li class=""><strong>苹果专用</strong>：iOS、macOS 都用。</li>
+<li class=""><strong>性能强</strong>：和 Vulkan、DirectX 12 同级。</li>
+<li class=""><strong>简单</strong>：比 Vulkan 好写，比 OpenGL 快。</li>
+<li class=""><strong>取代 OpenGL</strong>：苹果已经停止更新 OpenGL，主推 Metal。</li>
+</ul>
+<p>iPhone 上的游戏、Minecraft 基岩版 iOS 版都用 Metal。Mac 上的程序也用 Metal（OpenGL 在 Mac 上已废弃）。</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="五opengl-es">五、OpenGL ES<a href="#五opengl-es" class="hash-link" aria-label="五、OpenGL ES的直接链接" title="五、OpenGL ES的直接链接" translate="no">​</a></h2>
+<p><strong>OpenGL ES</strong>（Embedded Systems）是 OpenGL 的<strong>移动版</strong>，专为手机、<strong>嵌入式设备</strong>设计。嵌入式设备 = 功能简单、资源少的专用设备，比如智能手表、路由器、车载屏幕。</p>
+<p>特点：</p>
+<ul>
+<li class=""><strong>简化版</strong>：去掉 OpenGL 一些复杂功能，适合资源受限的设备。</li>
+<li class=""><strong>跨平台</strong>：Android、iOS（被 Metal 取代前）、嵌入式设备都能用。</li>
+<li class=""><strong>版本</strong>：OpenGL ES 1.0（<strong>固定管线</strong>）、2.0（<strong>可编程管线</strong>）、3.0、3.2。<!-- -->
+<ul>
+<li class=""><strong>固定管线</strong> = GPU 画图的步骤是固定的，程序员只能调参数，不能改流程。就像<strong>傻瓜相机</strong>，按快门就行。</li>
+<li class=""><strong>可编程管线</strong> = 程序员可以自己写代码控制每一步怎么画，就像<strong>单反相机</strong>，专业但灵活。</li>
+</ul>
+</li>
+<li class=""><strong>手机主流</strong>：Android 手机基本都支持 OpenGL ES 3.2。</li>
+</ul>
+<p>Android 手机上的 App、游戏大部分用 OpenGL ES 或 Vulkan。</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="各-api-对比">各 API 对比<a href="#各-api-对比" class="hash-link" aria-label="各 API 对比的直接链接" title="各 API 对比的直接链接" translate="no">​</a></h2>
+<table><thead><tr><th>API</th><th>平台</th><th>性能</th><th>难度</th><th>状态</th></tr></thead><tbody><tr><td>OpenGL</td><td>跨平台</td><td>中</td><td>易</td><td>维护中（不更新）</td></tr><tr><td>OpenGL ES</td><td>移动</td><td>中</td><td>易</td><td>维护中</td></tr><tr><td>Vulkan</td><td>跨平台</td><td>高</td><td>难</td><td>活跃</td></tr><tr><td>DirectX 12</td><td>Windows</td><td>高</td><td>难</td><td>活跃</td></tr><tr><td>Metal</td><td>苹果</td><td>高</td><td>中</td><td>活跃</td></tr></tbody></table>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="图形-api-和-minecraft-的关系">图形 API 和 Minecraft 的关系<a href="#图形-api-和-minecraft-的关系" class="hash-link" aria-label="图形 API 和 Minecraft 的关系的直接链接" title="图形 API 和 Minecraft 的关系的直接链接" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>Minecraft Java 版</strong>：用 <strong>OpenGL</strong>（通过 LWJGL）和 <strong>Vulkan</strong>。</li>
+<li class=""><strong>Minecraft 基岩版</strong>：用 <strong>DirectX</strong>（Windows）、<strong>Metal</strong>（iOS/Mac）、<strong>OpenGL ES / Vulkan</strong>（Android）。</li>
+<li class=""><strong>Zalith Launcher / Fold Craft Launcher</strong>（手机跑 Java 版）：把 OpenGL 调用<strong>翻译成 OpenGL ES / Vulkan</strong>（用 GL4ES / ANGLE）或直接调用 <strong>Vulkan</strong>。</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="小结">小结<a href="#小结" class="hash-link" aria-label="小结的直接链接" title="小结的直接链接" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>图形 API = 程序和 GPU 之间的翻译官</strong>，定义标准化的画图命令。</li>
+<li class="">主流 API：<!-- -->
+<ul>
+<li class=""><strong>OpenGL</strong>：老牌跨平台，但在现代显卡上性能发挥有限。</li>
+<li class=""><strong>Vulkan</strong>：现代跨平台，性能强但难写。</li>
+<li class=""><strong>DirectX</strong>：Windows 专用，PC 游戏主流。</li>
+<li class=""><strong>Metal</strong>：苹果专用。</li>
+<li class=""><strong>OpenGL ES</strong>：移动版 OpenGL。</li>
+</ul>
+</li>
+<li class="">API 让程序「一次编写，所有 GPU 都能跑」。</li>
+</ul></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/FCLdocs-community/FCLdocs/edit/main/docs/手机小白必看/什么是图形api.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>编辑此页</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="文件选项卡"><a class="pagination-nav__link pagination-nav__link--prev" href="/docs/手机小白必看/什么是minecraft"><div class="pagination-nav__sublabel">上一页</div><div class="pagination-nav__label">什么是 Minecraft？</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/docs/手机小白必看/什么是图形渲染器"><div class="pagination-nav__sublabel">下一页</div><div class="pagination-nav__label">什么是图形渲染器？</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#图形-api-是什么" class="table-of-contents__link toc-highlight">图形 API 是什么？</a></li><li><a href="#主流图形-api-有哪些" class="table-of-contents__link toc-highlight">主流图形 API 有哪些？</a></li><li><a href="#一opengl" class="table-of-contents__link toc-highlight">一、OpenGL</a></li><li><a href="#二vulkan" class="table-of-contents__link toc-highlight">二、Vulkan</a></li><li><a href="#三directxdirect3d" class="table-of-contents__link toc-highlight">三、DirectX（Direct3D）</a></li><li><a href="#四metal" class="table-of-contents__link toc-highlight">四、Metal</a></li><li><a href="#五opengl-es" class="table-of-contents__link toc-highlight">五、OpenGL ES</a></li><li><a href="#各-api-对比" class="table-of-contents__link toc-highlight">各 API 对比</a></li><li><a href="#图形-api-和-minecraft-的关系" class="table-of-contents__link toc-highlight">图形 API 和 Minecraft 的关系</a></li><li><a href="#小结" class="table-of-contents__link toc-highlight">小结</a></li></ul></div></div></div></div></main></div></div></div></div>
+</body>
+</html>

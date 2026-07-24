@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-手机小白必看/minecraft移植到手机" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.10.2">
+<title data-rh="true">Minecraft Java版 如何被移植在手机上的？ | FCL新手文档</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://fcldocs.top/docs/手机小白必看/minecraft移植到手机"><meta data-rh="true" property="og:locale" content="zh_Hans"><meta data-rh="true" name="docusaurus_locale" content="zh-Hans"><meta data-rh="true" name="docsearch:language" content="zh-Hans"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Minecraft Java版 如何被移植在手机上的？ | FCL新手文档"><meta data-rh="true" name="description" content="用大白话讲清楚 PojavLauncher 等启动器是怎么把电脑版 Minecraft Java 版搬到手机上的，重点讲 so 文件的作用。"><meta data-rh="true" property="og:description" content="用大白话讲清楚 PojavLauncher 等启动器是怎么把电脑版 Minecraft Java 版搬到手机上的，重点讲 so 文件的作用。"><link data-rh="true" rel="icon" href="/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://fcldocs.top/docs/手机小白必看/minecraft移植到手机"><link data-rh="true" rel="alternate" href="https://fcldocs.top/docs/手机小白必看/minecraft移植到手机" hreflang="zh-Hans"><link data-rh="true" rel="alternate" href="https://fcldocs.top/docs/手机小白必看/minecraft移植到手机" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"手机小白必看","item":"https://fcldocs.top/docs/手机小白必看/"},{"@type":"ListItem","position":2,"name":"Minecraft Java版 如何被移植在手机上的？","item":"https://fcldocs.top/docs/手机小白必看/minecraft移植到手机"}]}</script><link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="FCL新手文档 RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="FCL新手文档 Atom Feed">
+
+
+
+
+
+
+<style>
+        /* 背景层：fixed div + gradient overlay + 底图 */
+        #fcl-site-bg {
+          position: fixed; inset: 0; z-index: -1;
+          background:
+            linear-gradient(rgba(255,255,255,0.15), rgba(255,255,255,0.15)),
+            url('/img/bj/樱花-浅.png') center / cover no-repeat;
+        }
+        html[data-theme='dark'] #fcl-site-bg {
+          background:
+            linear-gradient(rgba(13,15,20,0.25), rgba(13,15,20,0.25)),
+            url('/img/bj/樱花-暗.png') center / cover no-repeat;
+        }
+
+        /* 加载覆盖层 */
+        #fcl-loading-overlay {
+          position: fixed; inset: 0; z-index: 99999;
+          display: flex; flex-direction: column;
+          align-items: center; justify-content: center;
+          background: #0d0f14; color: #e8e8e8;
+          transition: opacity 0.35s ease;
+          will-change: opacity;
+        }
+        #fcl-loading-overlay[data-theme='light'] {
+          background: #ffffff; color: #1c1e21;
+        }
+        #fcl-loading-overlay.fcl-loading-hidden {
+          opacity: 0; pointer-events: none;
+        }
+        #fcl-loading-overlay .fcl-loading-spinner {
+          width: 42px; height: 42px; border-radius: 50%;
+          border: 3px solid rgba(128,128,128,0.3);
+          border-top-color: #25c2a0;
+          animation: fcl-loading-spin 0.8s linear infinite;
+        }
+        #fcl-loading-overlay .fcl-loading-text {
+          margin-top: 14px; font-size: 15px;
+          font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+          letter-spacing: 2px; opacity: 0.8;
+        }
+        @keyframes fcl-loading-spin { to { transform: rotate(360deg); } }
+      </style>
+<script>!function(){var e="dark";try{e=localStorage.getItem("theme")||"dark"}catch(e){}document.documentElement.setAttribute("data-theme",e);var t=document.createElement("div");if(t.id="fcl-site-bg",document.documentElement.appendChild(t),"/"===location.pathname){var d=document.createElement("div");d.id="fcl-loading-overlay",d.setAttribute("data-theme","light"===e?"light":"dark"),d.innerHTML='<div class="fcl-loading-spinner"></div><div class="fcl-loading-text">FCL 新手文档</div>',(document.body||document.documentElement).appendChild(d)}}()</script><link rel="stylesheet" href="/assets/css/styles.a5131acf.css">
+<script src="/assets/js/runtime~main.0576b245.js" defer="defer"></script>
+<script src="/assets/js/main.e1e97b67.js" defer="defer"></script>
+</head>
+<body>
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||"dark"),document.documentElement.setAttribute("data-theme-choice",t||"dark")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><div role="region" aria-label="跳到主要内容"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">跳到主要内容</a></div><nav aria-label="主导航" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="切换导航栏" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/"><b class="navbar__title text--truncate">FCL 教程</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/docs">FCL 教程文档</a><a href="https://github.com/FCL-Team/FoldCraftLauncher" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">FCL 代码仓库</a><a href="https://foldcraftlauncher.cn" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">FCL 下载站(非官方)</a><a class="navbar__item navbar__link" href="/about">关于本站</a><a class="navbar__item navbar__link" href="/blog">更新内容</a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="切换浅色/暗黑模式（当前为system mode）"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"><div class="navbar__search searchBarContainer_NW3z" dir="ltr"><input placeholder="搜索" aria-label="Search" class="navbar__search-input searchInput_YFbd" value=""><div class="loadingRing_RJI3 searchBarLoadingRing_YnHq"><div></div><div></div><div></div><div></div></div></div></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="回到顶部" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="文档侧边栏" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/"><span class="linkLabel_WmDU">介绍</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/test"><span class="linkLabel_WmDU">文档创作示例</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--active" href="/docs/手机小白必看/"><span class="categoryLinkLabel_W154">手机小白必看</span></a><button aria-label="折叠侧边栏分类 &#x27;手机小白必看&#x27;" aria-expanded="true" type="button" class="clean-btn menu__caret"></button></div><ul class="menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/docs/手机小白必看/手机配置讲解/如何查看手机配置"><span class="categoryLinkLabel_W154">手机配置讲解</span></a></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/手机小白必看/手机云控介绍"><span class="linkLabel_WmDU">手机云控介绍</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/手机小白必看/data文件夹访问限制"><span class="linkLabel_WmDU">data 文件夹访问限制</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/手机小白必看/手机权限"><span class="linkLabel_WmDU">手机权限</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/docs/手机小白必看/文件后缀名介绍/后缀名的介绍与列举"><span class="categoryLinkLabel_W154">文件后缀名介绍</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/docs/手机小白必看/下载和安装apk/应用商店"><span class="categoryLinkLabel_W154">下载和安装 APK</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/docs/手机小白必看/mt管理器的使用/系统文件管理局限性"><span class="categoryLinkLabel_W154">MT 管理器的使用</span></a></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/手机小白必看/什么是java"><span class="linkLabel_WmDU">什么是 Java？</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/手机小白必看/什么是minecraft"><span class="linkLabel_WmDU">什么是 Minecraft？</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/手机小白必看/什么是图形api"><span class="linkLabel_WmDU">什么是图形 API？</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/手机小白必看/什么是图  形渲染器"><span class="linkLabel_WmDU">什么是图形渲染器？</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/docs/手机小白必看/minecraft移植到手机"><span class="linkLabel_WmDU">Minecraft Java版 如何被移植在手机上的？</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/docs/FCL 的下载与安装/"><span class="categoryLinkLabel_W154">FCL 的下载与安装</span></a><button aria-label="展开侧边栏分类 &#x27;FCL 的下载与安装&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/docs/FCL-基础教程/"><span class="categoryLinkLabel_W154">FCL 基础教程</span></a><button aria-label="展开侧边栏分类 &#x27;FCL 基础教程&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/docs/FCL-高阶教程/按键制作/"><span class="categoryLinkLabel_W154">FCL-高阶教程</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/docs/开一个属于自己的服务器/认识服务器核心"><span class="categoryLinkLabel_W154">开一个属于自己的服务器</span></a></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/FAQ问题集合/"><span class="linkLabel_WmDU">FAQ 问题</span></a></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="页面路径"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="主页面" class="breadcrumbs__link" href="/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><a class="breadcrumbs__link" href="/docs/手机小白必看/"><span>手机小白必看</span></a></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">Minecraft Java版 如何被移植在手机上的？</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">本页总览</button></div><div class="theme-doc-markdown markdown"><div class="theme-admonition theme-admonition-tip admonition_xJq3 alert alert--success"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></span>专有名词</div><div class="admonitionContent_BuS1"><p>本文涉及到的专有名词：<a class="" href="/docs/手机小白必看/什么是图形api">图形 API</a> 、 <a href="https://blog.csdn.net/qq_39543984/article/details/155394684" target="_blank" rel="noopener noreferrer" class="">ARM和x86架构</a> 、 <span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">Linux</span> 、 <a href="https://zhuanlan.zhihu.com/p/584578172" target="_blank" rel="noopener noreferrer" class="">图形转化层</a> 、 <span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">mod</span> 、 <span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">光影</span> 、 <span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">区块</span></p></div></div>
+<header><h1>Minecraft Java版 如何被移植在手机上的？</h1></header>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="问题minecraft-java-版能在手机上跑吗">问题：Minecraft Java 版能在手机上跑吗？<a href="#问题minecraft-java-版能在手机上跑吗" class="hash-link" aria-label="问题：Minecraft Java 版能在手机上跑吗？的直接链接" title="问题：Minecraft Java 版能在手机上跑吗？的直接链接" translate="no">​</a></h2>
+<p><strong>直接跑：不能</strong>。原因：</p>
+<ol>
+<li class=""><strong>Minecraft Java 版需要 Java 虚拟机（JVM）</strong>，手机系统没有自带这个环境。</li>
+<li class=""><strong>Minecraft Java 版用电脑图形接口</strong>（OpenGL），手机用的是 OpenGL ES / Vulkan，两者不一样。</li>
+<li class=""><strong>Minecraft Java 版的运行库是给电脑芯片（x86）编 译的</strong>，手机是 ARM 芯片，CPU 根本看不懂。</li>
+</ol>
+<p><strong>间接跑：能！</strong> 用 <strong><a href="https://github.com/PojavLauncherTeam/PojavLauncher" target="_blank" rel="noopener noreferrer" class="">PojavLauncher</a>（已停更） / <a href="https://github.com/Amethyst-Launcher/Amethyst" target="_blank" rel="noopener noreferrer" class="">Amethyst</a> / Fold Craft Launcher / <a href="https://github.com/ZalithLauncher/ZalithLauncher" target="_blank" rel="noopener noreferrer" class="">Zalith Launcher</a></strong> 等启动器，可以把电脑 Java 版「移植」到手机。下面讲清楚原理。</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="关键概念什么是-so-文件">关键概念：什么是 <code>.so</code> 文件？<a href="#关键概念什么是-so-文件" class="hash-link" aria-label="关键概念什么是-so-文件的直接链接" title="关键概念什么是-so-文件的直接链接" translate="no">​</a></h2>
+<p><strong><code>.so</code> 文件</strong>全称 <strong>Shared Object</strong>，中文「<strong>共享库</strong>」或「<strong>动态链接库</strong>」。它是 <strong>Linux/Android</strong> 系统上的可执行代码库，相当于 <strong>Windows 上的 <code>.dll</code></strong> 文件。</p>
+<p>打个比方：你写了个程序，要用到「<strong>计算器</strong>」功能。一种办法是把计算器代码复制到你程序里（文件会变大）。另一种办法是<strong>单独写一个计算器库（<code>.so</code> 文件），你的程序运行时去调用它</strong>（文件小，多个程序能共用一个库）。</p>
+<p><code>.so</code> 文件的特点：</p>
+<ul>
+<li class="">是<strong>编译后的机器码</strong>，CPU 能直接执行。</li>
+<li class=""><strong>芯片相关</strong>：给 x86 芯片编译的 <code>.so</code> 不能在 ARM 芯片上跑，反之亦然。</li>
+<li class="">多个程序能<strong>共享</strong>同一个 <code>.so</code>，省存储空间。</li>
+<li class="">Linux/Android 系统的核心库都是 <code>.so</code>，比如 <code>libc.so</code>（C 标准库）、<code>libGL.so</code>（OpenGL 库）。</li>
+</ul>
+<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>名词解释</div><div class="admonitionContent_BuS1"><p><strong>动态链接库</strong>：程序运行时才加载的代码库，不是编译时打包进去的。好处是省空间、能共享、能单独更新。</p></div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="关键概念android-和-linux-是什么关系">关键概念：Android 和 Linux 是什么关系？<a href="#关键概念android-和-linux-是什么关系" class="hash-link" aria-label="关键概念：Android 和 Linux 是什么关系？的直接链接" title="关键概念：Android 和 Linux 是什么关系？的直接链接" translate="no">​</a></h2>
+<p><strong>Android 的底层是 Linux 内核</strong>。虽然 Android 用户看不到 Linux 命令行，但底层确实是 Linux。不过要注意：</p>
+<ul>
+<li class="">Android 的<strong>表面规矩</strong>（用户空间）用的是 <strong>Bionic libc</strong>，和标准 Linux 的 <strong>glibc</strong> 不一样。</li>
+<li class="">所以<strong>电脑 Linux 上的 <code>.so</code> 不能直接复制到 Android 上用</strong>，必须针对 Android 重新编译。</li>
+<li class="">Android 的 <code>/system/lib/</code>、<code>/system/lib64/</code> 里全是 <code>.so</code> 文件。</li>
+<li class="">Android 的 App（APK）里也能带 <code>.so</code> 文件，放在 <code>lib/</code> 目录下。</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="minecraft-java-版在电脑上怎么跑">Minecraft Java 版在电脑上怎么跑？<a href="#minecraft-java-版在电脑上怎么跑" class="hash-link" aria-label="Minecraft Java 版在电脑上怎么跑？的直接链接" title="Minecraft Java 版在电脑上怎么跑？的直接链接" translate="no">​</a></h2>
+<p>电脑上跑 Minecraft Java 版的流程：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">1. 启动器（Launcher）启动</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">       ↓</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">2. 启动 JVM（Java 虚拟机）</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">       ↓</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">3. JVM 加载 Minecraft 的 .jar 文件（字节码）</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">       ↓</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">4. JVM 把字节码翻译成 x86 机器码，在 CPU 上跑</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">       ↓</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">5. Minecraft 调用电脑的 OpenGL 库（libGL.so / opengl32.dll） 画图</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">       ↓</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">6. 画面显示在屏幕上</span><br></div></code></pre></div></div>
+<p>关键点：</p>
+<ul>
+<li class=""><strong>JVM 是关键</strong>：没有 JVM，字节码跑不起来。</li>
+<li class=""><strong>OpenGL 库是关键</strong>：没有图形库，画面画不出来。</li>
+<li class=""><strong>CPU 芯片是关键</strong>：JVM 翻译出的机器码要和 CPU 芯片匹配。</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="手机上跑-minecraft-java-版的难点">手机上跑 Minecraft Java 版的难点<a href="#手机上跑-minecraft-java-版的难点" class="hash-link" aria-label="手机上跑 Minecraft Java 版的难点的直接链接" title="手机上跑 Minecraft Java 版的难点的直接链接" translate="no">​</a></h2>
+<p>把上面流程搬到手机上，遇到三个问题：</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="难点-1手机没有-java-虚拟机">难点 1：手机没有 Java 虚拟机<a href="#难点-1手机没有-java-虚拟机" class="hash-link" aria-label="难点 1：手机没有 Java 虚拟机的直接链接" title="难点 1：手机没有 Java 虚拟机的直接链接" translate="no">​</a></h3>
+<p>Oracle 没有给 Android 出官方 Java 虚拟机。怎么办？</p>
+<p><strong>解决办法</strong>：用<strong>开源的 <a href="https://openjdk.org/" target="_blank" rel="noopener noreferrer" class="">OpenJDK</a></strong>。PojavLauncher 团队（以及后来的继任项目）把 OpenJDK 移植到 Android，编译成 ARM 芯片的 <code>.so</code> 文件，打包进 APK。</p>
+<blockquote>
+<p>在 PojavLauncher 团队的基础上，国内开发者以 <strong>Tungstend</strong> 为代表的 <strong>FCL-Team</strong> 和 <strong>墨北 MovTery</strong> 分别推出了 <strong>Fold Craft Launcher</strong> 和 <strong>Zalith Launcher</strong> 等改进版本。他 们在 PojavLauncher 的底层移植工作之上，自行移植了部分 <code>.so</code> 文件，优化了界面、控制方案和渲染器支持。</p>
+</blockquote>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="难点-2手机图形接口不同">难点 2：手机图形接口不同<a href="#难点-2手机图形接口不同" class="hash-link" aria-label="难点 2：手机图形接口不同的直接链接" title="难点 2：手机图形接口不同的直接链接" translate="no">​</a></h3>
+<p>电脑 Minecraft 用 <strong>OpenGL</strong>（桌面版），手机用 <strong>OpenGL ES</strong>（移动版，功能少一些）或 <strong>Vulkan</strong>。两者<strong>不兼容</strong>。</p>
+<p><strong>解决办法</strong>：用<strong>图形接口转换层</strong>。手机 Java 启动器用了几个库：</p>
+<ul>
+<li class=""><strong><a href="https://www.lwjgl.org/" target="_blank" rel="noopener noreferrer" class="">LWJGL</a></strong>（Lightweight Java Game Library）：Minecraft 用的图形库，PojavLauncher 把它移植到 Android。</li>
+<li class=""><strong><a href="https://github.com/ptitSeb/gl4es" target="_blank" rel="noopener noreferrer" class="">GL4ES</a></strong>：把 OpenGL 调用<strong>翻译</strong>成 OpenGL ES 调用，让 OpenGL 程序能在 OpenGL ES 设备上跑。Minecraft 1.16.5- 用的基本是这个后端</li>
+<li class=""><strong><a href="https://github.com/google/angle" target="_blank" rel="noopener noreferrer" class="">ANGLE</a></strong>：Google 开发的图形转译层，把 OpenGL 调用转成 Vulkan 或 OpenGL ES。Minecraft 1.17+ 版本的后端基本用的就是这个，兼容性和性能都不错。</li>
+<li class=""><strong>VirglRenderer</strong>：把 OpenGL 调用翻译成 Vulkan 或 OpenGL ES，性能更好。</li>
+</ul>
+<p>简单说：<strong>Minecraft 调 OpenGL → 转换层翻译成 OpenGL ES / Vulkan → 手机 GPU 画图</strong>。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="难点-3cpu-芯片不同">难点 3：CPU 芯片不同<a href="#难  点-3cpu-芯片不同" class="hash-link" aria-label="难点 3：CPU 芯片不同的直接链接" title="难点 3：CPU 芯片不同的直接链接" translate="no">​</a></h3>
+<p>电脑是 x86 芯片（Intel/AMD），手机是 ARM 芯片。Java 字节码虽然跨平台，但 JVM 翻译出的机器码要匹配 CPU。</p>
+<p><strong>解决办法</strong>：用 <strong>ARM 芯片的 Java 虚拟机</strong>。OpenJDK 本身支持 ARM 版，但标准版是为电脑 Linux 的 glibc 编译的。PojavLauncher 团队需要把它<strong>针对 Android 的 Bionic libc 重新编译</strong>，JVM 才能把字节码翻译成 ARM 机器码，手机 CPU 才能跑。</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="pojavlauncher-是怎么做到的">PojavLauncher 是怎么做到的？<a href="#pojavlauncher-是怎么做到的" class="hash-link" aria-label="PojavLauncher 是怎么做到的？的直接链接" title="PojavLauncher 是怎么做到的？的直接链接" translate="no">​</a></h2>
+<p><strong>PojavLauncher</strong> 是一个开源项目，把 Minecraft Java 版搬到 Android 手机上。它的核心组成：</p>
+<table><thead><tr><th>PojavLauncher APK</th></tr></thead><tbody><tr><td>1. 启动器界面（Java 写的）</td></tr><tr><td>2. ARM 版 JVM（libjvm.so）</td></tr><tr><td>3. LWJGL 移植版（liblwjgl.so）</td></tr><tr><td>4. GL4ES / Virgl / ANGLE（图形转换层）</td></tr><tr><td>5. Minecraft .jar 文件（用户下载）</td></tr></tbody></table>
+<p>启动流程：</p>
+<ol>
+<li class="">用户打开 PojavLauncher，登录 Minecraft 账号。</li>
+<li class="">启动器下载 Minecraft Java 版的 <code>.jar</code> 文件（从 Mojang 官方服务器）。</li>
+<li class="">启动器启动 <strong>ARM 版 JVM</strong>（<code>libjvm.so</code>）。</li>
+<li class="">JVM 加载 Minecraft 的 <code>.jar</code>，把字节码翻译成 ARM 机器码。</li>
+<li class="">Minecraft 调用 OpenGL 画图 → <strong>GL4ES / Virgl / ANGLE 翻译成 OpenGL ES / Vulkan</strong> → 手机 GPU 渲染。</li>
+<li class="">画面显示在手机屏幕上。</li>
+</ol>
+<p><strong>关键就是那几个 <code>.so</code> 文件</strong>：<code>libjvm.so</code>（Java 虚拟机）、<code>liblwjgl.so</code>（图形库）、<code>libgl4es.so</code>（图形转换）。这些 <code>.so</code> 都是<strong>给 Android 重新编译的共享库</strong>（针对 ARM 芯片 + Android 的 Bionic libc），所以能在 Android 上跑。</p>
+<p>具体来说：</p>
+<ol>
+<li class="">
+<p><strong>电脑上的 Java 环境不能直接搬到手机上用</strong>。PojavLauncher 团队只能自己动手，给手机专门做一套能跑的 Java 运行环境。</p>
+</li>
+<li class="">
+<p><strong>Android 和电脑 Linux 虽然底层有渊源，但表面的规矩不一样</strong>。电脑上的程序文件直接复制到手机里，根本打不开，必须针对手机重新做。</p>
+</li>
+<li class="">
+<p>所以 PojavLauncher 里带了一个<strong>专门为手机定制的 Java 虚拟机</strong>，手机才能跑 Minecraft 这样的 Java 程序。</p>
+</li>
+<li class="">
+<p><strong>游戏画面也是专门适配过的</strong>：渲染库是给手机重新编译的版本；GL4ES、ANGLE 这类<strong>翻译官</strong>，把电脑显卡的画面指令翻译成手机显卡能听懂的，这样手机才能正常显示游戏画面。</p>
+</li>
+</ol>
+<blockquote>
+<p>电脑上的东西不能简单复制到手机，PojavLauncher 团队相当于给手机<strong>重新造了一套</strong> Java 环境和画面渲染系统，还让一个「翻译官」负责让手机听懂电脑画面的意思。</p>
+</blockquote>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="类似的启动器">类似的启动器<a href="#类似的启动器" class="hash-link" aria-label="类似的启动器的直接链接" title="类似的启动器的直接链接" translate="no">​</a></h2>
+<p>除了 PojavLauncher，还有：</p>
+<ul>
+<li class=""><strong><a href="https://github.com/Amethyst-Launcher/Amethyst" target="_blank" rel="noopener noreferrer" class="">Amethyst</a></strong>（安卓 / iOS）：PojavLauncher 团队的官方续作</li>
+<li class=""><strong>HMCL PE</strong>（安卓）：老牌，但停更。</li>
+<li class=""><strong>Fold Craft Launcher</strong>（安卓）：国产，优化好。</li>
+<li class=""><strong><a href="https://github.com/ZalithLauncher/ZalithLauncher" target="_blank" rel="noopener noreferrer" class="">Zalith Launcher</a></strong>（安卓）：基于 PojavLauncher 二改的启动器，拥有更好的 UI 和更多的功能。</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="性能怎么样">性能怎么样？<a href="#性能怎么样" class="hash-link" aria-label="性能怎么样？的直接链接" title="性能怎么样？的直接链接" translate="no">​</a></h2>
+<p>手机跑 Minecraft Java 版，<strong>帧率因芯片档次差距极大</strong>，但有几个共同瓶颈：</p>
+<ul>
+<li class=""><strong>JVM 翻译有损耗</strong>：字节码 → ARM 机器码，比电脑原生运行多一层转换。</li>
+<li class=""><strong>图形接口转换有损耗</strong>：OpenGL → OpenGL ES / Vulkan，翻译要时间。</li>
+<li class=""><strong>散热限制</strong>：手机体积小，玩久了发热降频，帧率会从峰值掉下来。</li>
+<li class=""><strong>电池续航</strong>：高帧率下耗电快，插电源玩才能维持峰值性能。</li>
+</ul>
+<p>以下是部分实测参考（原版 = 不加任何优化模组，版本参考1.21，区块为8）：</p>
+<table><thead><tr><th>芯片档次</th><th>测试芯片</th><th>原版帧率/fps</th><th>加优化模组后/fps</th><th>体验</th></tr></thead><tbody><tr><td><strong>顶级旗舰</strong></td><td>骁龙 8 Elite</td><td>350–500</td><td>420–900+</td><td>非常流畅，甚至过剩</td></tr><tr><td><strong>高端</strong></td><td>骁龙 8s Gen3</td><td>110~310</td><td>260–500</td><td>流畅，玩 mod 完全没问题</td></tr><tr><td><strong>中高端</strong></td><td>骁龙 7 系（新款）</td><td>130–300</td><td>170–540</td><td>日常流畅，大部分场景稳 60+</td></tr><tr><td><strong>中端老旗舰</strong></td><td>骁龙 865 / 870</td><td>90–180</td><td>100–320</td><td>能玩，复杂场景会掉帧</td></tr><tr><td><strong>中低端</strong></td><td>骁龙 6 系、天玑 800 系</td><td>30–60</td><td>40–100</td><td>凑合能玩，别开太高画质</td></tr><tr><td><strong>入门</strong></td><td>骁龙 4 系、天玑 700</td><td>10–30</td><td>20-70</td><td>必须加优化整合包才能玩</td></tr></tbody></table>
+<p><strong>几点说明：</strong></p>
+<ul>
+<li class=""><strong>优化模组是什么？</strong> 优化模组能让游玩帧率提升，手机 Java 启动器基本都支持安装优化模组。</li>
+<li class=""><strong>帧率看场景</strong>：上面数字是<strong>正常地形/正常分辨率</strong>下的峰值，复杂地形、大量方块、开光影时会掉很多。</li>
+<li class=""><strong>发热降频</strong>：手机玩久了会发热，芯片会自动降频，帧率会从峰值掉下来。所以「能跑 900 帧」不等于「一直稳 900 帧」。</li>
+<li class=""><strong>重度 mod</strong>（如 RLCraft、大型整合包）：即使旗舰机也可能掉到 50–120 帧，中低端机直接卡成 PPT。</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="小结">小结<a href="#小结" class="hash-link" aria-label="小结的直接链接" title="小结的直接链接" translate="no">​</a></h2>
+<ul>
+<li class="">Minecraft Java 版<strong>不能直接在手机跑</strong>，因为没 Java 虚拟机、图形接口不同、CPU 芯片不同。</li>
+<li class=""><strong>PojavLauncher</strong> 用三个关键 <code>.so</code> 解决：<!-- -->
+<ul>
+<li class=""><code>libjvm.so</code>：ARM 版 Java 虚拟机，让字节码能跑。</li>
+<li class=""><code>liblwjgl.so</code>：LWJGL 移植版，提供图形库。</li>
+<li class=""><code>libgl4es.so</code>：把 OpenGL 翻译成 OpenGL ES / Vulkan。</li>
+</ul>
+</li>
+<li class="">性能不如电脑，但中高端手机能流畅玩。</li>
+</ul></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/FCLdocs-community/FCLdocs/edit/main/docs/手机小白必看/minecraft移植到手机.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>编辑此页</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="文件选项卡"><a class="pagination-nav__link pagination-nav__link--prev" href="/docs/手机小白必看/什么是图形渲染器"><div class="pagination-nav__sublabel">上一页</div><div class="pagination-nav__label">什么是图形渲染器？</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/docs/FCL 的下载与安装/"><div class="pagination-nav__sublabel">下一页</div><div class="pagination-nav__label">FCL 安装教程</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#问题minecraft-java-版能在手机上跑吗" class="table-of-contents__link toc-highlight">问题：Minecraft Java 版能在手机上跑吗？</a></li><li><a href="#关键概念什么是-so-文件" class="table-of-contents__link toc-highlight">关键概念：什么是 <code>.so</code> 文件？</a></li><li><a href="#关键概念android-和-linux-是什么关系" class="table-of-contents__link toc-highlight">关键概念：Android 和 Linux 是什么关系？</a></li><li><a href="#minecraft-java-版在电脑上怎么跑" class="table-of-contents__link toc-highlight">Minecraft Java 版在电脑上怎么跑？</a></li><li><a href="#手机上跑-minecraft-java-版的难点" class="table-of-contents__link toc-highlight">手机上跑 Minecraft Java 版的难点</a><ul><li><a href="#难点-1手机没有-java-虚拟机" class="table-of-contents__link toc-highlight">难点 1：手机没有 Java 虚拟机</a></li><li><a href="#难点-2手机图形接口不同" class="table-of-contents__link toc-highlight">难点 2：手机图形接口不同</a></li><li><a href="#难点-3cpu-芯片不同" class="table-of-contents__link toc-highlight">难点 3：CPU 芯片不同</a></li></ul></li><li><a href="#pojavlauncher-是怎么做到的" class="table-of-contents__link toc-highlight">PojavLauncher 是怎么做到的？</a></li><li><a href="#类似的启动器" class="table-of-contents__link toc-highlight">类似的启动器</a></li><li><a href="#性能怎么样" class="table-of-contents__link toc-highlight">性能怎么样？</a></li><li><a href="#小结" class="table-of-contents__link toc-highlight">小结</a></li></ul></div></div></div></div></main></div></div></div></div>
+</body>
+</html>

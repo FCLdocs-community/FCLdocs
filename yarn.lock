@@ -2396,7 +2396,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@docusaurus/plugin-content-docs@npm:3.10.2, @docusaurus/plugin-content-docs@npm:^2 || ^3":
+"@docusaurus/plugin-content-docs@npm:3.10.2, @docusaurus/plugin-content-docs@npm:^2 || ^3, @docusaurus/plugin-content-docs@npm:^3.10.2":
   version: 3.10.2
   resolution: "@docusaurus/plugin-content-docs@npm:3.10.2"
   dependencies:
@@ -11384,6 +11384,7 @@ __metadata:
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
     "@docusaurus/core": "npm:^3.7.0"
+    "@docusaurus/plugin-content-docs": "npm:^3.10.2"
     "@docusaurus/preset-classic": "npm:^3.7.0"
     "@easyops-cn/docusaurus-search-local": "npm:^0.55.2"
     "@fortawesome/fontawesome-svg-core": "npm:^7.3.1"

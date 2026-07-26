@@ -25,9 +25,10 @@ module.exports = {
       '@docusaurus/preset-classic',
       {
         docs: {
+          path: 'docs',
+          routeBasePath: 'docs',
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl: 'https://github.com/FCLdocs-community/FCLdocs/edit/main/',
-          // 添加以下配置
           remarkPlugins: [remarkWindowPlugin],
         },
         blog: {
@@ -48,7 +49,7 @@ module.exports = {
         indexDocs: true,
         indexBlog: false,
         indexPages: false,
-        docsRouteBasePath: "/docs",
+        docsRouteBasePath: ["/docs", "/FAQ"],
         blogRouteBasePath: "/blog",
         language: ["zh" , "en"],
         hashed: true,
@@ -57,6 +58,13 @@ module.exports = {
         searchResultContextMaxLength: 50,
         searchBarShortcut: true,
         searchBarShortcutHint: true,
+        // /docs 和 /FAQ 各自独立索引，互不干扰
+        searchContextByPaths: [
+          { path: '/docs', label: '教程文档' },
+          { path: '/FAQ', label: '常见问题' },
+        ],
+        // 不匹配任何 path 的页面（如首页 /）可以搜索所有上下文
+        useAllContextsWithNoSearchContext: true,
       },
     ],
   ],
@@ -70,9 +78,17 @@ module.exports = {
       title: 'FCL 教程',
       items: [
         {
-          to: '/docs',
-          label: 'FCL 教程文档',
+          type: 'docSidebar',
+          sidebarId: 'docsSidebar',
           position: 'left',
+          label: 'FCL 教程文档',
+        },
+        {
+          type: 'docSidebar',
+          sidebarId: 'faqSidebar',
+          docsPluginId: 'faq',
+          position: 'left',
+          label: 'FAQ 常见问题',
         },
         {
           to: 'https://github.com/FCL-Team/FoldCraftLauncher',
@@ -98,15 +114,11 @@ module.exports = {
     },
   },
 
-  // 首屏加载覆盖层：内联进 HTML，JS bundle 加载完成前就显示，
-  // 由 src/clientModules/loadingOverlay.js 在资源就绪后淡出移除
   headTags: [
-    // P0: 背景层 + 加载覆盖层样式，内联不受 webpack/css-minimizer 处理
     {
       tagName: 'style',
       attributes: {},
       innerHTML: `
-        /* 背景层：fixed div + gradient overlay + 底图 */
         #fcl-site-bg {
           position: fixed; inset: 0; z-index: -1;
           background:
@@ -119,7 +131,6 @@ module.exports = {
             url('/img/bj/樱花-暗.png') center / cover no-repeat;
         }
 
-        /* 加载覆盖层 */
         #fcl-loading-overlay {
           position: fixed; inset: 0; z-index: 99999;
           display: flex; flex-direction: column;
@@ -148,7 +159,6 @@ module.exports = {
         @keyframes fcl-loading-spin { to { transform: rotate(360deg); } }
       `,
     },
-    // P0: 同步创建背景层（所有页面）+ 加载覆盖层（仅首页）
     {
       tagName: 'script',
       attributes: {},
@@ -158,12 +168,10 @@ module.exports = {
           try { theme = localStorage.getItem('theme') || 'dark'; } catch (e) {}
           document.documentElement.setAttribute('data-theme', theme);
 
-          // 背景层：所有页面都需要
           var bg = document.createElement('div');
           bg.id = 'fcl-site-bg';
           document.documentElement.appendChild(bg);
 
-          // 加载覆盖层：仅首页
           if (location.pathname === '/') {
             var overlay = document.createElement('div');
             overlay.id = 'fcl-loading-overlay';
@@ -178,10 +186,20 @@ module.exports = {
     },
   ],
 
-  // P2: 移除逻辑放 client module，晚点没关系
   clientModules: [require.resolve('./src/clientModules/loadingOverlay.js')],
 
   plugins: [
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'faq',
+        path: 'FAQ',
+        routeBasePath: 'FAQ',
+        sidebarPath: require.resolve('./sidebarsFAQ.js'),
+        editUrl: 'https://github.com/FCLdocs-community/FCLdocs/edit/main/',
+        remarkPlugins: [remarkWindowPlugin],
+      },
+    ],
     function DisableWatchPlugin(context, options) {
       return {
         name: 'disable-watch-plugin',

@@ -227,7 +227,6 @@ export default function AboutSite() {
       `}</style>
 
       <div className="about-grid">
-        {/* 卡片1：关于本教程 */}
         <div className="about-card">
           <h3 style={titleStyle}>
             <span>📘</span> 关于本教程
@@ -240,7 +239,21 @@ export default function AboutSite() {
           </Link>
         </div>
 
-        {/* 卡片2：给新人的话 */}
+        <div className="about-card">
+          <div className="about-card-illustration">
+            <FAQIllustration />
+          </div>
+          <h3 style={titleStyle}>
+            <span>❓</span> 常见问题
+          </h3>
+          <p style={descStyle}>
+            遇到问题？先来这里找答案，或许你想要的已经有了
+          </p>
+          <Link to="/FAQ" style={buttonStyle}>
+            查看 FAQ →
+          </Link>
+        </div>
+
         <div className="about-card">
           <h3 style={titleStyle}>
             <span>💝</span> 给新人的话
@@ -253,7 +266,6 @@ export default function AboutSite() {
           </Link>
         </div>
 
-        {/* 卡片3：贡献者名单 */}
         <div className="about-card">
           <h3 style={titleStyle}>
             <span>👥</span> 贡献者名单
@@ -266,7 +278,6 @@ export default function AboutSite() {
           </Link>
         </div>
 
-        {/* 卡片4：项目链接 */}
         <div className="about-card">
           <h3 style={titleStyle}>
             <span>🔗</span> 项目链接
@@ -287,7 +298,6 @@ export default function AboutSite() {
           </ul>
         </div>
 
-        {/* 卡片5：支持项目 */}
         <div className="about-card">
           <div className="about-card-illustration">
             <HeartIllustration />
@@ -311,7 +321,6 @@ export default function AboutSite() {
           </ul>
         </div>
 
-        {/* 卡片6：更新日志 */}
         <div className="about-card">
           <div className="about-card-illustration">
             <DocIllustration />
@@ -326,29 +335,13 @@ export default function AboutSite() {
             查看更新 →
           </Link>
         </div>
-
-        {/* 卡片7：常见问题 */}
-        <div className="about-card">
-          <div className="about-card-illustration">
-            <FAQIllustration />
-          </div>
-          <h3 style={titleStyle}>
-            <span>❓</span> 常见问题
-          </h3>
-          <p style={descStyle}>
-            遇到问题？先来这里找答案，或许你想要的已经有了
-          </p>
-          <Link to="/docs/FAQ问题集合" style={linkStyle}>
-            查看 FAQ →
-          </Link>
-        </div>
       </div>
 
       {/* 底部 Footer */}
       <div className="about-footer">
-        <div>Made with by FCL-community 团队</div>
+        <div>Made with by FCLdocs-community 团队</div>
         <div style={{ marginTop: '8px', fontSize: '0.8rem' }}>
-          © 2026 FCL-community 团队 · CC-BY-SA-4.0 License
+          © 2026 FCLdocs-community 团队 · CC-BY-SA-4.0 License
         </div>
         <div className="social-links">
           <Link to="https://github.com/FCLdocs-community" target="_blank" aria-label="GitHub">

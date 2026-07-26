@@ -1,0 +1,90 @@
+/* ========== 浏览器兼容性 Banner（新增）========== */
+.compatBanner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9998; /* 低于弹窗的 1000，但高于普通内容 */
+  background: #fff8e1;
+  border-top: 2px solid #ffb300;
+  padding: 1rem 1.2rem 1.5rem;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+  animation: slideUpBanner 0.3s ease-out;
+}
+
+@keyframes slideUpBanner {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+.compatContent strong {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 0.4rem;
+  color: #795548;
+}
+
+.compatContent p {
+  margin: 0 0 0.6rem;
+  font-size: 0.85rem;
+  color: #8d6e63;
+}
+
+.compatSection {
+  margin-bottom: 0.5rem;
+}
+
+.compatLabel {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #5d4037;
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.compatList {
+  margin: 0;
+  padding-left: 1.2rem;
+  font-size: 0.82rem;
+  color: #6d4c41;
+  line-height: 1.5;
+}
+
+/* ✅ 绿色确认按钮 */
+.compatBtn {
+  display: block;
+  width: 100%;
+  margin-top: 0.8rem;
+  padding: 0.7rem;
+  border: none;
+  border-radius: 8px;
+  background: #43a047;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.compatBtn:hover { background: #388e3c; }
+.compatBtn:active { background: #2e7d32; }
+
+/* 💻 桌面端适配 */
+@media (min-width: 768px) {
+  .compatBanner {
+    bottom: 1.5rem;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    border-radius: 12px;
+    border: 2px solid #ffb300;
+    max-width: 420px;
+    animation: fadeInUpBanner 0.3s ease-out;
+  }
+
+  @keyframes fadeInUpBanner {
+    from { opacity: 0; transform: translate(-50%, 20px); }
+    to   { opacity: 1; transform: translate(-50%, 0); }
+  }
+}

@@ -83,6 +83,12 @@ import AboutBackButton from '@site/src/components/AboutBackButton';
   contributions="贡献了“联机操作”文档，修正了部分语法错误"
 />
 
+<ContributorCard
+  name="XiaoluoFoxington"
+  avatar="https://avatars.githubusercontent.com/u/89125608?v=4"
+  contributions="修正了有关FCL下载的文档"
+/>
+
 </div>
 
 # 🙏 致谢

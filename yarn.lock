@@ -2621,7 +2621,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@docusaurus/theme-common@npm:3.10.2":
+"@docusaurus/theme-common@npm:3.10.2, @docusaurus/theme-common@npm:^3.10.2":
   version: 3.10.2
   resolution: "@docusaurus/theme-common@npm:3.10.2"
   dependencies:
@@ -11386,6 +11386,7 @@ __metadata:
     "@docusaurus/core": "npm:^3.7.0"
     "@docusaurus/plugin-content-docs": "npm:^3.10.2"
     "@docusaurus/preset-classic": "npm:^3.7.0"
+    "@docusaurus/theme-common": "npm:^3.10.2"
     "@easyops-cn/docusaurus-search-local": "npm:^0.55.2"
     "@fortawesome/fontawesome-svg-core": "npm:^7.3.1"
     "@fortawesome/free-brands-svg-icons": "npm:^7.3.1"

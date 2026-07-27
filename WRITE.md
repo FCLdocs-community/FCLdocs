@@ -26,7 +26,8 @@ FCLdocs/
 │   ├── FCL-高阶教程                # 进阶功能与深度使用教程
 │   ├── 开一个属于自己的服务器      # 服务器搭建教程
 │   ├── 手机小白必看                # 针对纯新手的预备知识
-│   └── test.mdx                    # 测试页面
+│   ├── test.mdx                    # 测试页面
+│   └── end.md                   #结束跳转页面
 │
 ├── 📂 FAQ/                         # ❓ 常见问题文档目录（/FAQ 路由）
 │   └── index.md                    # FAQ 首页
@@ -162,17 +163,11 @@ Node.js 自带了 Corepack 工具，可以自动管理 Yarn，不需要单独下
 1. 在命令提示符中输入：
 
    ```bash
-   corepack enable
+   corepack enable yarn
    ```
    
    如果没有任何报错提示，说明启用成功。
-2. 验证 Yarn 是否可用：
 
-   ```bash
-   yarn -v
-   ```
-   
-   如果看到版本号（如 `4.2.2`），说明 Yarn 已就绪。
 
 ##### 第 4 步：克隆项目仓库
 
@@ -204,6 +199,8 @@ Node.js 自带了 Corepack 工具，可以自动管理 Yarn，不需要单独下
    yarn install
    ```
    
+执行后终端会提示是否安装 Yarn 4.9.x，输入 y 确认即可。
+
 3. 等待安装完成。如果看到 `Done` 或没有报错，说明依赖安装成功。
 
 ---
@@ -265,22 +262,16 @@ Node.js 自带了 Corepack 工具，可以自动管理 Yarn，不需要单独下
 
 ##### 第 3 步：启用 Corepack 并启动 Yarn
 
-1. 启用 Corepack：
+1. 启用 yarn：
 
    ```bash
-   corepack enable
+   corepack enable yarn
    ```
    
    如果提示权限不足，使用：
    
    ```bash
-   sudo corepack enable
-   ```
-   
-2. 验证 Yarn：
-
-   ```bash
-   yarn -v
+   sudo corepack enable yarn
    ```
 
 ##### 第 4 步：克隆项目仓库
@@ -309,6 +300,7 @@ Node.js 自带了 Corepack 工具，可以自动管理 Yarn，不需要单独下
    yarn install
    ```
 
+执行后终端会提示是否安装 Yarn 4.9.x，输入 y 确认即可。
 ---
 
 #### macOS 完整搭建步骤
@@ -363,24 +355,18 @@ macOS 通常自带 Git，但版本可能较旧，建议通过 Homebrew 安装最
    
    看到版本号即成功。
 
-##### 第 3 步：启用 Corepack 并启动 Yarn
+##### 第 3 步：使用 Corepack 启动 Yarn
 
 1. 启用 Corepack：
 
    ```bash
-   corepack enable
+   corepack enable yarn
    ```
    
    如果提示权限不足：
    
    ```bash
-   sudo corepack enable
-   ```
-   
-2. 验证 Yarn：
-
-   ```bash
-   yarn -v
+   sudo corepack enable yarn
    ```
 
 ##### 第 4 步：克隆项目仓库
@@ -409,11 +395,79 @@ macOS 通常自带 Git，但版本可能较旧，建议通过 Homebrew 安装最
    yarn install
    ```
 
+执行后终端会提示是否安装 Yarn 4.9.x，输入 y 确认即可。
+---
+
+#### Android 环境搭建 (Termux)
+
+如果你手边没有电脑，也可以使用 Android 手机通过 ZeroTermux 完成文档的编写与提交。以下是精简配置流程：
+
+##### 第 1 步：安装 Node.js 与 npm
+
+下载并安装 [ZeroTermux](https://get.zerotermux.dev)
+
+打开 ZeroTermux，依次执行以下命令更新软件源并安装 Node.js LTS（自带 npm）：
+
+```bash
+pkg update && pkg upgrade -y
+pkg install nodejs git -y
+```
+
+安装完成后验证版本：
+
+```bash
+node -v && npm -v && git --version
+```
+
+如果三个命令均正常输出版本号，即表示安装成功
+
+##### 第 2 步：使用 Corepack 启动 Yarn
+
+1. 启用 Corepack：
+
+   ```bash
+   corepack enable yarn
+   ```
+   
+   如果提示权限不足：
+   
+   ```bash
+   sudo corepack enable yarn
+   ```
+
+##### 第 3 步：克隆项目仓库
+
+1. 切换到你想要存放项目的目录。例如：
+
+   ```bash
+   cd ~
+   ```
+   
+2. 克隆仓库：
+
+   ```bash
+   git clone https://github.com/自己的用户名/FCLdocs.git
+   ```
+
+##### 第 4 步：进入目录并安装依赖
+
+1. 进入项目目录：
+
+   ```bash
+   cd FCLdocs
+   ```
+2. 安装依赖：
+
+   ```bash
+   yarn install
+   ```
+
+执行后终端会提示是否安装 Yarn 4.9.x，输入 y 确认即可。
 ---
 
 #### 常见问题
 
-##### Q1: `corepack enable` 提示 "command not found"
+##### Q1: `corepack enable yarn` 提示 "command not found"
 
 这说明你的 Node.js 版本过低（需要 v16.13.0 或更高）。请重新安装 Node.js 24.17.0
 

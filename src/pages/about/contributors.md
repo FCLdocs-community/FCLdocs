@@ -102,6 +102,7 @@ import AboutBackButton from '@site/src/components/AboutBackButton';
 - [王某人W](tencent://message/?uin=377***9971)
 - [我的世界良心君](tencent://message/?uin=394***8637)
 - [远古大暴](tencent://message/?uin=2192***452)
+- [轻候雨筠](tencent://message/?uin=255***915)
 
 感谢以下小伙伴的热心反馈，帮助我们发现并修正问题，让内容更加准确完善！
 

@@ -1,4 +1,4 @@
-.docusaurus/
+.docusaurus
 node_modules
 .yarn
 build

@@ -1,0 +1,248 @@
+/* =========================================================================
+ *  滚动驱动版样式（index_new.js 专用）
+ *  修复 P2-6：移除所有死 CSS 类，只保留实际使用的
+ *  修复 P2-7：inline style 中的静态样式迁移到此处
+ * ========================================================================= */
+
+/* --- 滚动容器 --- */
+.scrollDrivenContainer {
+  width: 100%;
+}
+
+.stickyViewport {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --- 场景容器（绝对定位叠加，实现交叉淡入淡出） --- */
+.sceneContainer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  transition: none;
+}
+
+/* --- 滚动场景内部布局 --- */
+.scrollSceneInner {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  max-width: 1200px;
+  width: 100%;
+  padding: 0 2rem;
+  margin: 0 auto;
+}
+
+.scrollSceneLeft {
+  flex: 0 0 48%;
+  max-width: 48%;
+}
+
+.scrollSceneRight {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* --- 粘性图片区域 --- */
+.stickyImageWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  max-height: 70vh;
+  margin: 0 auto;
+  border-radius: var(--ifm-card-border-radius);
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+/* --- 图片层（current/next 叠加） --- */
+.sceneImageLayer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.1s linear, transform 0.1s linear;
+}
+
+.sceneImage {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* --- 场景标题 --- */
+.sceneTitle {
+  display: flex;
+  align-items: center;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  color: var(--ifm-heading-color);
+  margin-bottom: 2rem;
+  font-weight: 700;
+}
+
+/* --- 滚动列表项 --- */
+.scrollItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.scrollMarker {
+  flex: 0 0 auto;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--ifm-color-primary);
+  min-width: 1.2em;
+  line-height: 1.4;
+}
+
+.scrollItemContent {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.scrollItemContent h3 {
+  display: flex;
+  align-items: center;
+  font-size: clamp(1.05rem, 2vw, 1.3rem);
+  margin-bottom: 0.5rem;
+}
+
+.scrollItemContent p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--ifm-color-emphasis-700);
+  margin: 0;
+}
+
+/* --- 链接场景 --- */
+.linkSceneInner {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  max-width: 1000px;
+  width: 100%;
+  padding: 0 2rem;
+  margin: 0 auto;
+}
+
+.linkSceneLeft {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.linkSceneRight {
+  flex: 0 0 45%;
+  max-width: 45%;
+}
+
+.linkSceneRight img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--ifm-card-border-radius);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+/* --- QQ 场景卡片 --- */
+.qqSceneCard {
+  width: 100%;
+  max-width: 500px;
+  background: var(--home-card-bg, var(--ifm-card-background-color, var(--ifm-background-color)));
+  border: 1px solid var(--home-card-border, var(--ifm-color-emphasis-300));
+  border-radius: var(--ifm-card-border-radius);
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.qqSceneImage {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.qqSceneContent {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.qqSceneContent h3 {
+  font-size: 1.5rem;
+  color: var(--ifm-heading-color);
+  margin-bottom: 0.5rem;
+}
+
+.qqSceneContent p {
+  color: var(--ifm-color-emphasis-700);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+/* =========================================================================
+ *  移动端适配
+ * ========================================================================= */
+@media (max-width: 768px) {
+  .scrollSceneInner {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 0 1rem;
+  }
+
+  .scrollSceneLeft {
+    flex: 1 1 100%;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .stickyImageWrap {
+    height: 40vh;
+    aspect-ratio: auto;
+    max-height: 40vh;
+  }
+
+  .scrollSceneRight {
+    width: 100%;
+  }
+
+  .linkSceneInner {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 0 1rem;
+  }
+
+  .linkSceneRight {
+    flex: 1 1 100%;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .qqSceneImage {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .sceneTitle {
+    font-size: 1.3rem;
+  }
+
+  .scrollItemContent h3 {
+    font-size: 1rem;
+  }
+
+  .scrollItemContent p {
+    font-size: 0.9rem;
+  }
+
+  .stickyImageWrap {
+    height: 35vh;
+  }
+}

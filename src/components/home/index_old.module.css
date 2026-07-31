@@ -1,0 +1,692 @@
+/* =========================================================================
+ *  基础页面结构
+ * ========================================================================= */
+.homePage {
+  min-height: 100vh;
+}
+
+.homeOverlay {
+  min-height: 100vh;
+  padding: 0 1rem;
+}
+
+/* =========================================================================
+ *  Hero 区域
+ * ========================================================================= */
+.hero {
+  text-align: center;
+  padding: 5rem 1rem 4rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero h1 {
+  font-size: clamp(1.75rem, 5vw, 3rem);
+  color: var(--ifm-heading-color);
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.heroLogo {
+  display: block;
+  width: clamp(72px, 12vw, 110px);
+  height: auto;
+  margin: 0 auto 1.25rem;
+  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.25));
+}
+
+.hero p {
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  color: var(--ifm-color-emphasis-700);
+  margin-bottom: 2rem;
+}
+
+.startBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--ifm-color-primary);
+  color: #fff;
+  border-radius: var(--ifm-button-border-radius);
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.startBtn:hover {
+  opacity: 0.9;
+  color: #fff;
+  text-decoration: none;
+  transform: translateY(-2px);
+}
+
+.icon {
+  margin-right: 0.5rem;
+}
+
+.checkIcon {
+  color: var(--ifm-color-primary);
+  margin-right: 0.5rem;
+}
+
+/* =========================================================================
+ *  滚动驱动动画容器
+ * ========================================================================= */
+.scrollDrivenContainer {
+  position: relative;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* =========================================================================
+ *  滚动驱动场景
+ * ========================================================================= */
+.scrollScene {
+  width: 100%;
+  height: 100%;
+}
+
+.scrollSceneInner {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  height: 100%;
+  padding: 0 0.5rem;
+  width: 100%;
+}
+
+/* 左侧图片区 */
+.scrollSceneLeft {
+  flex: 0 0 48%;
+  max-width: 48%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.stickyImageWrap {
+  position: relative;
+  width: 100%;
+  height: min(80vh, 560px);
+  min-height: 300px;
+  border-radius: var(--ifm-card-border-radius);
+}
+
+.sceneImageLayer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sceneImageLayer img {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+  border-radius: var(--ifm-card-border-radius);
+}
+
+.sceneImageBadge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  padding: 0.3rem 0.8rem;
+  background: var(--ifm-color-primary);
+  color: #fff;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  z-index: 2;
+}
+
+/* 右侧内容列表 */
+.scrollSceneRight {
+  flex: 1 1 52%;
+  min-width: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sceneTitle {
+  display: flex;
+  align-items: center;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  color: var(--ifm-heading-color);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--ifm-color-primary);
+}
+
+.scrollItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem 0;
+  border-bottom: 1px dashed var(--home-card-border, var(--ifm-color-emphasis-300));
+}
+
+.scrollItem:last-child {
+  border-bottom: none;
+}
+
+.scrollMarker {
+  flex: 0 0 auto;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--ifm-color-primary);
+  min-width: 1.2em;
+  line-height: 1.4;
+}
+
+.scrollItemContent {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.scrollItemContent h3 {
+  display: flex;
+  align-items: center;
+  font-size: clamp(1.05rem, 2vw, 1.3rem);
+  color: var(--ifm-heading-color);
+  margin-bottom: 0.5rem;
+}
+
+.scrollItemContent p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--ifm-color-emphasis-700);
+  margin: 0;
+}
+
+/* =========================================================================
+ *  堆叠图片循环展示
+ * ========================================================================= */
+.stackedImages {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.stackedImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.stackedImageActive {
+  opacity: 1;
+}
+
+/* =========================================================================
+ *  项目链接 / 加入我们 场景
+ * ========================================================================= */
+.linkSceneInner {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  height: 100%;
+  padding: 0 1rem;
+}
+
+.linkSceneLeft {
+  flex: 1 1 40%;
+}
+
+.linkSceneRight {
+  flex: 1 1 60%;
+  display: flex;
+  align-items: flex-end;
+}
+
+.linkSceneRight img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--ifm-card-border-radius);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1);
+}
+
+.linkCard {
+  padding: 2rem;
+  background: var(--home-card-bg, var(--ifm-card-background-color, var(--ifm-background-color)));
+  border: 1px solid var(--home-card-border, var(--ifm-color-emphasis-300));
+  border-radius: var(--ifm-card-border-radius);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  text-align: center;
+}
+
+.linkIconWrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.linkIcon {
+  font-size: 3rem;
+  color: var(--ifm-color-primary);
+}
+
+.qqIcon {
+  font-size: 2rem;
+  color: var(--ifm-color-primary);
+}
+
+.linkCard h3 {
+  font-size: 1.5rem;
+  color: var(--ifm-heading-color);
+  margin-bottom: 0.5rem;
+}
+
+.linkCard p {
+  color: var(--ifm-color-emphasis-700);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.linkBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.4rem;
+  background: var(--ifm-color-primary);
+  color: #fff;
+  border-radius: var(--ifm-button-border-radius);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.linkBtn:hover {
+  opacity: 0.9;
+  color: #fff;
+  text-decoration: none;
+  transform: translateY(-2px);
+}
+
+.linkBtn svg {
+  font-size: 1.1em;
+}
+
+/* =========================================================================
+ *  彩蛋场景
+ * ========================================================================= */
+.easterEggInner {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 0 1rem;
+}
+
+.easterEggBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.2rem;
+  background: linear-gradient(135deg, var(--ifm-color-primary), var(--ifm-color-primary-dark));
+  color: #fff;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}
+
+.easterEggText {
+  font-size: 1.05rem;
+  line-height: 2;
+  color: var(--ifm-font-color-base);
+  text-align: left;
+  padding: 2rem;
+  background: var(--home-card-bg, var(--ifm-card-background-color, var(--ifm-background-color)));
+  border: 1px solid var(--home-card-border, var(--ifm-color-emphasis-300));
+  border-radius: var(--ifm-card-border-radius);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  position: relative;
+}
+
+.easterEggText::before {
+  content: '"';
+  position: absolute;
+  top: -0.5rem;
+  left: 1rem;
+  font-size: 4rem;
+  color: var(--ifm-color-primary);
+  opacity: 0.2;
+  font-family: Georgia, serif;
+  line-height: 1;
+}
+
+/* =========================================================================
+ *  开始查看文档场景
+ * ========================================================================= */
+.startSceneInner {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 0 1rem;
+}
+
+.startSceneTitle {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  color: var(--ifm-heading-color);
+  margin-bottom: 1rem;
+}
+
+.startSceneDesc {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--ifm-color-emphasis-700);
+  margin-bottom: 2.5rem;
+}
+
+/* =========================================================================
+ *  静态回退页面
+ * ========================================================================= */
+.staticContainer {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1rem 4rem;
+}
+
+.staticSection {
+  padding: 3rem 0;
+  border-bottom: 1px solid var(--home-card-border, var(--ifm-color-emphasis-300));
+}
+
+.staticSection:last-child {
+  border-bottom: none;
+}
+
+.staticSectionTitle {
+  display: flex;
+  align-items: center;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  color: var(--ifm-heading-color);
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--ifm-color-primary);
+}
+
+.staticGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.staticCard {
+  flex: 1 1 280px;
+  max-width: 100%;
+  padding: 1.5rem;
+  background: var(--home-card-bg, var(--ifm-card-background-color, var(--ifm-background-color)));
+  border: 1px solid var(--home-card-border, var(--ifm-color-emphasis-300));
+  border-radius: var(--ifm-card-border-radius);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.staticCard:hover {
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1);
+}
+
+.staticCard img,
+.staticCard .stackedImages {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: var(--ifm-card-border-radius);
+  margin-bottom: 1rem;
+}
+
+.staticCard .stackedImages {
+  position: relative;
+  overflow: hidden;
+}
+
+.staticCard .stackedImage {
+  object-fit: cover;
+}
+
+/* Fallback 图片重叠效果 */
+.fallbackImageWrap {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  border-radius: var(--ifm-card-border-radius);
+}
+
+.fallbackImageActive {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 2;
+  transform: translateY(0);
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  opacity: 1;
+}
+
+.fallbackImageInactive {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  transform: translateY(20px);
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  opacity: 0;
+}
+
+.fallbackStacked {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  margin-bottom: 1rem;
+}
+
+.fallbackStacked img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--ifm-card-border-radius);
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.fallbackStackedActive img {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.fallbackStackedInactive img {
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+}
+
+.staticCard h3 {
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+  color: var(--ifm-heading-color);
+  margin-bottom: 0.5rem;
+}
+
+.staticCard p {
+  color: var(--ifm-color-emphasis-700);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.staticLinkRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2rem;
+}
+
+.staticLinkCard {
+  flex: 1 1 300px;
+  padding: 2rem;
+  background: var(--home-card-bg, var(--ifm-card-background-color, var(--ifm-background-color)));
+  border: 1px solid var(--home-card-border, var(--ifm-color-emphasis-300));
+  border-radius: var(--ifm-card-border-radius);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  text-align: center;
+}
+
+.staticLinkImage {
+  flex: 1 1 300px;
+}
+
+.staticLinkImage img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--ifm-card-border-radius);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1);
+}
+
+.staticEasterEgg {
+  text-align: center;
+}
+
+.staticEasterEgg .easterEggText {
+  text-align: left;
+}
+
+.staticStart {
+  text-align: center;
+}
+
+/* =========================================================================
+ *  移动端适配
+ * ========================================================================= */
+@media (max-width: 768px) {
+  .hero {
+    padding: 3rem 0.5rem 2.5rem;
+  }
+
+  .startBtn {
+    padding: 0.65rem 1.25rem;
+    font-size: 0.95rem;
+  }
+
+  /* 滚动驱动场景改为上下布局 */
+  .scrollSceneInner {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding-top: 4rem; /* 顶部安全区域 */
+  }
+
+  .scrollSceneLeft {
+    flex: 0 0 auto;
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+  }
+
+  .stickyImageWrap {
+    height: 40vh;
+    min-height: 200px;
+  }
+
+  .scrollSceneRight {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+
+  .scrollItem {
+    padding: 0.75rem 0;
+  }
+
+  .sceneTitle {
+    margin-bottom: 1rem;
+  }
+
+  /* 链接场景改为上下布局 */
+  .linkSceneInner {
+    flex-direction: column;
+    gap: 1.5rem;
+    justify-content: center;
+  }
+
+  .linkSceneLeft,
+  .linkSceneRight {
+    flex: 1 1 100%;
+    width: 100%;
+  }
+
+  .linkSceneRight img {
+    max-height: 300px;
+    object-fit: contain;
+  }
+
+  /* 静态页面卡片单列 */
+  .staticCard {
+    flex: 1 1 100%;
+  }
+
+  .staticLinkRow {
+    flex-direction: column;
+  }
+
+  .staticLinkCard,
+  .staticLinkImage {
+    flex: 1 1 100%;
+    width: 100%;
+  }
+
+  .easterEggText {
+    padding: 1.5rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* =========================================================================
+ *  超小屏适配
+ * ========================================================================= */
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 1.5rem;
+  }
+
+  .hero p {
+    font-size: 0.95rem;
+  }
+
+  .sceneTitle {
+    font-size: 1.3rem;
+  }
+
+  .scrollItemContent h3 {
+    font-size: 1rem;
+  }
+
+  .scrollItemContent p {
+    font-size: 0.9rem;
+  }
+
+  .linkIcon {
+    font-size: 2.5rem;
+  }
+
+  .stickyImageWrap {
+    height: 35vh;
+  }
+}

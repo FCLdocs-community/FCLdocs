@@ -81,7 +81,7 @@ function getSceneLifecycle(globalProgress, sceneStart, sceneEnd, isLastScene) {
   const enterStart = sceneStart;
   const enterEnd = sceneStart + (sceneEnd - sceneStart) * 0.15;
   const rawEnter = Math.min(Math.max((globalProgress - enterStart) / (enterEnd - enterStart), 0), 1);
-  const enterProgress = sceneStart === 0 && globalProgress <= sceneStart ? 1 : rawEnter;
+  const enterProgress = sceneStart === 0 ? 1 : rawEnter;
 
   const exitStart = sceneStart + (sceneEnd - sceneStart) * 0.80;
   const exitEnd = sceneStart + (sceneEnd - sceneStart) * 0.92;
@@ -119,13 +119,6 @@ function getItemTransition(dwellProgress, itemCount) {
   };
 }
 
-function getTransitionGap(ratio) {
-  const gapHalf = 0.25;
-  const dist = Math.abs(ratio - 0.5);
-  if (dist >= gapHalf) return 1;
-  return dist / gapHalf;
-}
-
 /* =========================================================================
  *  组件：滚动驱动场景
  *  修复 P1-4：StackedImageCycler 不再用 key 变化重建（key 固定为 images[0]）
@@ -133,27 +126,157 @@ function getTransitionGap(ratio) {
  *  修复 P2-5：移除 willChange，仅活跃场景保留
  *  修复 P2-7：静态样式迁移到 CSS 类，仅动态值保留 inline style
  * ========================================================================= */
-function ScrollScene({ title, items, progress, start, end, isLastScene, isFirstScene }) {
-  const { enterProgress, dwellProgress, exitProgress, isActive } = getSceneLifecycle(progress, start, end, isLastScene);
+function ScrollScene({ title, items, progress, start, end, isLastScene, isFirstScene, overrideOpacity, scrollDir, sceneStatusRef }) {
+  const { enterProgress, dwellProgress, exitProgress } = getSceneLifecycle(progress, start, end, isLastScene);
+  const isActive = overrideOpacity !== undefined || (enterProgress > 0 && exitProgress < 1);
 
-  const sceneOpacity = enterProgress * (1 - exitProgress);
-  const sceneTranslateY = (1 - enterProgress) * 60 - exitProgress * 60;
+  const sceneOpacity = overrideOpacity !== undefined ? overrideOpacity : enterProgress * (1 - exitProgress);
+  const sceneTranslateY = overrideOpacity !== undefined ? 0 : (1 - enterProgress) * 60 - exitProgress * 60;
 
   const { currentIndex, nextIndex, transitionRatio } = getItemTransition(dwellProgress, items.length);
-  const currentItem = items[currentIndex];
-  const nextItem = items[nextIndex];
+  const itemSpan = 1 / items.length;
 
-  const currentScale = 1 - transitionRatio * 0.12;
-  const currentTranslateX = -transitionRatio * 40;
+  // 单步切换（入场锚点 + 位置追赶）：
+  // - 向下进入场景：从第 0 项开始，锚点从 0 起（入场进度计入第一次前进，与首载一致）
+  // - 向上进入场景：从当前位置开始，锚点 = 挂载位置
+  // - 前进必须超过「上次前进位置 + 1 个 item 跨度」，滑动一下 = 进入下一项
+  // - 退出区：打断动画，定时逐项追赶（不跳项）；父组件等待追赶完成再切换场景
+  const initialItem = scrollDir > 0 ? 0 : currentIndex;
+  const [displayItem, setDisplayItem] = useState(() => initialItem);
+  const displayItemRef = useRef(initialItem);
+  const lastAdvanceDwellRef = useRef(scrollDir > 0 ? 0 : dwellProgress);
+  const firstRunRef = useRef(true);
+  const [anim, setAnim] = useState({ phase: 0, to: 0 });
+  const lockRef = useRef(false);
+  const animTimersRef = useRef([]);
+  const catchUpTimerRef = useRef(null);
+  const itemStateRef = useRef({ currentIndex, nextIndex, dwellProgress });
 
-  const nextScale = 0.88 + transitionRatio * 0.12;
-  const nextTranslateX = (1 - transitionRatio) * 40;
+  useEffect(() => {
+    itemStateRef.current = { currentIndex, nextIndex, dwellProgress };
+  }, [currentIndex, nextIndex, dwellProgress]);
 
-  const gapMultiplier = getTransitionGap(transitionRatio);
-  const currentOpacity = (1 - transitionRatio) * gapMultiplier;
-  const nextOpacity = transitionRatio * gapMultiplier;
+  // 向父组件报告追赶状态（场景切换时等待追赶完成，避免尾项被跳过）
+  const updateStatus = () => {
+    if (!sceneStatusRef) return;
+    const c = itemStateRef.current.currentIndex;
+    const remaining = Math.max(0, c - displayItemRef.current);
+    sceneStatusRef.current = { done: remaining === 0, pendingMs: remaining * 120 };
+  };
 
-  if (!isActive && sceneOpacity <= 0) return null;
+  useEffect(() => {
+    const clearAnimTimers = () => {
+      animTimersRef.current.forEach(clearTimeout);
+      animTimersRef.current = [];
+    };
+
+    const stopCatchUp = () => {
+      clearTimeout(catchUpTimerRef.current);
+      catchUpTimerRef.current = null;
+    };
+
+    const runCatchUp = () => {
+      const { currentIndex: c, dwellProgress: d } = itemStateRef.current;
+      if (d < 0.89 || c <= displayItemRef.current) {
+        stopCatchUp();
+        updateStatus();
+        return;
+      }
+      // 退出区快速追赶：每次只前进一项，直接提交（无动画、不跳项）
+      const to = displayItemRef.current + 1;
+      displayItemRef.current = to;
+      setDisplayItem(to);
+      setAnim({ phase: 0, to: 0 });
+      updateStatus();
+      if (c > to) {
+        catchUpTimerRef.current = setTimeout(runCatchUp, 180);
+      } else {
+        catchUpTimerRef.current = null;
+      }
+    };
+
+    const advance = (to) => {
+      lockRef.current = true;
+      setAnim({ phase: 0, to });
+      clearAnimTimers();
+      const t70 = setTimeout(() => {
+        displayItemRef.current = to;
+        setDisplayItem(to);
+        setAnim({ phase: 2, to });
+        updateStatus();
+      }, 70);
+      const t80 = setTimeout(() => { lockRef.current = false; }, 80);
+      animTimersRef.current = [t70, t80];
+    };
+
+    const { currentIndex: cur, nextIndex: next, dwellProgress: dwell } = itemStateRef.current;
+
+    // 挂载后首次运行：只建立基线，不做前进/追赶（入场手势的尾巴不触发切换）
+    if (firstRunRef.current) {
+      firstRunRef.current = false;
+      updateStatus();
+      return;
+    }
+
+    // 反向 / 位置退回：打断一切动画与追赶，直接跟随滚动位置
+    if (cur < displayItemRef.current) {
+      stopCatchUp();
+      clearAnimTimers();
+      displayItemRef.current = cur;
+      setDisplayItem(cur);
+      setAnim({ phase: 0, to: 0 });
+      lockRef.current = false;
+      lastAdvanceDwellRef.current = dwell;
+      updateStatus();
+      return;
+    }
+
+    // 场景退出区：打断进行中的动画，定时逐项追赶
+    if (dwell >= 0.89) {
+      clearAnimTimers();
+      setAnim({ phase: 0, to: 0 });
+      lockRef.current = false;
+      if (cur > displayItemRef.current && !catchUpTimerRef.current) {
+        runCatchUp();
+      } else if (cur <= displayItemRef.current) {
+        stopCatchUp();
+      }
+      updateStatus();
+      return;
+    }
+
+    stopCatchUp();
+
+    // 位置超前且距上次前进足够远：前进一步（滑动一下 = 进入下一项）
+    if (cur > displayItemRef.current && !lockRef.current
+        && dwell - lastAdvanceDwellRef.current >= itemSpan * 1.0) {
+      lastAdvanceDwellRef.current = dwell;
+      advance(Math.min(next, displayItemRef.current + 1));
+    }
+    updateStatus();
+  }, [currentIndex, nextIndex, dwellProgress, itemSpan]);
+
+  useEffect(() => {
+    return () => {
+      animTimersRef.current.forEach(clearTimeout);
+      clearTimeout(catchUpTimerRef.current);
+    };
+  }, []);
+
+  const displayItemObj = items[displayItem];
+  const animToObj = items[anim.to];
+
+  const currentOpacity = anim.phase === 0 ? 1 : 0;
+  const nextOpacity = anim.phase === 2 ? 1 : 0;
+  const currentScale = 1;
+  const currentTranslateX = 0;
+  const nextScale = 1;
+  const nextTranslateX = 0;
+
+  // 文字高亮与图片动画同步：动画完成切到下一项时，文字也切到下一项
+  const displayIndex = anim.phase === 2 ? anim.to : displayItem;
+
+  if (overrideOpacity === undefined && !isActive && sceneOpacity <= 0) return null;
 
   const eagerFirst = isFirstScene;
 
@@ -178,25 +301,25 @@ function ScrollScene({ title, items, progress, start, end, isLastScene, isFirstS
                 zIndex: 2,
               }}
             >
-              {currentItem.images ? (
+              {displayItemObj.images ? (
                 <StackedImageCycler
-                  images={currentItem.images}
-                  interval={currentItem.interval}
-                  pauseDuration={currentItem.pause}
-                  alt={currentItem.title}
+                  images={displayItemObj.images}
+                  interval={displayItemObj.interval}
+                  pauseDuration={displayItemObj.pause}
+                  alt={displayItemObj.title}
                   eagerFirst={eagerFirst}
                 />
               ) : (
                 <img
-                  src={currentItem.image}
-                  alt={currentItem.title}
+                  src={displayItemObj.image}
+                  alt={displayItemObj.title}
                   className={styles.sceneImage}
                   loading={eagerFirst ? 'eager' : 'lazy'}
                 />
               )}
             </div>
 
-            {transitionRatio > 0 && (
+            {anim.phase === 2 && (
               <div
                 className={styles.sceneImageLayer}
                 style={{
@@ -205,17 +328,17 @@ function ScrollScene({ title, items, progress, start, end, isLastScene, isFirstS
                   zIndex: 1,
                 }}
               >
-                {nextItem.images ? (
+                {animToObj.images ? (
                   <StackedImageCycler
-                    images={nextItem.images}
-                    interval={nextItem.interval}
-                    pauseDuration={nextItem.pause}
-                    alt={nextItem.title}
+                    images={animToObj.images}
+                    interval={animToObj.interval}
+                    pauseDuration={animToObj.pause}
+                    alt={animToObj.title}
                   />
                 ) : (
                   <img
-                    src={nextItem.image}
-                    alt={nextItem.title}
+                    src={animToObj.image}
+                    alt={animToObj.title}
                     className={styles.sceneImage}
                     loading="lazy"
                   />
@@ -233,11 +356,8 @@ function ScrollScene({ title, items, progress, start, end, isLastScene, isFirstS
             </h2>
           )}
           {items.map((item, i) => {
-            const itemSpan = 1 / items.length;
-            const itemEnd = (i + 1) * itemSpan;
-
-            const isCurrent = i === currentIndex;
-            const isPast = dwellProgress > itemEnd;
+            const isCurrent = i === displayIndex;
+            const isPast = i < displayIndex;
 
             let opacity, translateX, scale;
             if (isCurrent) {
@@ -272,7 +392,7 @@ function ScrollScene({ title, items, progress, start, end, isLastScene, isFirstS
                 </span>
                 <div className={styles.scrollItemContent}>
                   <h3 style={{ color: isCurrent ? 'var(--ifm-color-primary)' : 'var(--ifm-heading-color)' }}>
-                    <FontAwesomeIcon icon={faCheck} className={sharedStyles.checkIcon} />
+                    {!isFirstScene && <FontAwesomeIcon icon={faCheck} className={sharedStyles.checkIcon} />}
                     {item.title}
                   </h3>
                   {item.desc && <p>{item.desc}</p>}
@@ -289,12 +409,13 @@ function ScrollScene({ title, items, progress, start, end, isLastScene, isFirstS
 /* =========================================================================
  *  组件：链接场景
  * ========================================================================= */
-function LinkScene({ icon, iconAlt, title, desc, link, linkText, image, external, progress, start, end, isLastScene }) {
-  const { enterProgress, exitProgress, isActive } = getSceneLifecycle(progress, start, end, isLastScene);
-  const sceneOpacity = enterProgress * (1 - exitProgress);
-  const sceneTranslateY = (1 - enterProgress) * 80 - exitProgress * 80;
+function LinkScene({ icon, iconAlt, title, desc, link, linkText, image, external, progress, start, end, isLastScene, overrideOpacity }) {
+  const { enterProgress, exitProgress } = getSceneLifecycle(progress, start, end, isLastScene);
+  const isActive = overrideOpacity !== undefined || (enterProgress > 0 && exitProgress < 1);
+  const sceneOpacity = overrideOpacity !== undefined ? overrideOpacity : enterProgress * (1 - exitProgress);
+  const sceneTranslateY = overrideOpacity !== undefined ? 0 : (1 - enterProgress) * 80 - exitProgress * 80;
 
-  if (!isActive && sceneOpacity <= 0) return null;
+  if (overrideOpacity === undefined && !isActive && sceneOpacity <= 0) return null;
 
   const isQQ = title === 'QQ 群';
 
@@ -360,12 +481,13 @@ function LinkScene({ icon, iconAlt, title, desc, link, linkText, image, external
 /* =========================================================================
  *  组件：彩蛋场景
  * ========================================================================= */
-function EasterEggScene({ progress, start, end, isLastScene }) {
-  const { enterProgress, exitProgress, isActive } = getSceneLifecycle(progress, start, end, isLastScene);
-  const sceneOpacity = enterProgress * (1 - exitProgress);
-  const sceneScale = 0.92 + enterProgress * 0.08 - exitProgress * 0.08;
+function EasterEggScene({ progress, start, end, isLastScene, overrideOpacity }) {
+  const { enterProgress, exitProgress } = getSceneLifecycle(progress, start, end, isLastScene);
+  const isActive = overrideOpacity !== undefined || (enterProgress > 0 && exitProgress < 1);
+  const sceneOpacity = overrideOpacity !== undefined ? overrideOpacity : enterProgress * (1 - exitProgress);
+  const sceneScale = overrideOpacity !== undefined ? 1 : 0.92 + enterProgress * 0.08 - exitProgress * 0.08;
 
-  if (!isActive && sceneOpacity <= 0) return null;
+  if (overrideOpacity === undefined && !isActive && sceneOpacity <= 0) return null;
 
   return (
     <div
@@ -394,12 +516,13 @@ function EasterEggScene({ progress, start, end, isLastScene }) {
 /* =========================================================================
  *  组件：开始场景（最后一个，不淡出）
  * ========================================================================= */
-function StartScene({ progress, start, end, isLastScene }) {
-  const { enterProgress, isActive } = getSceneLifecycle(progress, start, end, isLastScene);
-  const sceneOpacity = enterProgress;
-  const sceneTranslateY = (1 - enterProgress) * 50;
+function StartScene({ progress, start, end, isLastScene, overrideOpacity }) {
+  const { enterProgress } = getSceneLifecycle(progress, start, end, isLastScene);
+  const isActive = overrideOpacity !== undefined || enterProgress > 0;
+  const sceneOpacity = overrideOpacity !== undefined ? overrideOpacity : enterProgress;
+  const sceneTranslateY = overrideOpacity !== undefined ? 0 : (1 - enterProgress) * 50;
 
-  if (!isActive && sceneOpacity <= 0) return null;
+  if (overrideOpacity === undefined && !isActive && sceneOpacity <= 0) return null;
 
   return (
     <div
@@ -510,33 +633,73 @@ const SCENES = [
 
 /* =========================================================================
  *  主页面：滚动驱动版
- *  修复 P0-2：渲染所有 opacity > 0 的场景，实现交叉淡入淡出
- *  修复 P1-2：使用 ref 精确定位滚动容器
+ *  场景切换：滚动越过场景边界时触发 300ms 时间动画（150ms 淡出 → 150ms 淡入），
+ *  一次滚动即完成切换，不随滚动距离拉长
  * ========================================================================= */
 function ScrollDrivenHome() {
   const scrollSpacerRef = useRef(null);
   const progress = useScrollProgress(scrollSpacerRef);
 
-  // 计算所有可见场景（opacity > 0），实现边界交叉淡入淡出
-  const visibleScenes = useMemo(() => {
-    const result = [];
+  // 当前进度所属场景（唯一激活场景）
+  const activeIndex = useMemo(() => {
     for (let i = 0; i < SCENES.length; i++) {
-      const isLastScene = i === SCENES.length - 1;
-      const lifecycle = getSceneLifecycle(progress, SCENES[i].start, SCENES[i].end, isLastScene);
-      const opacity = lifecycle.enterProgress * (1 - lifecycle.exitProgress);
-      if (opacity > 0.001) {
-        result.push({ scene: SCENES[i], index: i, isLastScene, opacity });
-      }
+      if (progress >= SCENES[i].start && progress < SCENES[i].end) return i;
     }
-    return result;
+    return SCENES.length - 1;
   }, [progress]);
 
-  const renderScene = (scene, index, isLastScene) => {
+  const [displayIndex, setDisplayIndex] = useState(0);
+  const displayIndexRef = useRef(0);
+  const [sceneOpacity, setSceneOpacity] = useState(1);
+  const mountDirRef = useRef(1);
+  const sceneStatusRef = useRef({ done: true, pendingMs: 0 });
+
+  // 场景边界触发切换：淡出 150ms → 等待当前场景 item 追赶完成 → 换场景 → 淡入 150ms
+  // mountDir 记录本次切换方向（决定场景内 item 初始显示）
+  useEffect(() => {
+    if (activeIndex === displayIndexRef.current) {
+      setSceneOpacity(1);
+      return undefined;
+    }
+    mountDirRef.current = activeIndex > displayIndexRef.current ? 1 : -1;
+    sceneStatusRef.current = { done: true, pendingMs: 0 };
+    setSceneOpacity(0);
+
+    let cancelled = false;
+    let timer = null;
+    let waited = 0;
+    const doSwitch = () => {
+      if (cancelled) return;
+      displayIndexRef.current = activeIndex;
+      setDisplayIndex(activeIndex);
+      requestAnimationFrame(() => requestAnimationFrame(() => setSceneOpacity(1)));
+    };
+    const wait = (ms) => {
+      timer = setTimeout(() => {
+        if (cancelled) return;
+        waited += ms;
+        const st = sceneStatusRef.current;
+        // 场景内 item 仍在追赶：继续等待（最多约 800ms）
+        if (waited < 800 && st && !st.done) {
+          wait(Math.max(80, Math.min(st.pendingMs || 120, 200)));
+          return;
+        }
+        doSwitch();
+      }, ms);
+    };
+    wait(150);
+    return () => { cancelled = true; clearTimeout(timer); };
+  }, [activeIndex]);
+
+  const renderScene = (scene, index, isLastScene, overrideOpacity) => {
     const commonProps = {
       progress,
       start: scene.start,
       end: scene.end,
       isLastScene,
+      overrideOpacity,
+      scrollDir: mountDirRef.current,
+      sceneStatusRef,
     };
 
     if (scene.type === 'scroll') {
@@ -569,10 +732,13 @@ function ScrollDrivenHome() {
 
   return (
     <div className={styles.scrollDrivenContainer}>
-      <div ref={scrollSpacerRef} style={{ height: '600vh' }}>
+      <div ref={scrollSpacerRef} style={{ height: '350vh' }}>
         <div className={styles.stickyViewport}>
-          {visibleScenes.map(({ scene, index, isLastScene }) =>
-            renderScene(scene, index, isLastScene)
+          {renderScene(
+            SCENES[displayIndex],
+            displayIndex,
+            displayIndex === SCENES.length - 1,
+            sceneOpacity
           )}
         </div>
       </div>

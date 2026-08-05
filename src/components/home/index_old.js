@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { FontAwesomeIcon, faRocket, faCheck, faBolt, faGithub, faBookOpen, IMG_FCL_ICON, QQIcon, IMG_APP, IMG_1, IMG_VERSION, IMG_MODLOADER, IMG_SHADER, IMG_DYNAMIC1, IMG_DYNAMIC2, IMG_DYNAMIC3, IMG_DYNAMIC4, IMG_JAVA, IMG_VIRTUALKEY, IMG_THEME, IMG_PLUGIN1, IMG_PLUGIN2, IMG_FCLGITHUB, IMG_QQ, GITHUB_URL, QQ_GROUP_URL } from './shared';
-import Link from '@docusaurus/Link';
+import { FontAwesomeIcon, faRocket, faCheck, faBolt, faGithub, faBookOpen, QQIcon, IMG_APP, IMG_1, IMG_VERSION, IMG_MODLOADER, IMG_SHADER, IMG_DYNAMIC1, IMG_DYNAMIC2, IMG_DYNAMIC3, IMG_DYNAMIC4, IMG_JAVA, IMG_VIRTUALKEY, IMG_THEME, IMG_PLUGIN1, IMG_PLUGIN2, IMG_FCLGITHUB, IMG_QQ, GITHUB_URL, QQ_GROUP_URL, Link } from './shared';
 import styles from './index_old.module.css';
 
 function FallbackHome() {

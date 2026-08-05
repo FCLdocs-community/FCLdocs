@@ -19,13 +19,13 @@
   justify-content: center;
 }
 
-/* --- 场景容器（绝对定位叠加，实现交叉淡入淡出） --- */
+/* --- 场景容器（切换时淡出/淡入 150ms） --- */
 .sceneContainer {
   position: absolute;
   inset: 0;
   display: flex;
   align-items: center;
-  transition: none;
+  transition: opacity 0.15s linear;
 }
 
 /* --- 滚动场景内部布局 --- */
@@ -61,14 +61,13 @@
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
 }
 
-/* --- 图片层（current/next 叠加） --- */
+/* --- 图片层（current/next 叠加，切换为瞬间硬切） --- */
 .sceneImageLayer {
   position: absolute;
   inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.1s linear, transform 0.1s linear;
 }
 
 .sceneImage {

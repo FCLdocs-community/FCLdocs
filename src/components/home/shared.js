@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRocket, faCheck, faBolt, faBookOpen } from '@fortawesome/free-solid-svg-icons';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import Link from '@docusaurus/Link';
-import sharedStyles from './shared.module.css';
 
 export { FontAwesomeIcon, faRocket, faCheck, faBolt, faBookOpen, faGithub, Link };
 

@@ -129,12 +129,12 @@
   transition: transform 0.4s ease, opacity 0.4s ease;
 }
 
-.fallbackStackedActive img {
+.fallbackStackedActive {
   opacity: 1;
   transform: translateY(0) scale(1);
 }
 
-.fallbackStackedInactive img {
+.fallbackStackedInactive {
   opacity: 0;
   transform: translateY(20px) scale(0.95);
 }

@@ -69,11 +69,8 @@ function useScrollProgress(spacerRef) {
 }
 
 /* =========================================================================
- *  场景过渡重叠量
- *  场景边界处前后场景同时渲染，实现交叉淡入淡出
+ *  场景过渡生命周期
  * ========================================================================= */
-const SCENE_OVERLAP = 0;
-
 function getSceneLifecycle(globalProgress, sceneStart, sceneEnd, isLastScene) {
   const sceneProgress = Math.min(Math.max((globalProgress - sceneStart) / (sceneEnd - sceneStart), 0), 1);
   const dwellProgress = Math.min(Math.max((sceneProgress - 0.12) / 0.76, 0), 1);
@@ -98,7 +95,7 @@ function getSceneLifecycle(globalProgress, sceneStart, sceneEnd, isLastScene) {
  * ========================================================================= */
 function getItemTransition(dwellProgress, itemCount) {
   if (itemCount <= 1) {
-    return { currentIndex: 0, nextIndex: 0, transitionRatio: 0 };
+    return { currentIndex: 0, nextIndex: 0 };
   }
 
   const itemSpan = 1 / itemCount;
@@ -106,17 +103,7 @@ function getItemTransition(dwellProgress, itemCount) {
   const currentIndex = Math.min(Math.floor(rawIndex), itemCount - 1);
   const nextIndex = Math.min(currentIndex + 1, itemCount - 1);
 
-  const transitionZone = 0.4;
-  const localProgress = (dwellProgress - currentIndex * itemSpan) / itemSpan;
-  const transitionRatio = localProgress > (1 - transitionZone)
-    ? (localProgress - (1 - transitionZone)) / transitionZone
-    : 0;
-
-  return {
-    currentIndex,
-    nextIndex,
-    transitionRatio: Math.min(Math.max(transitionRatio, 0), 1),
-  };
+  return { currentIndex, nextIndex };
 }
 
 /* =========================================================================
@@ -133,7 +120,7 @@ function ScrollScene({ title, items, progress, start, end, isLastScene, isFirstS
   const sceneOpacity = overrideOpacity !== undefined ? overrideOpacity : enterProgress * (1 - exitProgress);
   const sceneTranslateY = overrideOpacity !== undefined ? 0 : (1 - enterProgress) * 60 - exitProgress * 60;
 
-  const { currentIndex, nextIndex, transitionRatio } = getItemTransition(dwellProgress, items.length);
+  const { currentIndex, nextIndex } = getItemTransition(dwellProgress, items.length);
   const itemSpan = 1 / items.length;
 
   // 单步切换（入场锚点 + 位置追赶）：
@@ -195,6 +182,26 @@ function ScrollScene({ title, items, progress, start, end, isLastScene, isFirstS
       }
     };
 
+    // 中间区域追赶：位置严重超前时（差 ≥ 2），逐项追赶，不跳项
+    const runMiddleCatchUp = () => {
+      const { currentIndex: c } = itemStateRef.current;
+      if (c <= displayItemRef.current) {
+        catchUpTimerRef.current = null;
+        updateStatus();
+        return;
+      }
+      const to = displayItemRef.current + 1;
+      displayItemRef.current = to;
+      setDisplayItem(to);
+      setAnim({ phase: 0, to: 0 });
+      updateStatus();
+      if (c > to) {
+        catchUpTimerRef.current = setTimeout(runMiddleCatchUp, 200);
+      } else {
+        catchUpTimerRef.current = null;
+      }
+    };
+
     const advance = (to) => {
       lockRef.current = true;
       setAnim({ phase: 0, to });
@@ -247,9 +254,15 @@ function ScrollScene({ title, items, progress, start, end, isLastScene, isFirstS
 
     stopCatchUp();
 
+    // 位置超前 2 项以上：启动中间区域追赶（不等 dwell gate，逐项追赶）
+    if (cur - displayItemRef.current >= 2 && !lockRef.current && !catchUpTimerRef.current) {
+      runMiddleCatchUp();
+      return;
+    }
+
     // 位置超前且距上次前进足够远：前进一步（滑动一下 = 进入下一项）
     if (cur > displayItemRef.current && !lockRef.current
-        && dwell - lastAdvanceDwellRef.current >= itemSpan * 1.0) {
+        && dwell - lastAdvanceDwellRef.current >= itemSpan * 0.85) {
       lastAdvanceDwellRef.current = dwell;
       advance(Math.min(next, displayItemRef.current + 1));
     }
@@ -268,10 +281,6 @@ function ScrollScene({ title, items, progress, start, end, isLastScene, isFirstS
 
   const currentOpacity = anim.phase === 0 ? 1 : 0;
   const nextOpacity = anim.phase === 2 ? 1 : 0;
-  const currentScale = 1;
-  const currentTranslateX = 0;
-  const nextScale = 1;
-  const nextTranslateX = 0;
 
   // 文字高亮与图片动画同步：动画完成切到下一项时，文字也切到下一项
   const displayIndex = anim.phase === 2 ? anim.to : displayItem;
@@ -297,7 +306,7 @@ function ScrollScene({ title, items, progress, start, end, isLastScene, isFirstS
               className={styles.sceneImageLayer}
               style={{
                 opacity: currentOpacity,
-                transform: `scale(${currentScale}) translateX(${currentTranslateX}px)`,
+                transform: 'scale(1)',
                 zIndex: 2,
               }}
             >
@@ -324,7 +333,7 @@ function ScrollScene({ title, items, progress, start, end, isLastScene, isFirstS
                 className={styles.sceneImageLayer}
                 style={{
                   opacity: nextOpacity,
-                  transform: `scale(${nextScale}) translateX(${nextTranslateX}px)`,
+                  transform: 'scale(1)',
                   zIndex: 1,
                 }}
               >
@@ -632,6 +641,231 @@ const SCENES = [
 ];
 
 /* =========================================================================
+ *  Hook：滑动阻塞器（锁机制）
+ *  限制单次滚动手势最多跨越一个场景，防止大幅滑动直接跳到底部
+ *
+ *  核心机制：
+ *  1. gestureScene 记录手势开始时的场景
+ *  2. 允许在 [gestureScene-1, gestureScene+1] 范围内自由滚动
+ *  3. 到达边界时 preventDefault + 设锁，锁定期拦截所有事件
+ *  4. 滚动停止 150ms 后自动解锁，更新 gestureScene 为当前场景
+ *
+ *  与旧版差异：不再用 200ms 间隔判定新手势（长滑动会中途重置导致失效）
+ * ========================================================================= */
+function useScrollBlocker(spacerRef, scenes) {
+  const gestureSceneRef = useRef(-1);
+  const lockedRef = useRef(false);
+  const touchingRef = useRef(false);
+  const lastTouchYRef = useRef(0);
+  const clampingRef = useRef(false);
+  const unlockTimerRef = useRef(null);
+
+  useEffect(() => {
+    const el = spacerRef.current;
+    if (!el) return;
+
+    const MARGIN = 0.008; // 进度边界缓冲带
+
+    const getProgress = () => {
+      const rect = el.getBoundingClientRect();
+      const top = rect.top + (window.pageYOffset || document.documentElement.scrollTop);
+      const dist = rect.height - window.innerHeight;
+      if (dist <= 0) return 0;
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      return Math.min(Math.max((scrollTop - top) / dist, 0), 1);
+    };
+
+    const getScene = (p) => {
+      if (p < 0) return -1;
+      if (p >= 1) return scenes.length - 1;
+      for (let i = 0; i < scenes.length; i++) {
+        if (p >= scenes[i].start && p < scenes[i].end) return i;
+      }
+      return scenes.length - 1;
+    };
+
+    const progressToScrollY = (p) => {
+      const rect = el.getBoundingClientRect();
+      const top = rect.top + (window.pageYOffset || document.documentElement.scrollTop);
+      const dist = rect.height - window.innerHeight;
+      return top + p * dist;
+    };
+
+    const isInSection = () => {
+      const rect = el.getBoundingClientRect();
+      return rect.bottom > 0 && rect.top < window.innerHeight;
+    };
+
+    /** 锁定后，滚动停止 150ms 自动解锁 */
+    const scheduleUnlock = () => {
+      clearTimeout(unlockTimerRef.current);
+      unlockTimerRef.current = setTimeout(() => {
+        lockedRef.current = false;
+        if (isInSection()) {
+          gestureSceneRef.current = getScene(getProgress());
+        }
+      }, 150);
+    };
+
+    /** 检查是否到达允许边界，到达则设锁并返回 true */
+    const checkAndLock = (dir, p, gs) => {
+      if (dir > 0 && gs < scenes.length - 1) {
+        if (p >= scenes[gs + 1].end - MARGIN) {
+          lockedRef.current = true;
+          return true;
+        }
+      }
+      if (dir < 0 && gs > 0) {
+        if (p <= scenes[gs - 1].start + MARGIN) {
+          lockedRef.current = true;
+          return true;
+        }
+      }
+      return false;
+    };
+
+    // === Wheel ===
+    const onWheel = (e) => {
+      if (e.deltaY === 0 || !isInSection()) return;
+
+      // 锁定期：拦截所有 wheel 事件，并尝试钳回
+      if (lockedRef.current) {
+        e.preventDefault();
+        const gs = gestureSceneRef.current;
+        if (gs >= 0) {
+          const p = getProgress();
+          const dir = e.deltaY > 0 ? 1 : -1;
+          const maxP = gs < scenes.length - 1 ? scenes[gs + 1].end - MARGIN : 1;
+          const minP = gs > 0 ? scenes[gs - 1].start + MARGIN : 0;
+          if (dir > 0 && p > maxP) {
+            window.scrollTo(0, progressToScrollY(maxP));
+          } else if (dir < 0 && p < minP) {
+            window.scrollTo(0, progressToScrollY(minP));
+          }
+        }
+        scheduleUnlock();
+        return;
+      }
+
+      // 初始化手势场景（仅在未设定时）
+      if (gestureSceneRef.current < 0) {
+        gestureSceneRef.current = getScene(getProgress());
+      }
+      const gs = gestureSceneRef.current;
+      if (gs < 0) return;
+
+      const dir = e.deltaY > 0 ? 1 : -1;
+      const p = getProgress();
+
+      if (checkAndLock(dir, p, gs)) {
+        e.preventDefault();
+        scheduleUnlock();
+      }
+    };
+
+    // === Touch ===
+    const onTouchStart = (e) => {
+      if (!isInSection()) return;
+      touchingRef.current = true;
+      lastTouchYRef.current = e.touches[0].clientY;
+      // touch 开始时不重置 locked — 让上一次的 momentum 自然解锁
+    };
+
+    const onTouchMove = (e) => {
+      if (!touchingRef.current || !isInSection()) return;
+
+      // 锁定期：拦截
+      if (lockedRef.current) {
+        e.preventDefault();
+        scheduleUnlock();
+        return;
+      }
+
+      if (gestureSceneRef.current < 0) {
+        gestureSceneRef.current = getScene(getProgress());
+      }
+      const gs = gestureSceneRef.current;
+      if (gs < 0) return;
+
+      const y = e.touches[0].clientY;
+      const dir = lastTouchYRef.current > y ? 1 : -1;
+      lastTouchYRef.current = y;
+      const p = getProgress();
+
+      if (checkAndLock(dir, p, gs)) {
+        e.preventDefault();
+        scheduleUnlock();
+      }
+    };
+
+    const onTouchEnd = () => {
+      touchingRef.current = false;
+    };
+
+    // === Scroll：momentum 兜底 + 解锁调度 ===
+    const onScroll = () => {
+      if (clampingRef.current) return;
+
+      if (!isInSection()) {
+        // 离开区块时重置
+        gestureSceneRef.current = -1;
+        lockedRef.current = false;
+        clearTimeout(unlockTimerRef.current);
+        return;
+      }
+
+      // 锁定期：持续调度解锁
+      if (lockedRef.current) {
+        scheduleUnlock();
+        return;
+      }
+
+      // 初始化手势场景
+      if (gestureSceneRef.current < 0) {
+        gestureSceneRef.current = getScene(getProgress());
+        return;
+      }
+
+      // 兜底：momentum 导致越界时钳回
+      const gs = gestureSceneRef.current;
+      if (gs < 0) return;
+
+      const p = getProgress();
+      const cs = getScene(p);
+      if (cs < 0) return;
+
+      const maxScene = Math.min(gs + 1, scenes.length - 1);
+      const minScene = Math.max(gs - 1, 0);
+
+      if (cs > maxScene && gs < scenes.length - 1) {
+        clampingRef.current = true;
+        window.scrollTo(0, progressToScrollY(scenes[maxScene].end - 0.001));
+        requestAnimationFrame(() => { clampingRef.current = false; });
+      } else if (cs < minScene && gs > 0) {
+        clampingRef.current = true;
+        window.scrollTo(0, progressToScrollY(scenes[minScene].start));
+        requestAnimationFrame(() => { clampingRef.current = false; });
+      }
+    };
+
+    window.addEventListener('wheel', onWheel, { passive: false });
+    window.addEventListener('touchstart', onTouchStart, { passive: true });
+    window.addEventListener('touchmove', onTouchMove, { passive: false });
+    window.addEventListener('touchend', onTouchEnd, { passive: true });
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('wheel', onWheel);
+      window.removeEventListener('touchstart', onTouchStart);
+      window.removeEventListener('touchmove', onTouchMove);
+      window.removeEventListener('touchend', onTouchEnd);
+      window.removeEventListener('scroll', onScroll);
+      clearTimeout(unlockTimerRef.current);
+    };
+  }, [spacerRef, scenes]);
+}
+
+/* =========================================================================
  *  主页面：滚动驱动版
  *  场景切换：滚动越过场景边界时触发 300ms 时间动画（150ms 淡出 → 150ms 淡入），
  *  一次滚动即完成切换，不随滚动距离拉长
@@ -639,6 +873,7 @@ const SCENES = [
 function ScrollDrivenHome() {
   const scrollSpacerRef = useRef(null);
   const progress = useScrollProgress(scrollSpacerRef);
+  useScrollBlocker(scrollSpacerRef, SCENES);
 
   // 当前进度所属场景（唯一激活场景）
   const activeIndex = useMemo(() => {

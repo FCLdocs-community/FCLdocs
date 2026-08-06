@@ -25,10 +25,6 @@ function useScrollAnimationSupport() {
         const testEl = document.createElement('div');
         testEl.style.cssText = 'position:sticky;position:-webkit-sticky;';
         if (!testEl.style.position.includes('sticky')) ok = false;
-        // 4. IntersectionObserver 支持（用于精确滚动进度计算）
-        if (typeof IntersectionObserver === 'undefined') ok = false;
-        // 5. scrollTo 支持（用于平滑滚动）
-        if (typeof window.scrollTo !== 'function') ok = false;
       }
     } catch (e) {
       ok = false;

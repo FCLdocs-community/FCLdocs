@@ -69,11 +69,8 @@ function useScrollProgress(spacerRef) {
 }
 
 /* =========================================================================
- *  场景过渡重叠量
- *  场景边界处前后场景同时渲染，实现交叉淡入淡出
+ *  场景过渡生命周期
  * ========================================================================= */
-const SCENE_OVERLAP = 0;
-
 function getSceneLifecycle(globalProgress, sceneStart, sceneEnd, isLastScene) {
   const sceneProgress = Math.min(Math.max((globalProgress - sceneStart) / (sceneEnd - sceneStart), 0), 1);
   const dwellProgress = Math.min(Math.max((sceneProgress - 0.12) / 0.76, 0), 1);
@@ -98,7 +95,7 @@ function getSceneLifecycle(globalProgress, sceneStart, sceneEnd, isLastScene) {
  * ========================================================================= */
 function getItemTransition(dwellProgress, itemCount) {
   if (itemCount <= 1) {
-    return { currentIndex: 0, nextIndex: 0, transitionRatio: 0 };
+    return { currentIndex: 0, nextIndex: 0 };
   }
 
   const itemSpan = 1 / itemCount;
@@ -106,17 +103,7 @@ function getItemTransition(dwellProgress, itemCount) {
   const currentIndex = Math.min(Math.floor(rawIndex), itemCount - 1);
   const nextIndex = Math.min(currentIndex + 1, itemCount - 1);
 
-  const transitionZone = 0.4;
-  const localProgress = (dwellProgress - currentIndex * itemSpan) / itemSpan;
-  const transitionRatio = localProgress > (1 - transitionZone)
-    ? (localProgress - (1 - transitionZone)) / transitionZone
-    : 0;
-
-  return {
-    currentIndex,
-    nextIndex,
-    transitionRatio: Math.min(Math.max(transitionRatio, 0), 1),
-  };
+  return { currentIndex, nextIndex };
 }
 
 /* =========================================================================
@@ -133,7 +120,7 @@ function ScrollScene({ title, items, progress, start, end, isLastScene, isFirstS
   const sceneOpacity = overrideOpacity !== undefined ? overrideOpacity : enterProgress * (1 - exitProgress);
   const sceneTranslateY = overrideOpacity !== undefined ? 0 : (1 - enterProgress) * 60 - exitProgress * 60;
 
-  const { currentIndex, nextIndex, transitionRatio } = getItemTransition(dwellProgress, items.length);
+  const { currentIndex, nextIndex } = getItemTransition(dwellProgress, items.length);
   const itemSpan = 1 / items.length;
 
   // 单步切换（入场锚点 + 位置追赶）：
@@ -195,6 +182,26 @@ function ScrollScene({ title, items, progress, start, end, isLastScene, isFirstS
       }
     };
 
+    // 中间区域追赶：位置严重超前时（差 ≥ 2），逐项追赶，不跳项
+    const runMiddleCatchUp = () => {
+      const { currentIndex: c } = itemStateRef.current;
+      if (c <= displayItemRef.current) {
+        catchUpTimerRef.current = null;
+        updateStatus();
+        return;
+      }
+      const to = displayItemRef.current + 1;
+      displayItemRef.current = to;
+      setDisplayItem(to);
+      setAnim({ phase: 0, to: 0 });
+      updateStatus();
+      if (c > to) {
+        catchUpTimerRef.current = setTimeout(runMiddleCatchUp, 200);
+      } else {
+        catchUpTimerRef.current = null;
+      }
+    };
+
     const advance = (to) => {
       lockRef.current = true;
       setAnim({ phase: 0, to });
@@ -247,9 +254,15 @@ function ScrollScene({ title, items, progress, start, end, isLastScene, isFirstS
 
     stopCatchUp();
 
+    // 位置超前 2 项以上：启动中间区域追赶（不等 dwell gate，逐项追赶）
+    if (cur - displayItemRef.current >= 2 && !lockRef.current && !catchUpTimerRef.current) {
+      runMiddleCatchUp();
+      return;
+    }
+
     // 位置超前且距上次前进足够远：前进一步（滑动一下 = 进入下一项）
     if (cur > displayItemRef.current && !lockRef.current
-        && dwell - lastAdvanceDwellRef.current >= itemSpan * 1.0) {
+        && dwell - lastAdvanceDwellRef.current >= itemSpan * 0.85) {
       lastAdvanceDwellRef.current = dwell;
       advance(Math.min(next, displayItemRef.current + 1));
     }
@@ -268,10 +281,6 @@ function ScrollScene({ title, items, progress, start, end, isLastScene, isFirstS
 
   const currentOpacity = anim.phase === 0 ? 1 : 0;
   const nextOpacity = anim.phase === 2 ? 1 : 0;
-  const currentScale = 1;
-  const currentTranslateX = 0;
-  const nextScale = 1;
-  const nextTranslateX = 0;
 
   // 文字高亮与图片动画同步：动画完成切到下一项时，文字也切到下一项
   const displayIndex = anim.phase === 2 ? anim.to : displayItem;
@@ -297,7 +306,7 @@ function ScrollScene({ title, items, progress, start, end, isLastScene, isFirstS
               className={styles.sceneImageLayer}
               style={{
                 opacity: currentOpacity,
-                transform: `scale(${currentScale}) translateX(${currentTranslateX}px)`,
+                transform: 'scale(1)',
                 zIndex: 2,
               }}
             >
@@ -324,7 +333,7 @@ function ScrollScene({ title, items, progress, start, end, isLastScene, isFirstS
                 className={styles.sceneImageLayer}
                 style={{
                   opacity: nextOpacity,
-                  transform: `scale(${nextScale}) translateX(${nextTranslateX}px)`,
+                  transform: 'scale(1)',
                   zIndex: 1,
                 }}
               >

@@ -12,10 +12,12 @@ function FallbackHome() {
   };
 
   const handleDynamicClick = () => {
+    setActiveIndex(4);
     setDynamicIndex((prev) => (prev + 1) % 4);
   };
 
   const handlePluginClick = () => {
+    setActiveIndex(6);
     setPluginIndex((prev) => (prev + 1) % 2);
   };
 

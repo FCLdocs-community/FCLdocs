@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-开一个属于自己的服务器/认识服务器核心" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.10.2">
+<title data-rh="true">认识服务器核心 | FCL新手文档</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://fcldocs.top/docs/开一个属于自己的服务器/认识服务器核心"><meta data-rh="true" property="og:locale" content="zh_Hans"><meta data-rh="true" name="docusaurus_locale" content="zh-Hans"><meta data-rh="true" name="docsearch:language" content="zh-Hans"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="认识服务器核心 | FCL新手文档"><meta data-rh="true" name="description" content="讲清楚什么是服务器核心、主流核心（Vanilla、Spigot、Paper、Fabric、Forge 等）有什么区别，以及该如何选择。"><meta data-rh="true" property="og:description" content="讲清楚什么是服务器核心、主流核心（Vanilla、Spigot、Paper、Fabric、Forge 等）有什么区别，以及该如何选择。"><link data-rh="true" rel="icon" href="/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://fcldocs.top/docs/开一个属于自己的服务器/认识服务器核心"><link data-rh="true" rel="alternate" href="https://fcldocs.top/docs/开一个属于自己的服务器/认识服务器核心" hreflang="zh-Hans"><link data-rh="true" rel="alternate" href="https://fcldocs.top/docs/开一个属于自己的服务器/认识服务器核心" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"认识服务器核心","item":"https://fcldocs.top/docs/开一个属于自己的服务器/认识服务器核心"}]}</script><link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="FCL新手文档 RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="FCL新手文档 Atom Feed">
+
+
+
+
+
+
+
+<style>
+        #fcl-site-bg {
+          position: fixed; inset: 0; z-index: -1;
+          background:
+            linear-gradient(rgba(255,255,255,0.15), rgba(255,255,255,0.15)),
+            url('/img/bj/樱花-浅.png') center / cover no-repeat;
+        }
+        html[data-theme='dark'] #fcl-site-bg {
+          background:
+            linear-gradient(rgba(13,15,20,0.25), rgba(13,15,20,0.25)),
+            url('/img/bj/樱花-暗.png') center / cover no-repeat;
+        }
+
+        #fcl-loading-overlay {
+          position: fixed; inset: 0; z-index: 99999;
+          display: flex; flex-direction: column;
+          align-items: center; justify-content: center;
+          background: #0d0f14; color: #e8e8e8;
+          transition: opacity 0.35s ease;
+          will-change: opacity;
+        }
+        #fcl-loading-overlay[data-theme='light'] {
+          background: #ffffff; color: #1c1e21;
+        }
+        #fcl-loading-overlay.fcl-loading-hidden {
+          opacity: 0; pointer-events: none;
+        }
+        #fcl-loading-overlay .fcl-loading-spinner {
+          width: 42px; height: 42px; border-radius: 50%;
+          border: 3px solid rgba(128,128,128,0.3);
+          border-top-color: #25c2a0;
+          animation: fcl-loading-spin 0.8s linear infinite;
+        }
+        #fcl-loading-overlay .fcl-loading-text {
+          margin-top: 14px; font-size: 15px;
+          font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+          letter-spacing: 2px; opacity: 0.8;
+        }
+        @keyframes fcl-loading-spin { to { transform: rotate(360deg); } }
+      </style>
+<script>!function(){var e="dark";try{e=localStorage.getItem("theme")||"dark"}catch(e){}document.documentElement.setAttribute("data-theme",e);var t=document.createElement("div");if(t.id="fcl-site-bg",document.documentElement.appendChild(t),"/"===location.pathname){var d=document.createElement("div");d.id="fcl-loading-overlay",d.setAttribute("data-theme","light"===e?"light":"dark"),d.innerHTML='<div class="fcl-loading-spinner"></div><div class="fcl-loading-text">FCL 新手文档</div>',(document.body||document.documentElement).appendChild(d)}}()</script><link rel="stylesheet" href="/assets/css/styles.6186751f.css">
+<script src="/assets/js/runtime~main.1ba67c4e.js" defer="defer"></script>
+<script src="/assets/js/main.c36f606c.js" defer="defer"></script>
+</head>
+<body>
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||"dark"),document.documentElement.setAttribute("data-theme-choice",t||"dark")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><div role="region" aria-label="跳到主要内容"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">跳到主要内容</a></div><nav aria-label="主导航" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="切换导航栏" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/"><b class="navbar__title text--truncate">FCL 教程</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/docs/">FCL 教程文档</a><a class="navbar__item navbar__link" href="/FAQ/">FAQ 常见问题</a><a href="https://github.com/FCL-Team/FoldCraftLauncher" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">FCL 代码仓库</a><a href="https://foldcraftlauncher.cn" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">FCL 下载站(非官方)</a><a class="navbar__item navbar__link" href="/about">关于本站</a><a class="navbar__item navbar__link" href="/blog">更新内容</a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="切换浅色/暗黑模式（当前为system mode）"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"><div class="navbar__search searchBarContainer_NW3z" dir="ltr"><input placeholder="搜索" aria-label="Search" class="navbar__search-input searchInput_YFbd" value=""><div class="loadingRing_RJI3 searchBarLoadingRing_YnHq"><div></div><div></div><div></div><div></div></div></div></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="回到顶部" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="文档侧边栏" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/"><span class="linkLabel_WmDU">介绍</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/test"><span class="linkLabel_WmDU">文档创作示例</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/docs/手机小白必看/"><span class="categoryLinkLabel_W154">手机小白必看</span></a><button aria-label="展开侧边栏分类 &#x27;手机小白必看&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/docs/FCL 的下载与安装/"><span class="categoryLinkLabel_W154">FCL 的下载与安装</span></a><button aria-label="展开侧边栏分类 &#x27;FCL 的下载与安装&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/docs/FCL-基础教程/"><span class="categoryLinkLabel_W154">FCL 基础教程</span></a><button aria-label="展开侧边栏分类 &#x27;FCL 基础教程&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/docs/FCL-高阶教程/按键制作/"><span class="categoryLinkLabel_W154">FCL-高阶教程</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" href="/docs/开一个属于自己的服务器/认识服务器核心"><span class="categoryLinkLabel_W154">开一个属于自己的服务器</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/docs/开一个属于自己的服务器/认识服务器核心"><span class="linkLabel_WmDU">认识服务器核心</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/docs/开一个属于自己的服务器/开服操作/电脑Windows开服"><span class="categoryLinkLabel_W154">开服操作</span></a></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/开一个属于自己的服务器/笨蛋MC链接"><span class="linkLabel_WmDU">笨蛋MC链接</span></a></li></ul></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/end"><span class="linkLabel_WmDU">接下来做什么？</span></a></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="页面路径"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="主页面" class="breadcrumbs__link" href="/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">开一个属于自己的服务器</span></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">认识服务器核心</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">本页总览</button></div><div class="theme-doc-markdown markdown"><div class="theme-admonition theme-admonition-tip admonition_xJq3 alert alert--success"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></span>专有名词</div><div class="admonitionContent_BuS1"><p>本文涉及到的专有名词：<a href="https://baike.baidu.com/item/%E6%9C%8D%E5%8A%A1%E5%99%A8/100571" target="_blank" rel="noopener noreferrer" class="">服务器</a>、<a href="https://www.mineplugin.org/%E6%8F%92%E4%BB%B6" target="_blank" rel="noopener noreferrer" class="">插件</a>、<a class="" href="/docs/手机小白必看/什么是java">Java</a></p></div></div>
+<header><h1>认识服务器核心</h1></header>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="服务器核心是什么">服务器核心是什么？<a href="#服务器核心是 什么" class="hash-link" aria-label="服务器核心是什么？的直接链接" title="服务器核心是什么？的直接链接" translate="no">​</a></h2>
+<p><strong>服务器核心</strong>（Server Core）就是<strong>运行 Minecraft 服务器的程序</strong>。你下载一个 <code>.jar</code> 文件，用 Java 运行它，它就变成一个 Minecraft 服务器，其他人就能连进来一起玩。</p>
+<p>根据需求不同，常见核心主要分这几类：</p>
+<ul>
+<li class=""><strong>原版核心</strong>（Vanilla）：Mojang 官方出品，最干净，但不支持插件和 Mod。</li>
+<li class=""><strong>插件核心</strong>（Plugin Core）：通过插件扩展功能，客户端无需装任何东西。适合生存服、小游戏服等需要管理、保护的场景，是新手最推荐的选择。代表：Spigot、Paper、Purpur。</li>
+<li class=""><strong>模组核心</strong>（Mod Core）：必须客户端和服务端同时装 Mod，能大幅改变游戏内容（新维度、新生物、科技魔法等）。代表：Forge、NeoForge、Fabric。</li>
+<li class=""><strong>混合核心</strong>（Hybrid Core）：兼顾模组和插件，稳定性通常弱于纯插件核心。代表：Arclight、Mohist。</li>
+<li class=""><strong>代理端</strong>（Proxy）：连接多个子服务器（大厅、生存服、小游戏服等），本身不含世界，只负责分发玩家。代表：Velocity。</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="为什么有这么多服务器核心">为什么有这么多服务器核心？<a href="#为什么有这么多服务器核心" class="hash-link" aria-label="为什么有这么多服务器核心？的直接链接" title="为什么有这么多服务器核心？的直接链接" translate="no">​</a></h2>
+<p>因为 <strong>Mojang 官方提供的 Vanilla 核心优化较少</strong>，而且<strong>不支持插件和 Mod</strong>。</p>
+<p>打个比方：</p>
+<ul>
+<li class=""><strong>Vanilla</strong> 就像一台<strong>裸机电脑</strong>，装了系统但什么软件都没有。能用，但功能少。</li>
+<li class=""><strong>第三方核心</strong>（Paper、Fabric 等）就像<strong>装了优化工具和应用商店</strong>的电脑。功能更全、性能更好。</li>
+</ul>
+<p>社区开发者不满足于官方的简单版本，于是基于官方代码做了各种改进，形成了今天的&quot;服务器核心生态&quot;。</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="vanilla原版">Vanilla（原版）<a href="#vanilla原版" class="hash-link" aria-label="Vanilla（原版）的直接链接" title="Vanilla（原版）的直接链接" translate="no">​</a></h2>
+<p><strong>Vanilla</strong> 是 Mojang 官方发布的服务器核心，和客户端版本一一对应。</p>
+<p>特点：</p>
+<ul>
+<li class=""><strong>纯原版</strong>：没有任何修改，最&quot;干净&quot;。</li>
+<li class=""><strong>不支持插件</strong>：没有 Bukkit API，装不了插件。</li>
+<li class=""><strong>不支持 Mod</strong>：没有 Forge / Fabric，装不了模组。</li>
+<li class=""><strong>优化较少</strong>：没有额外的性能补丁，在玩家较多、红石复杂或区块加载量大时容易卡顿。2-3 人小服完全够用。</li>
+<li class=""><strong>适合人群</strong>：和朋友两三个人玩原版生存，不需要任何额外功能。</li>
+</ul>
+<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>备注</div><div class="admonitionContent_BuS1"><p>Vanilla 是 Mojang 官方出品，每个游戏版本都有对应的 Vanilla 核心。你可以从 <a href="https://www.minecraft.net/zh-hans/download/server" target="_blank" rel="noopener noreferrer" class="">Minecraft 官网</a> 下载。</p></div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="插件核心">插件核心<a href="#插件核心" class="hash-link" aria-label="插件核心的直接链接" title="插件核心的直接链接" translate="no">​</a></h2>
+<p>插件核心（又称 Bukkit 系核心）通过 <strong>Bukkit API</strong> 支持插件，服主可以用插件管理领地、经济、权限等。<strong>玩家客户端无需安装任何 Mod</strong>。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="spigot">Spigot<a href="#spigot" class="hash-link" aria-label="Spigot的直接链接" title="Spigot的直接链接" translate="no">​</a></h3>
+<p><strong>Spigot</strong> 是历史最悠久、使用最广泛的第三方核心之一。它在 Vanilla 基础上做了大量性能优化，并<strong>支持 Bukkit 插件</strong>。</p>
+<p>特点：</p>
+<ul>
+<li class=""><strong>性能优化</strong>：比 Vanilla 快很多，支持更多玩家同时在线。</li>
+<li class=""><strong>支持插件</strong>：兼容大部分 Bukkit / Spigot 插件。</li>
+<li class=""><strong>配置丰富</strong>：<code>spigot.yml</code>、<code>bukkit.yml</code> 等文件提供大量可调参数。</li>
+<li class=""><strong>生态成熟</strong>：市面上绝大多数插件都是为 Spigot 写的。</li>
+<li class=""><strong>适合人群</strong>：想开小型插件服务器的服主。</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="paper">Paper<a href="#paper" class="hash-link" aria-label="Paper的直接链接" title="Paper的直接链接" translate="no">​</a></h3>
+<p><strong>Paper</strong> 是 Spigot 的下游分支，在 Spigot 的基础上做了<strong>更  彻底的性能优化</strong>和<strong>更多 API</strong>。目前是<strong>最广泛使用的服务器核心</strong>。</p>
+<p>特点：</p>
+<ul>
+<li class=""><strong>极致性能</strong>：红石优化、区块加载优化、实体管理优化……各方面都比 Spigot 更快。</li>
+<li class=""><strong>向下兼容</strong>：99% 的 Spigot 插件都能在 Paper 上直接跑。</li>
+<li class=""><strong>更多 API</strong>：提供了 Paper 独有的 API，让插件能做更多事（比如更细粒度的方块交互控制）。</li>
+<li class=""><strong>修 Bug</strong>：主动修复了大量原版 Minecraft 的 Bug（如刷物品漏洞）。</li>
+<li class=""><strong>活跃维护</strong>：更新快，新版本紧跟 Minecraft 版本。</li>
+<li class=""><strong>适合人群</strong>：<strong>绝大多数服务器的首选</strong>。无论是小服还是百人大服。</li>
+</ul>
+<div class="theme-admonition theme-admonition-tip admonition_xJq3 alert alert--success"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></span>提示</div><div class="admonitionContent_BuS1"><p>如果你不确定选哪个核心，<strong>默认选 Paper</strong>。它是目前最平衡、生态最好的选择。</p></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="leaves">Leaves<a href="#leaves" class="hash-link" aria-label="Leaves的直接链接" title="Leaves的直接链接" translate="no">​</a></h3>
+<p><strong>Leaves</strong> 是 Paper 的下游分支，由国人团队 维护。它在 Paper 的基础上<strong>还原了部分被 Paper 移除的原版特性</strong>，并内置了<strong>假人（FakePlayer）支持</strong>及多种客户端 Mod 通讯协议。</p>
+<p>特点：</p>
+<ul>
+<li class=""><strong>还原原版特性</strong>：Paper 为了性能或修 Bug，会禁用一些原版机制（如某些刷怪机制、红石行为）。Leaves 通过配置项把它们加回来，给服主更多选择。</li>
+<li class=""><strong>假人支持</strong>：服务端原生支持假人（FakePlayer），用于挂机、区块加载、农作物生长等。</li>
+<li class=""><strong>协议支持</strong>：内置 Syncmatica、Litematica、Jade、XaeroMap 等客户端 Mod 的通讯协议，无需额外安装插件。</li>
+<li class=""><strong>兼容 Paper 插件</strong>：Paper 的插件都能在上面跑。</li>
+<li class=""><strong>适合人群</strong>：想要 Paper 性能，但希望保留更多原版机制的服主；有假人或原理图分享需求的服主。</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="leaf">Leaf<a href="#leaf" class="hash-link" aria-label="Leaf的直接链接" title="Leaf的直接链接" translate="no">​</a></h3>
+<p><strong>Leaf</strong>（Winds-Studio/Leaf）是另一个国人团队维护的 Paper 下游分支。和 Leaves <strong>名字相似但不是同一个项目</strong>——Leaf 的定位是<strong>集大成的高性能分支</strong>，融合了来自 Gale、Pufferfish、Purpur、Leaves、Luminol 等众多分支的优化补丁。</p>
+<p>特点：</p>
+<ul>
+<li class=""><strong>融合多分支优化</strong>：将多个 Paper 下游分支的优秀补丁整合到一个核心中，包括异步寻路、异步生物生成、异步实体追踪等。</li>
+<li class=""><strong>Purpur 级自定义</strong>：继承了 Purpur 的游戏特性配置。</li>
+<li class=""><strong>Mod 协议支持</strong>：同样内置客户端 Mod 通讯协议。</li>
+<li class=""><strong>线性区域文件格式</strong>：节省磁盘空间。</li>
+<li class=""><strong>兼容 Paper 插件</strong>：Paper 的插件都能在上面跑。</li>
+<li class=""><strong>适合人群</strong>：想要&quot;一个核心吃遍所有优化&quot;的服主，不想在不同分支间纠结取舍。</li>
+</ul>
+<table><thead><tr><th></th><th>Leaves（LeavesMC）</th><th>Leaf（Winds-Studio）</th></tr></thead><tbody><tr><td><strong>定位</strong></td><td>还原原版机制 + 假人 + 协议</td><td>集大成高性能（融合多分支补丁）</td></tr><tr><td><strong>性能取向</strong></td><td>侧重原版补完</td><td>侧重极致优化</td></tr><tr><td><strong>特色</strong></td><td>FakePlayer 假人、原版特性修复</td><td>Gale/Pufferfish/Purpur 等补丁合一</td></tr></tbody></table>
+<div class="theme-admonition theme-admonition-tip admonition_xJq3 alert alert--success"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></span>Paper 分支如何选择？</div><div class="admonitionContent_BuS1"><p>Paper → <strong>Pufferfish</strong>：追求极致性能（部分异步处理、实体优化、Sentry 集成），适合 50+ 人服务器。</p><p>Paper → <strong>Purpur</strong>：高度可定制，可改动物行为、游戏机制等，自由度极高。</p><p>Paper → <strong>Leaves</strong>（LeavesMC）：还原原版机制 + 假人支持 + 内置客户端 Mod 协议，侧重&quot;原版体验补完&quot;。</p><p>Paper → <strong>Leaf</strong>（Winds-Studio）：融合多分支（Gale/Pufferfish/Purpur/Leaves 等）的优化补丁，&quot;集大成&quot;性能向。</p><p>四者均为 Paper 的并行分支（Leaf 也融合了 Pufferfish/Purpur 的补丁），可按需选择。</p></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="pufferfish">Pufferfish<a href="#pufferfish" class="hash-link" aria-label="Pufferfish的直接链接" title="Pufferfish的直接链接" translate="no">​</a></h3>
+<p><strong>Pufferfish</strong> 是 Paper 的下游分支，专注于<strong>极致性能优化</strong>。适合 50+ 人中型服务器在保持插件兼容性的同时追求更高 TPS。</p>
+<p>特点：</p>
+<ul>
+<li class=""><strong>部分异步处理</strong>：将部分重负载工作卸载到其他线程，在不牺牲稳定性的前提下提升性能。</li>
+<li class=""><strong>实体性能优化</strong>：通过跳过无用的工作量来减少实体的性能开销。</li>
+<li class=""><strong>Sentry 集成</strong>：内置错误追踪，方便服主排查问题。</li>
+<li class=""><strong>地图渲染加速</strong>：最高 8 倍速，减少 ImageOnMap 等插件导致的卡顿。</li>
+<li class=""><strong>漏斗/GC/寻路优化</strong>：漏斗提速 30%、减少 GC 频率、光追寻路加速等。</li>
+<li class=""><strong>兼容 Paper 插件</strong>：Paper 的插件都能在上面跑。</li>
+<li class=""><strong>适合人群</strong>：想要 Paper 生态但需要更高性能的服主，尤其是 50 人以上的生存服。</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="purpur">Purpur<a href="#purpur" class="hash-link" aria-label="Purpur的直接链接" title="Purpur的直接链接" translate="no">​</a></h3>
+<p><strong>Purpur</strong> 是 Paper 的下游分支，在 Paper 的基础上增加了<strong>大量可自定义的游戏特性</strong>，并融合了多个分支的优化补丁。你能通过配置文件改动物行为、游戏机制等，自由度极高。</p>
+<p>特点：</p>
+<ul>
+<li class=""><strong>高度可定制</strong>：可以改动物刷新、骑乘、方块掉落……几乎一切都能调。</li>
+<li class=""><strong>高度可定制</strong>：可以改动物刷新、骑乘、方块掉落……几乎一切都能调。</li>
+<li class=""><strong>兼容 Paper 插件</strong>：Paper 的插件都能在上面跑。</li>
+<li class=""><strong>适合人群</strong>：想要极致控制服务器各项机制的服主。</li>
+</ul>
+<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>核心关系图</div><div class="admonitionContent_BuS1"><div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">Vanilla → Spigot → Paper → Pufferfish（极致性能）</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">                         → Purpur（高度可定制）</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">                         → Leaves（原版还原、假人、协议）</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">                         → Leaf（集大成，融合多分支优化）</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">                         ↘ Folia（多线程实验分支）→ Luminol（Folia 生态分支）</span><br></div></code></pre></div></div></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="folia">Folia<a href="#folia" class="hash-link" aria-label="Folia的直接链接" title="Folia的直接链接" translate="no">​</a></h3>
+<p><strong>Folia</strong> 是 Paper 团队开发的<strong>实验性核心</strong>，最大的特点是<strong>多线程支持</strong>——能把多个区块交给不同 CPU 核心同时处理。</p>
+<p>打个比方：Paper 是<strong>单车道</strong>，所有车（区块）排队通过一个收费站。<strong>Folia 是多车道</strong>，每辆车走不同的收费口，同时处理，速度快很多。</p>
+<p>特点：</p>
+<ul>
+<li class=""><strong>多线程区块处理</strong>：不同区块在不同线程上独立运算，充分利用多核 CPU。</li>
+<li class=""><strong>性能飞跃</strong>：在大型服务器上，TPS 表现远超 Paper。</li>
+<li class=""><strong>插件兼容性差</strong>：大部分现有插件不兼容 Folia，因为多线程模型要求插件重写。</li>
+<li class=""><strong>不成熟</strong>：仍在开发中，可能会遇到 Bug。</li>
+<li class=""><strong>适合人群</strong>：<strong>不推荐新手使用</strong>。适合有开发经验、愿意尝鲜的大型服务器。</li>
+</ul>
+<p>Folia 还有一些社区分支，如 <strong>Luminol</strong>（由 LuminolMC 团队维护），在 Folia 基础上增加了更多功能和优化。如果你关注 Folia 生态，Luminol 值得了解。</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="模组核心">模组核心<a href="#模组核心" class="hash-link" aria-label="模组核心的直接链接" title="模组核心的直接链接" translate="no">​</a></h2>
+<p>模组核心在服务端加载 Mod（模组），<strong>玩家客户端也必须装相同 的 Mod</strong> 才能进入。Mod 可以添加新维度、新生物、科技系统、魔法系统等，大幅改变游戏内容。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="forge">Forge<a href="#forge" class="hash-link" aria-label="Forge的直接链接" title="Forge的直接链接" translate="no">​</a></h3>
+<p><strong>Forge</strong> 是最老牌的 <strong>Mod 服务端核心</strong>，拥有最庞大的模组生态。</p>
+<p>特点：</p>
+<ul>
+<li class=""><strong>支持 Mod</strong>：可以装各种 Forge 模组（工业、魔法、科技……）。</li>
+<li class=""><strong>不支持插件</strong>：原生不支持 Bukkit 插件。</li>
+<li class=""><strong>版本覆盖广</strong>：从远古的 1.7.10 到最新的 Minecraft 版本都有 Forge。</li>
+<li class=""><strong>生态庞大</strong>：有数以万计的模组。</li>
+<li class=""><strong>性能一般</strong>：模组多了会很卡，需要加优化模组。</li>
+<li class=""><strong>适合人群</strong>：想开模组服务器的服主。</li>
+</ul>
+<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>备注</div><div class="admonitionContent_BuS1"><p>从 1.20.1 版本起，越来越多的模组开发者转向 <strong>NeoForge</strong>（Forge 的社区驱动分支）。Forge 本身仍在活跃更新并支持最新 Minecraft 版本，两者 并行发展。如果你开新版模组服，NeoForge 正逐渐成为首选。</p></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="neoforge">NeoForge<a href="#neoforge" class="hash-link" aria-label="NeoForge的直接链接" title="NeoForge的直接链接" translate="no">​</a></h3>
+<p><strong>NeoForge</strong> 是从 Forge 分叉出来的新项目，由社区驱动、决策更透明。从 Minecraft 1.20.1 起，新建模组项目中 NeoForge 的使用比例持续增长。</p>
+<p>特点：</p>
+<ul>
+<li class=""><strong>社区驱动</strong>：由社区维护，决策更透明。</li>
+<li class=""><strong>模组生态</strong>：逐渐成为新版模组（1.20.1+）的热门选择。</li>
+<li class=""><strong>适合人群</strong>：想在较新 Minecraft 版本上开大型模组服的服主。</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="fabric">Fabric<a href="#fabric" class="hash-link" aria-label="Fabric的直接链接" title="Fabric的直接链接" translate="no">​</a></h3>
+<p><strong>Fabric</strong> 是新一代轻量级 Mod 加载器，和 Forge 是竞争关系。Fabric 更轻量、更新更快。</p>
+<p>特点：</p>
+<ul>
+<li class=""><strong>支持 Mod</strong>：可以装 Fabric 模组。</li>
+<li class=""><strong>轻量</strong>：本身占用资源少，启动快。</li>
+<li class=""><strong>更新快</strong>：新 Minecraft 版本发布后，Fabric 往往几天内就支持。</li>
+<li class=""><strong>不支持插件</strong>：原生不支持 Bukkit 插件。</li>
+<li class=""><strong>生态</strong>：模组数量不如 Forge 多，但涵盖主流需求（优化、小地图等）。</li>
+<li class=""><strong>适合人群</strong>：想开轻量级模组服、或用 Fabric 优化模组（如 Sodium、Lithium）提升性能的服主。</li>
+</ul>
+<p>Fabric 还有一个社区分支 <strong>Quilt</strong>，兼容 Fabric 模组，目前生态较小，新手直接用 Fabric 即可。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="兼容层">兼容层<a href="#兼容层" class="hash-link" aria-label="兼容层的直接链接" title="兼容层的直接链接" translate="no">​</a></h3>
+<p><strong>兼容层</strong>让一个平台的 Mod 能在另一个平台上运行，省去等待模组作者移植的时间。但兼容层本质是翻译，会有性能和稳定性损耗。</p>
+<p><strong>Sinytra Connector</strong>：让 Fabric Mod 在 NeoForge 上运行，有官方兼容性数据库标注哪些 Mod 可正常使用。</p>
+<p><strong>Kilt</strong>：让 (Neo)Forge Mod 在 Fabric 上运行。<strong>极不稳定，官方自称&quot;可能损坏世界或导致崩溃&quot;，不推荐生产环境使用</strong>。</p>
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>注意</div><div class="admonitionContent_BuS1"><p>兼容层不是完美的。部分 Mod 在兼容层下可能崩溃、功能异常或性能下降。开服前务必测试。</p></div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="混合核心">混合核心<a href="#混合核心" class="hash-link" aria-label="混合核心的直接链接" title="混合核心的直接链接" translate="no">​</a></h2>
+<p>有些服务器核心尝试<strong>同时支持插件（Bukkit API）和 Mod（Forge/Fabric API）</strong>，满足&quot;既要装插件，也要装 Mod&quot;的需求。这类核心叫<strong>混合核心</strong>（Hybrid Core）。</p>
+<p>常见的混合核心：</p>
+<table><thead><tr><th>核心</th><th>基座</th><th>支持的插件 API</th><th>支持的 Mod API</th><th>备注</th></tr></thead><tbody><tr><td><strong>Arclight</strong></td><td>Forge/Fabric/NeoForge + Bukkit</td><td>Bukkit</td><td>Forge/Fabric/NeoForge</td><td>社区活跃，支持多模组平台，更新较快</td></tr><tr><td><strong>Mohist</strong></td><td>Forge + Paper</td><td>Bukkit</td><td>Forge</td><td>见下方警告</td></tr><tr><td><strong>Youer</strong></td><td>NeoForge + Spigot</td><td>Bukkit</td><td>NeoForge</td><td>Mohist 继任者，仅支持 1.21.1</td></tr><tr><td><strong>CatServer</strong></td><td>Forge + Spigot</td><td>Bukkit</td><td>Forge</td><td>国人项目，1.12.2/1.16.5 稳定，另支持 1.18.2，无 1.20+</td></tr><tr><td><strong>Magma</strong></td><td>Forge + Paper</td><td>Bukkit</td><td>Forge</td><td>较早期的混合核心，更新不活跃</td></tr><tr><td><strong>Taiyitist</strong></td><td>Fabric + Paper</td><td>Bukkit</td><td>Fabric</td><td>原名 Banner，已从 Mohist 独立，仍在早期开发</td></tr></tbody></table>
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>Mohist 注意</div><div class="admonitionContent_BuS1"><p>Mohist 项目已被出售并转移至 <strong>Tenet</strong>（Teneted/Tenet），原 MohistMC 团队已不再维护。Tenet 目前维护 1.20.1 版本，但未来走向不明朗。如果你在 1.21.1 版本需要类似功能，MohistMC 原团队推出了 <strong>Youer</strong>（NeoForge 混合核心），或可选择 <strong>Arclight</strong>。</p></div></div>
+<p><strong>混合核心共同特点：</strong></p>
+<ul>
+<li class=""><strong>一箭双雕</strong>：能装插件也能装 Mod。</li>
+<li class=""><strong>不完美</strong>：Bukkit 和 Forge/Fabric 两个体系底层架构差异大，对接通过代码映射（remap  ）实现，技术难度高、维护成本大，兼容性和稳定性难以保证。</li>
+<li class=""><strong>不推荐新手</strong>：出了问题很难排查。</li>
+<li class=""><strong>适合人群</strong>：有经验的服主，有明确的需求（如既要领地插件又要科技模组）。</li>
+</ul>
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>注意</div><div class="admonitionContent_BuS1"><p>混合核心因底层架构差异大，往往<strong>不够稳定</strong>。遇到崩溃时，开发者通常会让你先排查自身问题。新手如果没有刚需，尽量别碰。</p></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="sponge">Sponge<a href="#sponge" class="hash-link" aria-label="Sponge的直接链接" title="Sponge的直接链接" translate="no">​</a></h3>
+<p><strong>Sponge</strong> 是另一种 Mod+插件解决方案，但它走的是完全不同的路线——<strong>不用 Bukkit API</strong>，而是提供自己的 <strong>Sponge API</strong>。它不是一个混合核心，而是一个<strong>运行在 Forge/NeoForge/原版之上的独立插件平台</strong>。</p>
+<p>特点：</p>
+<ul>
+<li class=""><strong>独立插件 API</strong>：不是 Bukkit 兼容，生态独立，插件需要通过 <a href="https://ore.spongepowered.org/" target="_blank" rel="noopener noreferrer" class="">Ore</a> 下载。</li>
+<li class=""><strong>三种形态</strong>：SpongeForge（跑在 Forge 上）、SpongeNeo（跑在 NeoForge 上）、SpongeVanilla（跑在原版上）。</li>
+<li class=""><strong>稳定性优于混合核心</strong>：因为是官方 支持的集成方式，不像混合核心那样靠 remap 强行桥接。</li>
+<li class=""><strong>需为 Sponge 专门编写插件</strong>：运行的插件必须基于 Sponge API 开发或适配，不能直接使用 Bukkit 插件。</li>
+<li class=""><strong>适合人群</strong>：需要 Mod+插件的服主，且愿意接受 Sponge 的小众插件生态。</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="cardboardfabric-版-bukkit-兼容">Cardboard（Fabric 版 Bukkit 兼容）<a href="#cardboardfabric-版-bukkit-兼容" class="hash-link" aria-label="Cardboard（Fabric 版 Bukkit 兼容）的直接链接" title="Cardboard（Fabric 版 Bukkit 兼容）的直接链接" translate="no">​</a></h3>
+<p><strong>Cardboard</strong> 是一个运行在 Fabric 服务器上的 Mod，让 Fabric 服务器能加载 Bukkit 插件。</p>
+<ul>
+<li class="">原名 <strong>Bukkit4Fabric</strong>。</li>
+<li class=""><strong>插件兼容性极差</strong>，即使是简单插件也大概率无法正常运行。不推荐任何生产环境使用。</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="代理端proxy">代理端（Proxy）<a href="#代理端proxy" class="hash-link" aria-label="代理端（Proxy）的直接链接" title="代理端（Proxy）的直接链接" translate="no">​</a></h2>
+<p><strong>代理端</strong>不是一个完整的服务器核心，它是一个<strong>转发器</strong>——能把不同服务器连接到一个网络里，让玩家可以在多个服务器之间传送。</p>
+<p>常见的代理端：</p>
+<table><thead><tr><th>核心</th><th>特点</th></tr></thead><tbody><tr><td><strong>BungeeCord</strong></td><td>最早的代理端，但更新已非常缓慢。</td></tr><tr><td><strong>Waterfall</strong></td><td>Paper 团队维护的 BungeeCord 分支，<strong>已停止维护（EOL）</strong>，不推荐新服使用。</td></tr><tr><td><strong><a href="https://velocitypowered.com/" target="_blank" rel="noopener noreferrer" class="">Velocity</a></strong></td><td>新一代 代理端，Paper 团队出品，性能最强、最稳定。⭐ 当前推荐</td></tr></tbody></table>
+<p>特点：</p>
+<ul>
+<li class=""><strong>连接多个子服</strong>：大厅、生存服、小游戏服、创意服可以分开。</li>
+<li class=""><strong>跨服传送</strong>：玩家通过传送门或命令在不同子服间切换。</li>
+<li class=""><strong>不运行游戏逻辑</strong>：代理端不加载世界、不处理生物 AI，只负责转发数据。</li>
+<li class=""><strong>适合人群</strong>：需要开多个子服的服主（如群组服、小游戏服）。</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="核心对比总览">核心对比总览<a href="#核心对比总览" class="hash-link" aria-label="核心对比总览的直接链接" title="核心对比总览的直接链接" translate="no">​</a></h2>
+<table><thead><tr><th>核心</th><th>类型</th><th>支持插件</th><th>支持 Mod</th><th>性能</th><th>稳定性</th><th>推荐新手？</th></tr></thead><tbody><tr><td>Vanilla</td><td>原版</td><td>❌</td><td>❌</td><td>中（小服够用）</td><td>高</td><td>✅（小服）</td></tr><tr><td>Spigot</td><td>插件</td><td>✅</td><td>❌</td><td>中</td><td>高</td><td>✅</td></tr><tr><td>Paper</td><td>插件</td><td>✅</td><td>❌</td><td>高</td><td>高</td><td>✅✅（首选）</td></tr><tr><td>Pufferfish</td><td>插件</td><td>✅</td><td>❌</td><td>高+</td><td>高</td><td>✅</td></tr><tr><td>Leaves</td><td>插件</td><td>✅</td><td>❌</td><td>高</td><td>高</td><td>✅</td></tr><tr><td>Leaf</td><td>插件</td><td>✅</td><td>❌</td><td>高+</td><td>高</td><td>✅</td></tr><tr><td>Purpur</td><td>插件</td><td>✅</td><td>❌</td><td>高+</td><td>高</td><td>✅</td></tr><tr><td>Folia</td><td>插件</td><td>✅⚠</td><td>❌</td><td>极高</td><td>中</td><td>❌</td></tr><tr><td>Forge</td><td>模组</td><td>❌</td><td>✅</td><td>中</td><td>中</td><td>✅（模组服）</td></tr><tr><td>NeoForge</td><td>模组</td><td>❌</td><td>✅</td><td>中</td><td>中</td><td>✅（新版模组）</td></tr><tr><td>Fabric</td><td>模组</td><td>❌</td><td>✅</td><td>高</td><td>高</td><td>✅（轻量模组）</td></tr><tr><td>Sponge</td><td>独立</td><td>✅（自有 API）</td><td>✅</td><td>中</td><td>高</td><td>按需</td></tr><tr><td>混合核心</td><td>混合</td><td>✅</td><td>✅</td><td>中</td><td>低</td><td>❌</td></tr><tr><td>代理端</td><td>代理</td><td>N/A</td><td>N/A</td><td>N/A</td><td>高</td><td>按需</td></tr></tbody></table>
+<blockquote>
+<p>✅⚠ = 支持插件，但大部分需要适配重写，真正能用得很少。</p>
+</blockquote>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="我该选哪个">我该选哪个？<a href="#我该选哪个" class="hash-link" aria-label="我该选哪个？的直接链接" title="我该选哪个？的直接链接" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="如果你是第一次开服">如果你是第一次开服<a href="#如果你是第一次开服" class="hash-link" aria-label="如果你是第一次开服的直接链接" title="如果你是第一次开服的直接链接" translate="no">​</a></h3>
+<p><strong>选 Paper</strong>。它性能好、插件多、社区大，遇到问题容易找到答案。</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">Vanilla     → 人少随便玩</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">Spigot      → 小服，需要基础插件</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">Paper       → 绝大多数场景 ⭐ 推荐</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">Pufferfish  → Paper 之上追求极致性能（50+ 人服）</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">Purpur      → 想极致调教服务器参数</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">Leaves      → Paper 基础上还想要原版特性/假人支持（LeavesMC）</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">Leaf        → 集大成高性能分支，融合多项目优化（Winds-Studio）</span><br></div></code></pre></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="如果你想开模组服">如果你想开模组服<a href="#如果你想开模组服" class="hash-link" aria-label="如果你想开模组服的直接链接" title="如果你想开模组服的直接链接" translate="no">​</a></h3>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">Forge    → 经典大型模组（新老版本均支持，仍在活跃更新）</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">NeoForge → 1.20.1+ 新版本模组服，社区驱动 ⭐ 上升趋势</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">Fabric   → 轻量优化模组，新版本更新快</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">Quilt    → 兼容 Fabric，生态小，新手直接用 Fabric 即可</span><br></div></code></pre></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="如果你想插件--mod都要">如果你想&quot;插件 + Mod&quot;都要<a href="#如果你想插件--mod都要" class="hash-link" aria-label="如果你想&quot;插件 + Mod&quot;都要的直接链接" title="如果你想&quot;插件 + Mod&quot;都要的直接链接" translate="no">​</a></h3>
+<p><strong>不建议新手尝试</strong>。如果确有需求：</p>
+<ol>
+<li class=""><strong>首选 Sponge</strong>：更稳定但插件生态小。</li>
+<li class=""><strong>次选混合核心</strong>：兼容性、稳定性均不如 Sponge。</li>
+<li class=""><strong>避免兼容层</strong>：Sinytra Connector / Kilt 仍不成熟。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="如果你想开多子服群组服">如果你想开多子服（群组服）<a href="#如果你想开多子服群组服" class="hash-link" aria-label="如果你想开多子服（群组服）的直接链接" title="如果你想开多子服（群组服）的直接链接" translate="no">​</a></h3>
+<p>主服务端用 <strong>Paper</strong> 开多个子服（生存服、小游戏服、大厅……），加一个 <strong>Velocity</strong> 做代理端。</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">Velocity（代理） → 大厅子服（Paper）</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">                → 生存子服（Paper）</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">                → 小游戏子服（Paper）</span><br></div></code></pre></div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="关键概念tps-和-mspt">关键概念：TPS 和 MSPT<a href="#关键概念tps-和-mspt" class="hash-link" aria-label="关键概念：TPS 和 MSPT的直接链接" title="关键 概念：TPS 和 MSPT的直接链接" translate="no">​</a></h2>
+<p>在看不同核心的性能时，你经常会在文档中看到 <strong>TPS</strong> 和 <strong>MSPT</strong> 这两个词：</p>
+<table><thead><tr><th>概念</th><th>全称</th><th>含义</th></tr></thead><tbody><tr><td><strong>TPS</strong></td><td>Ticks Per Second</td><td>每秒处理的游戏刻数，理想值是 <strong>20</strong>。</td></tr><tr><td><strong>MSPT</strong></td><td>Milliseconds Per Tick</td><td>处理一个游戏刻所用的毫秒数，越低越好。</td></tr></tbody></table>
+<div class="theme-admonition theme-admonition-tip admonition_xJq3 alert alert--success"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></span>提示</div><div class="admonitionContent_BuS1"><p>在服务器内输入命令 <code>/tps</code> 即可查看当前 TPS。Paper 及其下游核心（Leaves、Purpur 等）均支持此命令。</p></div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="版本必须匹配">版本必须匹配<a href="#版本必须匹配" class="hash-link" aria-label="版本必须匹配的直接链接" title="版本必须匹配的直接链接" translate="no">​</a></h2>
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>版本必须匹配</div><div class="admonitionContent_BuS1"><p>服务器核心的版本号默认需要和玩家客户端的 Minecraft 版本一致。例如：Paper 1.21 只能让 Minecraft 1.21 客户端进入。</p><p>如果你的朋友版本不同，可以用 <strong>ViaVersion</strong> + <strong>ViaBackwards</strong> 等跨版本插件让低版本/高版本客户端也能进入。但跨版本插件会略微影响性能和兼容性，稳定性不如同版本直连。</p></div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="如何获取核心">如何获取核心<a href="#如何获取核心" class="hash-link" aria-label="如何获取核心的直接链接" title="如何获取核心的直接链接" translate="no">​</a></h2>
+<p>各主流核心的官方下载地址——<strong>务必从官方网站下载，避免第三方来源的捆绑或篡改风险</strong>：</p>
+<table><thead><tr><th>核心</th><th>下载地址</th></tr></thead><tbody><tr><td><strong>Vanilla</strong></td><td><a href="https://www.minecraft.net/zh-hans/download/server" target="_blank" rel="noopener noreferrer" class="">minecraft.net</a></td></tr><tr><td><strong>Spigot</strong></td><td><a href="https://getbukkit.org/download/spigot" target="_blank" rel="noopener noreferrer" class="">getbukkit.org</a></td></tr><tr><td><strong>Paper</strong></td><td><a href="https://papermc.io/downloads/paper" target="_blank" rel="noopener noreferrer" class="">papermc.io</a></td></tr><tr><td><strong>Pufferfish</strong></td><td><a href="https://pufferfish.host/downloads" target="_blank" rel="noopener noreferrer" class="">pufferfish.host</a></td></tr><tr><td><strong>Leaves</strong></td><td><a href="https://leavesmc.org" target="_blank" rel="noopener noreferrer" class="">leavesmc.org</a> / <a href="https://github.com/LeavesMC/Leaves" target="_blank" rel="noopener noreferrer" class="">GitHub</a></td></tr><tr><td><strong>Leaf</strong></td><td><a href="https://www.leafmc.one/download" target="_blank" rel="noopener noreferrer" class="">leafmc.one</a> / <a href="https://github.com/Winds-Studio/Leaf" target="_blank" rel="noopener noreferrer" class="">GitHub</a></td></tr><tr><td><strong>Purpur</strong></td><td><a href="https://purpurmc.org/downloads" target="_blank" rel="noopener noreferrer" class="">purpurmc.org</a></td></tr><tr><td><strong>Folia</strong></td><td><a href="https://papermc.io/downloads/folia" target="_blank" rel="noopener noreferrer" class="">papermc.io</a></td></tr><tr><td><strong>Forge</strong></td><td><a href="https://files.minecraftforge.net/" target="_blank" rel="noopener noreferrer" class="">files.minecraftforge.net</a></td></tr><tr><td><strong>NeoForge</strong></td><td><a href="https://neoforged.net/" target="_blank" rel="noopener noreferrer" class="">neoforged.net</a></td></tr><tr><td><strong>Fabric</strong></td><td><a href="https://fabricmc.net/use/server/" target="_blank" rel="noopener noreferrer" class="">fabricmc.net</a></td></tr><tr><td><strong>Sponge</strong></td><td><a href="https://spongepowered.org/downloads" target="_blank" rel="noopener noreferrer" class="">spongepowered.org</a></td></tr><tr><td><strong>Velocity</strong></td><td><a href="https://papermc.io/downloads/velocity" target="_blank" rel="noopener noreferrer" class="">papermc.io</a></td></tr></tbody></table></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/FCLdocs-community/FCLdocs/edit/main/docs/开一个属于自己的服务器/1.认识服务器核心.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>编辑此页</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="文件选项卡"><a class="pagination-nav__link pagination-nav__link--prev" href="/docs/FCL-高阶教程/其它联机途径/公网地址连接"><div class="pagination-nav__sublabel">上一页</div><div class="pagination-nav__label">公网地址连接</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/docs/开一个属于自己的服务器/开服操作/电脑Windows开服"><div class="pagination-nav__sublabel">下一页</div><div class="pagination-nav__label">电脑Windows开服</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#服务器核心是什么" class="table-of-contents__link toc-highlight">服务器核心是什么？</a></li><li><a href="#为什么有这么多服务器核心" class="table-of-contents__link toc-highlight">为什么有这么多服务器核心？</a></li><li><a href="#vanilla原版" class="table-of-contents__link toc-highlight">Vanilla（原版）</a></li><li><a href="#插件核心" class="table-of-contents__link toc-highlight">插件核心</a><ul><li><a href="#spigot" class="table-of-contents__link toc-highlight">Spigot</a></li><li><a href="#paper" class="table-of-contents__link toc-highlight">Paper</a></li><li><a href="#leaves" class="table-of-contents__link toc-highlight">Leaves</a></li><li><a href="#leaf" class="table-of-contents__link toc-highlight">Leaf</a></li><li><a href="#pufferfish" class="table-of-contents__link toc-highlight">Pufferfish</a></li><li><a href="#purpur" class="table-of-contents__link toc-highlight">Purpur</a></li><li><a href="#folia" class="table-of-contents__link toc-highlight">Folia</a></li></ul></li><li><a href="#模组核心" class="table-of-contents__link toc-highlight">模组核心</a><ul><li><a href="#forge" class="table-of-contents__link toc-highlight">Forge</a></li><li><a href="#neoforge" class="table-of-contents__link toc-highlight">NeoForge</a></li><li><a href="#fabric" class="table-of-contents__link toc-highlight">Fabric</a></li><li><a href="#兼容层" class="table-of-contents__link toc-highlight">兼容层</a></li></ul></li><li><a href="#混合核心" class="table-of-contents__link toc-highlight">混合核心</a><ul><li><a href="#sponge" class="table-of-contents__link toc-highlight">Sponge</a></li><li><a href="#cardboardfabric-版-bukkit-兼容" class="table-of-contents__link toc-highlight">Cardboard（Fabric 版 Bukkit 兼容）</a></li></ul></li><li><a href="#代理端proxy" class="table-of-contents__link toc-highlight">代理端（Proxy）</a></li><li><a href="#核心对比总览" class="table-of-contents__link toc-highlight">核心对比总览</a></li><li><a href="#我该选哪个" class="table-of-contents__link toc-highlight">我该选哪个？</a><ul><li><a href="#如果你是第一次开服" class="table-of-contents__link toc-highlight">如果你是第一次开服</a></li><li><a href="#如果你想开模组服" class="table-of-contents__link toc-highlight">如果你想开模组服</a></li><li><a href="#如果你想插件--mod都要" class="table-of-contents__link toc-highlight">如果你想&quot;插件 + Mod&quot;都要</a></li><li><a href="#如果你想开多子服群组服" class="table-of-contents__link toc-highlight">如果你想开多子服（群组服）</a></li></ul></li><li><a href="#关键概念tps-和-mspt" class="table-of-contents__link toc-highlight">关键概念：TPS 和 MSPT</a></li><li><a href="#版本必须匹配" class="table-of-contents__link toc-highlight">版本必须匹配</a></li><li><a href="#如何获取核心" class="table-of-contents__link toc-highlight">如何获取核心</a></li></ul></div></div></div></div></main></div></div></div></div>
+</body>
+</html>

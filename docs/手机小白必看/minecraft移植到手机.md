@@ -14,7 +14,7 @@ description: 用大白话讲清楚 PojavLauncher 等启动器是怎么把电脑�
 
 **直接跑：不能**。原因：
 
-1. **Minecraft Java 版需要 Java 虚拟机（JVM）**，手机系统没有自带这个环境。
+1. **Minecraft Java 版需要 Java 虚拟机（JVM）**，手机系统没有自带这个环境（安卓的ART是高度修改的jvm，没法用）。
 2. **Minecraft Java 版用电脑图形接口**（OpenGL），手机用的是 OpenGL ES / Vulkan，两者不一样。
 3. **Minecraft Java 版的运行库是给电脑芯片（x86）编译的**，手机是 ARM 芯片，CPU 根本看不懂。
 
@@ -29,7 +29,7 @@ description: 用大白话讲清楚 PojavLauncher 等启动器是怎么把电脑�
 `.so` 文件的特点：
 
 - 是**编译后的机器码**，CPU 能直接执行。
-- **芯片相关**：给 x86 芯片编译的 `.so` 不能在 ARM 芯片上跑，反之亦然。
+- **架构相关**：针对不同芯片架构、不同系统环境（libc）的`.so`一般不通用。
 - 多个程序能**共享**同一个 `.so`，省存储空间。
 - Linux/Android 系统的核心库都是 `.so`，比如 `libc.so`（C 标准库）、`libGL.so`（OpenGL 库）。
 
@@ -78,19 +78,21 @@ description: 用大白话讲清楚 PojavLauncher 等启动器是怎么把电脑�
 
 Oracle 没有给 Android 出官方 Java 虚拟机。怎么办？
 
-**解决办法**：用**开源的 [OpenJDK](https://openjdk.org/)**。PojavLauncher 团队（以及后来的继任项目）把 OpenJDK 移植到 Android，编译成 ARM 芯片的 `.so` 文件，打包进 APK。
+**解决办法**：用**开源的 [OpenJDK](https://openjdk.org/)**。PojavLauncher 团队（以及后来的继任项目）把 OpenJDK 移植到 Android，编译成 ARM 架构 Android 环境的可执行文件，打包进 APK。
 
 > 在 PojavLauncher 团队的基础上，国内开发者以 **Tungstend** 为代表的 **FCL-Team** 和 **墨北 MovTery** 分别推出了 **Fold Craft Launcher** 和 **Zalith Launcher** 等改进版本。他们在 PojavLauncher 的底层移植工作之上，自行移植了部分 `.so` 文件，优化了界面、控制方案和渲染器支持。
 
 ### 难点 2：手机图形接口不同
 
+**Minecraft 26.2起，原生支持Vulkan，可直接使用Vulkan渲染，消除了翻译损耗，理论上可提升性能**
+
 电脑 Minecraft 用 **OpenGL**（桌面版），手机用 **OpenGL ES**（移动版，功能少一些）或 **Vulkan**。两者**不兼容**。
 
 **解决办法**：用**图形接口转换层**。手机 Java 启动器用了几个库：
 
-- **[LWJGL](https://www.lwjgl.org/)**（Lightweight Java Game Library）：Minecraft 用的图形库，PojavLauncher 把它移植到 Android。
+- **[LWJGL](https://www.lwjgl.org/)**（Lightweight Java Game Library）：Minecraft 用的游戏基础库，PojavLauncher 把它移植到 Android。
 - **[GL4ES](https://github.com/ptitSeb/gl4es)**：把 OpenGL 调用**翻译**成 OpenGL ES 调用，让 OpenGL 程序能在 OpenGL ES 设备上跑。Minecraft 1.16.5- 用的基本是这个后端
-- **[ANGLE](https://github.com/google/angle)**：Google 开发的图形转译层，把 OpenGL 调用转成 Vulkan 或 OpenGL ES。Minecraft 1.17+ 版本的后端基本用的就是这个，兼容性和性能都不错。
+- **[ANGLE](https://github.com/google/angle)**：Google 开发的图形转译层，把 OpenGL ES调用转成 Vulkan。是的，Angle是作为额外的第二层翻译层工作的，部分情况下可获得更好的兼容性和性能，同时Google也计划未来将Angle作为标准默认的OpenGL ES实现。
 - **VirglRenderer**：把 OpenGL 调用翻译成 Vulkan 或 OpenGL ES，性能更好。
 
 简单说：**Minecraft 调 OpenGL → 转换层翻译成 OpenGL ES / Vulkan → 手机 GPU 画图**。
@@ -122,7 +124,7 @@ Oracle 没有给 Android 出官方 Java 虚拟机。怎么办？
 5. Minecraft 调用 OpenGL 画图 → **GL4ES / Virgl / ANGLE 翻译成 OpenGL ES / Vulkan** → 手机 GPU 渲染。
 6. 画面显示在手机屏幕上。
 
-**关键就是那几个 `.so` 文件**：`libjvm.so`（Java 虚拟机）、`liblwjgl.so`（图形库）、`libgl4es.so`（图形转换）。这些 `.so` 都是**给 Android 重新编译的共享库**（针对 ARM 芯片 + Android 的 Bionic libc），所以能在 Android 上跑。
+**关键就是那几个 `.so` 文件**：`libjvm.so`（Java 虚拟机）、`liblwjgl.so`（游戏基础库）、`libgl4es.so`（图形转换）。这些 `.so` 都是**给 Android 重新编译的共享库**（针对 ARM 芯片 + Android 的 Bionic libc），所以能在 Android 上跑。
 
 具体来说：
 
@@ -149,8 +151,7 @@ Oracle 没有给 Android 出官方 Java 虚拟机。怎么办？
 
 手机跑 Minecraft Java 版，**帧率因芯片档次差距极大**，但有几个共同瓶颈：
 
-- **JVM 翻译有损耗**：字节码 → ARM 机器码，比电脑原生运行多一层转换。
-- **图形接口转换有损耗**：OpenGL → OpenGL ES / Vulkan，翻译要时间。
+- **图形接口转换有损耗**：OpenGL → OpenGL ES / Vulkan，翻译有损耗。
 - **散热限制**：手机体积小，玩久了发热降频，帧率会从峰值掉下来。
 - **电池续航**：高帧率下耗电快，插电源玩才能维持峰值性能。
 
@@ -177,6 +178,6 @@ Oracle 没有给 Android 出官方 Java 虚拟机。怎么办？
 - Minecraft Java 版**不能直接在手机跑**，因为没 Java 虚拟机、图形接口不同、CPU 芯片不同。
 - **PojavLauncher** 用三个关键 `.so` 解决：
   - `libjvm.so`：ARM 版 Java 虚拟机，让字节码能跑。
-  - `liblwjgl.so`：LWJGL 移植版，提供图形库。
+  - `liblwjgl.so`：LWJGL 移植版，提供必备游戏基础库。
   - `libgl4es.so`：把 OpenGL 翻译成 OpenGL ES / Vulkan。
 - 性能不如电脑，但中高端手机能流畅玩。

@@ -78,14 +78,7 @@ Vulkan 适合追求性能的 **AAA 游戏**、**引擎**（DOOM、Quake、Id Tec
 从 Minecraft 26.2 版本开始，Mojang 往里面塞了图形 API 选项，可以自由切换成 Vulkan 选项，以提高帧率。
 
 :::tip
-目前只有以下移动端 SoC 内置的 GPU 部分可以运行 Vulkan 下的 Minecraft：
-
-- Qualcomm 高通骁龙 Adreno
-- 三星使用的 AMD RDNA 的 Xclipse
-- Apple Silicon 苹果
-- Imagination Technologies 的 PowerVR
-
-其它移动端 SoC 内置的 GPU 部分缺少了一个 Vulkan 特性：**fillModeNonSolid**。简单说，这个功能就是能画「线框模式」和「点模式」（把实体模型变成只看骨架的线框）。即使 Vulkan API 版本满足要求，因为缺少这个特性，Minecraft 无法运行，会产生 "Device[GPU] does not have required feature[fillModeNonSolid]" 的报错，导致游戏崩溃。
+目前只有部分移动端 SoC（骁龙为主）内置的 GPU 可以运行 Minecraft Vulkan 模式，其余或因Vulkan版本不够新，或因移动端设计理念差异，无法满足 Minecraft 的要求。
 :::
 
 ## 三、DirectX（Direct3D）
@@ -147,7 +140,7 @@ Android 手机上的 App、游戏大部分用 OpenGL ES 或 Vulkan。
 
 ## 图形 API 和 Minecraft 的关系
 
-- **Minecraft Java 版**：用 **OpenGL**（通过 LWJGL）和 **Vulkan**。
+- **Minecraft Java 版**：用 **OpenGL**和 **Vulkan**。
 - **Minecraft 基岩版**：用 **DirectX**（Windows）、**Metal**（iOS/Mac）、**OpenGL ES / Vulkan**（Android）。
 - **Zalith Launcher / Fold Craft Launcher**（手机跑 Java 版）：把 OpenGL 调用**翻译成 OpenGL ES / Vulkan**（用 GL4ES / ANGLE）或直接调用 **Vulkan**。
 

@@ -27,7 +27,7 @@ description: 用大白话讲清楚 Android 11 之后为什么 Android/data 文�
 原因是**隐私和安全**：
 
 - 以前任何 App 申请了「存储权限」就能读所有 App 存放在外部存储的数据，**这样的权限管理过于宽松**。
-- Google 觉得这太危险，所以从 Android 11 起，**每个 App 默认只能访问自己的 `Android/data/<自己的包名>/` 文件夹**，不能访问别人的。
+- Google 觉得这太危险，所以从 Android 11 起，**每个 App 默认只能访问自己的 `Android/data/<自己的包名>/` 文件夹**，不能访问别人的，并且细化收紧了对于其他文件访问权限的申请。
 
 具体表现：
 
@@ -44,13 +44,7 @@ description: 用大白话讲清楚 Android 11 之后为什么 Android/data 文�
 
 1. 打开「文件管理」App。
 2. 找到「**Android**」→「**data**」。
-3. 第一次进入会弹窗提示「需要授权」，点「确定」。
-4. 系统会跳到一个特殊的「**SAF 选择器**」界面，让你确认授权。
-5. 授权后就能看到各 App 的数据文件夹了。
-
-:::note 名词解释
-**SAF**：Storage Access Framework，存储访问框架。Android 11 之后访问 `Android/data` 必须走这个框架，由系统弹窗让你手动授权，App 不能自动获取。
-:::
+3. 就能看到各 App 的数据文件夹了。
 
 ### 方法 2：用支持 SAF 的第三方文件管理器
 
@@ -61,6 +55,10 @@ description: 用大白话讲清楚 Android 11 之后为什么 Android/data 文�
 - **[Material Files](https://github.com/zhanghai/MaterialFiles)**
 
 用这些 App 打开 `Android/data` 时，会弹 SAF 授权窗，授权后就能访问。但**只能访问你授权过的那个文件夹**，不能像以前那样自由跳转。
+
+:::note 名词解释
+**SAF**：Storage Access Framework，存储访问框架。Android 11 之后访问 `Android/data` 必须走这个框架，由系统弹窗让你手动授权，App 不能自动获取。
+:::
 
 ### 方法 3：用电脑通过 USB 访问（推荐）
 

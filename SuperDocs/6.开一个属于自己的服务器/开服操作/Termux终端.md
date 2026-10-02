@@ -85,7 +85,7 @@ cat eula.txt #检查是否包含“eula = true”
 sed -i 's/online-mode=false/online-mode=true/g' server.properties
 ```
 
-如果你有更多需求如修改服务器名称可参考下表(选自[知乎文章](https://zhuanlan.zhihu.com/p/19179879391))修改server.properties（推荐使用MT管理器修改）
+如果你有更多需求如修改服务器名称可参考下表(选自[原文](https://ravelloh.com/posts/minecraft-paper-server))修改server.properties（推荐使用MT管理器修改）
 
 [戳我看表](window:/term/ServerConfigList)
 

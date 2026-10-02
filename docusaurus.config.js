@@ -76,7 +76,7 @@ module.exports = {
           },
           {
             path: '/SuperDocs',
-            label: '进阶教程文档',
+            label: '高阶教程文档',
           },
         ],
 
@@ -108,7 +108,7 @@ module.exports = {
           sidebarId: 'superDocsSidebar',
           docsPluginId: 'super',
           position: 'left',
-          label: 'FCL 进阶教程',
+          label: 'FCL 高阶教程',
         },
 
         {

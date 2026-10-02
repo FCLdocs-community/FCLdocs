@@ -1,0 +1,6 @@
+---
+sidebar_position: 11
+title: FCL 按键布局(基础)
+slug: /docs/FCL-基础教程/controlteach
+---
+

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://fcldocs.top/blog</id>
+    <title>FCL新手文档 Blog</title>
+    <updated>2026-07-20T00:00:00.000Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://fcldocs.top/blog"/>
+    <subtitle>FCL新手文档 Blog</subtitle>
+    <icon>https://fcldocs.top/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[更新日志]]></title>
+        <id>https://fcldocs.top/blog/changelog</id>
+        <link href="https://fcldocs.top/blog/changelog"/>
+        <updated>2026-07-20T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[文档还没更新完，暂时不写更新内容]]></summary>
+        <content type="html"><![CDATA[<p>文档还没更新完，暂时不写更新内容</p>
+<p>所以耐心等待吧</p>]]></content>
+    </entry>
+</feed>

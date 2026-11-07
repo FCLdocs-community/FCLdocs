@@ -15,24 +15,49 @@ const BRANDS = [
 
 const STORAGE_KEY = 'docs-preferred-brand';
 
+/** 当前 URL hash 对应的品牌；TOC 锚点落在某个 BrandStep 内时返回该品牌 */
+function brandFromHash() {
+  if (typeof window === 'undefined') return null;
+  const id = decodeURIComponent(window.location.hash.replace(/^#/, ''));
+  if (!id) return null;
+  const target = document.getElementById(id);
+  const step = target?.closest('[data-brand]');
+  return step?.getAttribute('data-brand') || null;
+}
+
+function scrollToHash() {
+  if (typeof window === 'undefined') return;
+  const id = decodeURIComponent(window.location.hash.replace(/^#/, ''));
+  if (!id) return;
+  // 等品牌切换完成、目标内容显示后再滚动
+  setTimeout(() => document.getElementById(id)?.scrollIntoView({ block: 'start' }), 0);
+}
+
 export default function BrandSteps({ children }) {
   const [activeBrand, setActiveBrand] = useState('xiaomi');
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved && BRANDS.some(b => b.id === saved)) {
-      setActiveBrand(saved);
+    const fromHash = brandFromHash();
+    if (fromHash && BRANDS.some(b => b.id === fromHash)) {
+      setActiveBrand(fromHash);
+      scrollToHash();
+    } else {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved && BRANDS.some(b => b.id === saved)) {
+        setActiveBrand(saved);
+      }
     }
-  }, []);
 
-  const stepsMap = React.Children.toArray(children).reduce((acc, child) => {
-    if (child.props?.brand) {
-      acc[child.props.brand] = child;
-    }
-    return acc;
-  }, {});
+    const onHashChange = () => {
+      const brand = brandFromHash();
+      if (brand && BRANDS.some(b => b.id === brand)) {
+        setActiveBrand(brand);
+        scrollToHash();
+      }
+    };
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
 
   const handleChange = (brandId) => {
     setActiveBrand(brandId);
@@ -40,11 +65,6 @@ export default function BrandSteps({ children }) {
       localStorage.setItem(STORAGE_KEY, brandId);
     }
   };
-
-  // 避免 SSR 水合不匹配
-  if (!mounted) {
-    return <div className={styles.skeleton} />;
-  }
 
   return (
     <div className={styles.brandSteps}>
@@ -67,11 +87,15 @@ export default function BrandSteps({ children }) {
       </div>
 
       <div className={styles.content}>
-        {stepsMap[activeBrand] || (
-          <div className={styles.empty}>
-            暂无该品牌的安装指南，请选择其他品牌。
-          </div>
-        )}
+        {React.Children.map(children, (child) => {
+          const brand = child?.props?.brand;
+          if (!brand) return null;
+          return (
+            <div key={brand} hidden={brand !== activeBrand}>
+              {child}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

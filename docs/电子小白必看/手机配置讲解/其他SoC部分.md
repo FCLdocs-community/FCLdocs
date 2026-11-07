@@ -5,12 +5,12 @@ description: 简单介绍 SoC 里除了 CPU 和 GPU 之外的其他部分：NPU�
 ---
 
 :::tip 专有名词
-本文涉及到的专有名词：[CPU](window:/term/CPU) 、 [GPU](window:/term/GPU) 、 [AI](window:/term/AI)
+本文涉及到的专有名词：[CPU](window:/term/CPU) 、 [GPU](window:/term/GPU) 、 [AI](window:/term/AI) 、 [SoC](window:/term/SoC)
 :::
 
 # 其他部分
 
-SoC 里除了 CPU 和 GPU，还有一堆「专才」——它们各自只干一件事，但干得又快又省电。这一节简单介绍几个常见的。
+[SoC](window:/term/SoC) 里除了 [CPU](window:/term/CPU) 和 [GPU](window:/term/GPU)，还有一堆「专才」——它们各自只干一件事，但干得又快又省电。这一节简单介绍几个常见的。
 
 ## NPU（神经网络处理器）
 
@@ -62,13 +62,13 @@ DSP 比 CPU 省电，比 NPU 通用，介于两者之间。日常用得不多，
 - 通话、短信
 - 与基站的信号收发
 
-基带好不好，决定**信号强弱、网速快慢、5G 支不支持**。比如骁龙 8 Gen3 集成的基带支持 [5G 毫米波](window:/term/5G毫米波)和 [Sub-6GHz](window:/term/Sub-6GHz)，下载峰值能到 10 Gbps（理论值）。
+基带好不好，决定**信号强弱、网速快慢、5G 支不支持**。比如骁龙 8 Gen3 集成的基带支持 [5G 毫米波](window:/term/5G毫米波)和 [Sub-6GHz](window:/term/Sub-6GHz)，[下载](window:/term/下载)峰值能到 10 Gbps（理论值）。
 
 苹果以前外挂高通基带，后来想自研但翻车，又换回高通。基带技术门槛很高，全球能做的不多。
 
 ## 内存控制器（Memory Controller）
 
-**内存控制器**是 SoC 和运行内存（RAM）之间的「桥梁」，负责数据搬运。它决定了：
+**内存控制器**是 SoC 和[运行内存](window:/term/内存)（RAM）之间的「桥梁」，负责数据搬运。它决定了：
 
 - 内存频率能跑多高（比如 LPDDR5X-8533）
 - 内存带宽多大（影响 GPU 性能发挥）

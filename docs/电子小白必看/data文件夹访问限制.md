@@ -5,18 +5,18 @@ description: 用大白话讲清楚 Android 11 之后为什么 Android/data 文�
 ---
 
 :::tip 专有名词
-本文涉及到的专有名词：[包名](window:/term/安卓软件包名) 、 [Android](window:/term/Android)
+本文涉及到的专有名词：[包名](window:/term/安卓软件包名) 、 [Android](window:/term/Android) 、 [文件夹](window:/term/文件夹) 、 [路径](window:/term/路径)
 :::
 
 # data 文件夹访问限制
 
 ## 什么是 `Android/data` 文件夹？
 
-`Android/data` 是手机内部存储里的一个特殊文件夹，**每个 App 的应用数据都存在这里**。比如：
+`Android/data` 是手机[内部存储](window:/term/存储空间)里的一个特殊[文件夹](window:/term/文件夹)，**每个 App 的应用数据都存在这里**。比如：
 
 - `Android/data/com.tencent.mm/` 存微信的数据
 - `Android/data/com.miHoYo.Yuanshen/` 存原神的数据
-- `Android/data/com.netease.cloudmusic/` 存网易云音乐下载的歌
+- `Android/data/com.netease.cloudmusic/` 存网易云音乐[下载](window:/term/下载)的歌
 
 每个 App 的数据文件夹名就是它的**包名**（package name），格式是 `Android/data/<包名>/`。
 
@@ -26,12 +26,12 @@ description: 用大白话讲清楚 Android 11 之后为什么 Android/data 文�
 
 原因是**隐私和安全**：
 
-- 以前任何 App 申请了「存储权限」就能读所有 App 存放在外部存储的数据，**这样的权限管理过于宽松**。
+- 以前任何 App 申请了「存储[权限](window:/term/权限)」就能读所有 App 存放在外部存储的数据，**这样的权限管理过于宽松**。
 - Google 觉得这太危险，所以从 Android 11 起，**每个 App 默认只能访问自己的 `Android/data/<自己的包名>/` 文件夹**，不能访问别人的，并且细化收紧了对于其他文件访问权限的申请。
 
 具体表现：
 
-- 用第三方文件管理器（比如 ES 文件浏览器、[MT 管理器](https://mt2.cn/)）打开 `Android/data`，会显示「**无法访问**」「**需要授权**」「**空文件夹**」。(MT 管理器会尝试绕过此限制，仅对部分系统有效，所以有人可能完全没遇到本文所述问题）
+- 用第三方文件管理器（比如 ES 文件[浏览器](window:/term/浏览器)、[MT 管理器](https://mt2.cn/)）打开 `Android/data`，会显示「**无法访问**」「**需要授权**」「**空文件夹**」。(MT 管理器会尝试绕过此限制，仅对部分系统有效，所以有人可能完全没遇到本文所述问题）
 - 系统自带的「文件管理」可以访问，但只能用系统提供的界面，不能像以前那样自由操作。
 
 ## 怎么访问 `Android/data`？
@@ -82,7 +82,7 @@ ADB 后面会专门讲。
 
 ## 为什么 QQ 下载的文件在 `Android/data` 里？
 
-QQ 下载的文件默认存在 `Android/data/com.tencent.mobileqq/Tencent/QQfile_recv/`。Android 11 之后，**普通文件管理器打不开这个路径**，所以很多人找不到 QQ 下载的文件。
+QQ 下载的文件默认存在 `Android/data/com.tencent.mobileqq/Tencent/QQfile_recv/`。Android 11 之后，**普通文件管理器打不开这个[路径](window:/term/路径)**，所以很多人找不到 QQ 下载的文件。
 
 解决办法：
 

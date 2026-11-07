@@ -5,16 +5,16 @@ description: 用大白话讲清楚手机 GPU 是什么、它和 CPU 的区别、
 ---
 
 :::tip 专有名词
-本文涉及到的专有名词：[CPU](window:/term/CPU) 、 [独立显卡](window:/term/独立显卡)
+本文涉及到的专有名词：[CPU](window:/term/CPU) 、 [独立显卡](window:/term/独立显卡) 、 [GPU](window:/term/GPU) 、 [SoC](window:/term/SoC)
 :::
 
 # GPU 介绍
 
 ## GPU 是什么？
 
-**GPU** 全称 **Graphics Processing Unit**，中文叫「**图形处理器**」。它是 SoC 里专门负责「画图」的部分——游戏画面、动画、视频解码、[UI](window:/term/UI)滑动，凡是和「显示」有关的，基本都归 GPU 管。
+**[GPU](window:/term/GPU)** 全称 **Graphics Processing Unit**，中文叫「**图形处理器**」。它是 [SoC](window:/term/SoC) 里专门负责「画图」的部分——游戏画面、动画、视频解码、[UI](window:/term/UI)滑动，凡是和「显示」有关的，基本都归 GPU 管。
 
-打个比方：CPU 是「总经理」，什么都要管一点，但每件事都得一件一件做；GPU 是「美工部」，里面有几百上千个小工，每个小工只会画一个像素，但它们能**同时**画，所以画图特别快。
+打个比方：[CPU](window:/term/CPU) 是「总经理」，什么都要管一点，但每件事都得一件一件做；GPU 是「美工部」，里面有几百上千个小工，每个小工只会画一个像素，但它们能**同时**画，所以画图特别快。
 
 这就是 GPU 和 CPU 的根本区别：
 
@@ -50,7 +50,7 @@ description: 用大白话讲清楚手机 GPU 是什么、它和 CPU 的区别、
 看 GPU 性能，最直观是看**图形跑分**：
 
 - **3DMark**：国际通用的图形跑分，有专门针对手机的 Wildlife 场景。
-- **GFXBench**：专门测游戏画面帧率。
+- **GFXBench**：专门测游戏画面[帧率](window:/term/帧率)。
 - **安兔兔 GPU 子分**：国内常用。
 
 也可以查「[手机 GPU 天梯图](https://www.socpk.com/gpu/)」，能看到各款 GPU 的大致排名。
@@ -61,7 +61,7 @@ description: 用大白话讲清楚手机 GPU 是什么、它和 CPU 的区别、
 
 1. **GPU 决定上限，CPU 决定下限**。GPU 强，画面能开高画质；但如果 CPU 太弱，游戏逻辑算不过来，照样卡。
 2. **散热决定能跑多久**。GPU 满载发热大，手机散热差的话，玩 10 分钟就降频，帧率从 60 掉到 30。
-3. **分辨率影响 GPU 负载**。2K 屏比 1080P 屏让 GPU 多干一倍的活，所以同款 SoC 在 2K 屏上玩游戏更吃力。
+3. **[分辨率](window:/term/分辨率)影响 GPU 负载**。2K 屏比 1080P 屏让 GPU 多干一倍的活，所以同款 SoC 在 2K 屏上玩游戏更吃力。
 
 ## 小结
 

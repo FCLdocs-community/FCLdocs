@@ -5,7 +5,7 @@ description: 用大白话讲清楚 Minecraft 是什么、Java 版和基岩版有
 ---
 
 :::tip 专有名词
-本文涉及到的专有名词：[ARM和x86架构](window:/term/ARM和x86架构)
+本文涉及到的专有名词：[ARM和x86架构](window:/term/ARM和x86架构) 、 [Java](window:/term/Java) 、 [模组](window:/term/mod) 、 [光影](window:/term/光影)
 :::
 
 # 什么是 Minecraft？
@@ -41,12 +41,12 @@ Minecraft 有好几个版本，**最容易混淆**：
 
 ### 1. Java 版（Java Edition）
 
-- **原版**，Notch 2009 年用 Java 写的。
+- **原版**，Notch 2009 年用 [Java](window:/term/Java) 写的。
 - 运行在 **Windows、Mac、Linux** 电脑上。
-- **需要装 Java**（JDK 17 或 21）。
-- **mod 生态最丰富**，玩家最爱。
-- 代码开源（反编译容易），所以 mod 多。
-- 占内存大、启动慢（Java 的特性）。
+- **需要装 Java**（[JDK](window:/term/JDK) 17 或 21）。
+- **[mod](window:/term/mod) 生态最丰富**，玩家最爱。
+- 反编译容易，所以 mod 多。
+- 占[内存](window:/term/内存)大、启动慢（Java 的特性）。
 
 ### 2. 基岩版（Bedrock Edition）
 
@@ -83,7 +83,7 @@ Minecraft 有好几个版本，**最容易混淆**：
 
 **简单说**：
 
-- 想玩 mod、玩红石、玩老服务器 → **Java 版**。
+- 想玩 mod、玩红石、玩老[服务器](window:/term/服务器) → **Java 版**。
 - 想跨设备联机（手机+电脑+主机）、性能好 → **基岩版**。
 
 ## 为什么 Minecraft 这么火？
@@ -116,11 +116,11 @@ MC 能跨平台联机，覆盖所有玩家。
 
 ## Minecraft 和手机的关系
 
-Minecraft 基岩版**原生支持手机**（安卓、iOS），从应用商店装就行。
+Minecraft 基岩版**原生支持手机**（安卓、iOS），从[应用商店](window:/term/应用商店)装就行。
 
 但 **Java 版不能直接在手机上跑**，因为：
 
-1. Java 版需要 JVM，手机没有官方 JVM。
+1. Java 版需要 [JVM](window:/term/JVM)，手机没有官方 JVM。
 2. Java 版用电脑的图形 API（OpenGL），手机用 OpenGL ES / Vulkan。
 3. Java 版依赖的运行库，在手机上并不存在。
 

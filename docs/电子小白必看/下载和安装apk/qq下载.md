@@ -5,20 +5,20 @@ description: 用大白话讲清楚 QQ 下载的 APK 在哪、为什么要重命�
 ---
 
 :::tip 专有名词
-本文涉及到的专有名词：[后缀名](window:/term/后缀名) 、 [SAF](window:/term/SAF)
+本文涉及到的专有名词：[后缀名](window:/term/后缀名) 、 [SAF](window:/term/SAF) 、 [安装包](window:/term/安装包) 、 [下载](window:/term/下载)
 :::
 
 # 通过 QQ 下载
 
 ## QQ 下载的文件在哪？
 
-QQ 下载的文件默认存在手机内部存储的：
+QQ [下载](window:/term/下载)的文件默认存在手机[内部存储](window:/term/存储空间)的：
 
 ```
 Android/data/com.tencent.mobileqq/Tencent/QQfile_recv/
 ```
 
-这个路径在 `Android/data` 文件夹下，**[Android 11 之后普通文件管理器打不开](/docs/%E7%94%B5%E5%AD%90%E5%B0%8F%E7%99%BD%E5%BF%85%E7%9C%8B/data%E6%96%87%E4%BB%B6%E5%A4%B9%E8%AE%BF%E9%97%AE%E9%99%90%E5%88%B6)**。所以很多人下载完找不到文件。
+这个[路径](window:/term/路径)在 `Android/data` [文件夹](window:/term/文件夹)下，**[Android 11 之后普通文件管理器打不开](/docs/%E7%94%B5%E5%AD%90%E5%B0%8F%E7%99%BD%E5%BF%85%E7%9C%8B/data%E6%96%87%E4%BB%B6%E5%A4%B9%E8%AE%BF%E9%97%AE%E9%99%90%E5%88%B6)**。所以很多人下载完找不到文件。
 
 :::note 路径拆解
 - `Android/data/`：所有 App 数据的根目录
@@ -62,11 +62,11 @@ QQ 为了安全，**会把 `.apk` 文件重命名**，加个后缀让它不能�
 
 ### 原因 2：没有「安装未知来源」权限
 
-Android 8.0 起，**每个 App 都要单独开「安装未知应用」权限**。QQ 下载的 APK，要给 QQ 开这个权限才能装。
+Android 8.0 起，**每个 App 都要单独开「安装未知应用」[权限](window:/term/权限)**。QQ 下载的 [APK](window:/term/安装包)，要给 QQ 开这个权限才能装。
 
 **解决办法**：
 
-1. 点安装时系统会弹窗「**为了您的安全，您的手机不允许安装来自此来源的应用**」。
+1. 点安装时系统会[弹窗](window:/term/弹窗)「**为了您的安全，您的手机不允许安装来自此来源的应用**」。
 2. 点「**设置**」→「**允许来自此来源的应用**」打开开关。
 3. 回到 QQ 重新点安装。
 

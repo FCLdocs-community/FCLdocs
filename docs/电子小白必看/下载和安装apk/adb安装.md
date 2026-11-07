@@ -3,6 +3,11 @@ sidebar_position: 4
 title: 其它渠道（以ADB安装为例）
 description: 用大白话讲清楚什么是 ADB、怎么用 ADB 装 APK
 ---
+
+:::tip 专有名词
+本文涉及到的专有名词：[安装包](window:/term/安装包) 、 [后缀名](window:/term/后缀名) 、 [包名](window:/term/安卓软件包名) 、 [指令集](window:/term/指令集)
+:::
+
 :::note Tip
 - 本文档出现了大量专业术语，对后面教程文档的理解影响不大。
 - 如果你看不懂这篇文档，可以直接跳到[下一篇](/docs/%E7%94%B5%E5%AD%90%E5%B0%8F%E7%99%BD%E5%BF%85%E7%9C%8B/mt%E7%AE%A1%E7%90%86%E5%99%A8%E7%9A%84%E4%BD%BF%E7%94%A8/%E7%B3%BB%E7%BB%9F%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E5%B1%80%E9%99%90%E6%80%A7)。
@@ -15,7 +20,7 @@ description: 用大白话讲清楚什么是 ADB、怎么用 ADB 装 APK
 除了前面讲的三种，还有几种渠道：
 
 1. **ADB 安装**：用电脑通过命令行装，本节重点讲。
-2. **第三方安装器**：[SAI](https://github.com/Aefyr/SAI)（装拆分 APK）、[APKPure 安装器](https://apkpure.net/apk-installer)等。
+2. **第三方安装器**：[SAI](https://github.com/Aefyr/SAI)（装拆分 [APK](window:/term/安装包)）、[APKPure 安装器](https://apkpure.net/apk-installer)等。
 3. **Root 后用 [Root Explorer](https://www.speedsoftware.co.uk/) 直接装**。
 4. **Recovery 刷入**：把 APK 刷成系统应用（高级）。
 5. **共享存储**：从电脑复制 APK 到手机，再点安装。
@@ -33,7 +38,7 @@ description: 用大白话讲清楚什么是 ADB、怎么用 ADB 装 APK
 - 进 shell（命令行）
 - 截屏、录屏
 - 重启、进 Recovery
-- 看日志、看权限
+- 看[日志](window:/term/日志)、看[权限](window:/term/权限)
 
 :::note 名词解释
 **调试**：程序员找 bug、查问题的过程。ADB 叫「调试桥」，是因为它本来是给开发者调试 App 用的，但普通用户也能用来装 APK、备份文件等。
@@ -53,13 +58,13 @@ description: 用大白话讲清楚什么是 ADB、怎么用 ADB 装 APK
 
 Windows / Mac / Linux 都能装：
 
-- **Windows**：从 [Android 开发者官网](https://developer.android.com/tools/releases/platform-tools) 下 `platform-tools`，解压。
+- **Windows**：从 [Android 开发者官网](https://developer.android.com/tools/releases/platform-tools) 下 `platform-tools`，[解压](window:/term/压缩包)。
 - **Mac**：`brew install android-platform-tools`
 - **Linux**：`sudo apt install adb` 或 `sudo dnf install adb`
 
 ### 第 3 步：验证连接
 
-打开电脑命令行（Windows 用 cmd，Mac/Linux 用 Terminal），进到 platform-tools 目录，输入：
+打开电脑命令行（Windows 用 cmd，Mac/Linux 用 Terminal），进到 platform-tools [目录](window:/term/文件夹)，输入：
 
 ```bash
 adb devices

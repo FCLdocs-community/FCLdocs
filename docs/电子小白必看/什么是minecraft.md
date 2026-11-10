@@ -43,14 +43,14 @@ Minecraft 有好几个版本，**最容易混淆**：
 
 - **原版**，Notch 2009 年用 [Java](window:/term/Java) 写的。
 - 运行在 **Windows、Mac、Linux** 电脑上。
-- **需要装 Java**（[JDK](window:/term/JDK) 17 或 21）。
+- **需要装 Java**（[JDK](window:/term/JDK)，版本随游戏版本变化：1.18+ 用 17、1.20.5+ 用 21、26.1+ 用 25）。
 - **[mod](window:/term/mod) 生态最丰富**，玩家最爱。
 - 反编译容易，所以 mod 多。
 - 占[内存](window:/term/内存)大、启动慢（Java 的特性）。
 
 ### 2. 基岩版（Bedrock Edition）
 
-- 微软 2011 年用 **C++** 重写的版本。
+- 由 Mojang 在 2011 年推出的手机版（携带版）发展而来，用 **C++** 编写，2017 年起统称「基岩版」。
 - 运行在 **Windows 10/11、手机、Xbox、PlayStation、Switch** 等多平台。
 - **不需要 Java**。
 - 性能好、启动快、跨平台联机。
@@ -70,8 +70,8 @@ Minecraft 有好几个版本，**最容易混淆**：
 
 | 对比项 | Java 版 | 基岩版 |
 |--------|---------|--------|
-| 开发语言 | Java | C++ |
-| 平台 | 主要是 Win/Mac/Linux 电脑 | Win10及以上系统/手机/主机 |
+| 开发语言 | Java | [C++](window:/term/Cpp) |
+| 平台 | 主要是 Win/Mac/[Linux](window:/term/Linux) 电脑 | Win10及以上系统/手机/主机 |
 | 需要 Java | 是 | 否 |
 | 性能 | 占内存、启动慢 | 性能好、启动快 |
 | mod | **超多、超强大** | 少、叫 Add-On |
@@ -121,7 +121,7 @@ Minecraft 基岩版**原生支持手机**（安卓、iOS），从[应用商店](
 但 **Java 版不能直接在手机上跑**，因为：
 
 1. Java 版需要 [JVM](window:/term/JVM)，手机没有官方 JVM。
-2. Java 版用电脑的图形 API（OpenGL），手机用 OpenGL ES / Vulkan。
+2. Java 版用电脑的图形 [API](window:/term/api)（[OpenGL](window:/term/OpenGL)），手机用 [OpenGL ES](window:/term/OpenGLES) / [Vulkan](window:/term/Vulkan)。
 3. Java 版依赖的运行库，在手机上并不存在。
 
 **怎么在手机上玩 Java 版？** 用 **Fold Craft Launcher** 等启动器，把电脑 Java 版「移植」到手机。具体原理下一篇讲。

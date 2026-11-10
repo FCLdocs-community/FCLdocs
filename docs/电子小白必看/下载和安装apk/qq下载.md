@@ -5,7 +5,7 @@ description: 用大白话讲清楚 QQ 下载的 APK 在哪、为什么要重命�
 ---
 
 :::tip 专有名词
-本文涉及到的专有名词：[后缀名](window:/term/后缀名) 、 [SAF](window:/term/SAF) 、 [安装包](window:/term/安装包) 、 [下载](window:/term/下载)
+本文涉及到的专有名词：[后缀名](window:/term/后缀名) 、 [SAF](window:/term/SAF) 、 [下载](window:/term/下载)
 :::
 
 # 通过 QQ 下载
@@ -22,7 +22,7 @@ Android/data/com.tencent.mobileqq/Tencent/QQfile_recv/
 
 :::note 路径拆解
 - `Android/data/`：所有 App 数据的根目录
-- `com.tencent.mobileqq/`：QQ 的包名
+- `com.tencent.mobileqq/`：QQ 的[包名](window:/term/安卓软件包名)
 - `Tencent/QQfile_recv/`：QQ 自己定义的接收文件目录
 :::
 
@@ -62,7 +62,7 @@ QQ 为了安全，**会把 `.apk` 文件重命名**，加个后缀让它不能�
 
 ### 原因 2：没有「安装未知来源」权限
 
-Android 8.0 起，**每个 App 都要单独开「安装未知应用」[权限](window:/term/权限)**。QQ 下载的 [APK](window:/term/安装包)，要给 QQ 开这个权限才能装。
+[Android](window:/term/Android) 8.0 起，**每个 App 都要单独开「安装未知应用」[权限](window:/term/权限)**。QQ 下载的 [APK](window:/term/安装包)，要给 QQ 开这个权限才能装。
 
 **解决办法**：
 

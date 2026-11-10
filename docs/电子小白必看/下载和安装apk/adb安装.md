@@ -5,7 +5,7 @@ description: 用大白话讲清楚什么是 ADB、怎么用 ADB 装 APK
 ---
 
 :::tip 专有名词
-本文涉及到的专有名词：[安装包](window:/term/安装包) 、 [后缀名](window:/term/后缀名) 、 [包名](window:/term/安卓软件包名) 、 [指令集](window:/term/指令集)
+本文涉及到的专有名词：[后缀名](window:/term/后缀名) 、 [包名](window:/term/安卓软件包名) 、 [指令集](window:/term/指令集)
 :::
 
 :::note Tip
@@ -29,7 +29,7 @@ description: 用大白话讲清楚什么是 ADB、怎么用 ADB 装 APK
 
 ## 什么是 ADB？
 
-**ADB** 全称 **Android Debug Bridge**，中文叫「**安卓调试桥**」。它是 Google 官方提供的一个**命令行工具**，让你**用电脑通过 USB 或 Wi-Fi 控制手机**。
+**[ADB](window:/term/ADB)** 全称 **Android Debug Bridge**，中文叫「**安卓调试桥**」。它是 Google 官方提供的一个**命令行工具**，让你**用电脑通过 USB 或 Wi-Fi 控制手机**。
 
 打个比方：ADB 就像一根「**数据线 + 翻译**」——数据线连电脑和手机，翻译把电脑的命令翻译成手机能听懂的语言，让手机执行。它能干的事包括：
 
@@ -56,7 +56,7 @@ description: 用大白话讲清楚什么是 ADB、怎么用 ADB 装 APK
 
 ### 第 2 步：电脑装 ADB 工具
 
-Windows / Mac / Linux 都能装：
+[Windows](window:/term/Windows) / Mac / [Linux](window:/term/Linux) 都能装：
 
 - **Windows**：从 [Android 开发者官网](https://developer.android.com/tools/releases/platform-tools) 下 `platform-tools`，[解压](window:/term/压缩包)。
 - **Mac**：`brew install android-platform-tools`

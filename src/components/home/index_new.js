@@ -1,16 +1,70 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { FontAwesomeIcon, faRocket, faCheck, faBolt, faBookOpen, faGithub, Link } from './shared';
-import { StackedImageCycler, QQIcon } from './shared';
-import {
-  IMG_APP, IMG_1, IMG_VERSION, IMG_MODLOADER, IMG_SHADER,
-  IMG_DYNAMIC1, IMG_DYNAMIC2, IMG_DYNAMIC3, IMG_DYNAMIC4,
-  IMG_JAVA, IMG_VIRTUALKEY, IMG_THEME,
-  IMG_PLUGIN1, IMG_PLUGIN2,
-  IMG_FCLGITHUB, IMG_QQ,
-  GITHUB_URL, QQ_GROUP_URL,
-} from './shared';
+import { FontAwesomeIcon, faRocket, faCheck, faBolt, faBookOpen, Link, StackedImageCycler } from './shared';
+import { SCENES, EASTER_EGG_TEXT } from './scenes';
 import styles from './index_new.module.css';
 import sharedStyles from './shared.module.css';
+
+/* =========================================================================
+ *  手机快滑参数（按手感可微调）
+ *  快滑：速度 ≥ FLICK_VELOCITY 且位移 ≥ FLICK_MIN_DISTANCE
+ *  慢拖：不满足时完全交给原生滚动，不做任何限制
+ * ========================================================================= */
+const FLICK_VELOCITY = 0.6;       // px/ms，约 600px/s
+const FLICK_MIN_DISTANCE = 24;    // px
+const FLICK_SAMPLE_MS = 100;      // 单次采样超过该时长不算快滑
+const FLICK_INSTANT_MS = 150;     // 触摸开始后该时间内触发快滑，按起始条目锚定
+const FLICK_SETTLE_MS = 180;      // 松手后惯性停止判定时间
+const SNAP_EPSILON = 0.0015;      // 吸附容差（全局进度）
+
+/* =========================================================================
+ *  构建「小场景（条目）」吸附点
+ *  - 滚动场景按 items 拆分为多条，每条取停留区间中点作为吸附位置
+ *  - 链接 / 彩蛋 / 开始场景各算一条，取其区间中点
+ *  - getIndex(progress) 返回当前显示的条目在整条序列中的下标
+ * ========================================================================= */
+function buildSnapData(scenes) {
+  const clamp01 = (v) => Math.min(Math.max(v, 0), 1);
+  const points = [];
+  const offsets = [];
+
+  scenes.forEach((scene) => {
+    offsets.push(points.length);
+    const span = scene.end - scene.start;
+    const count = scene.type === 'scroll' ? scene.items.length : 1;
+
+    if (scene.type === 'scroll') {
+      for (let i = 0; i < count; i += 1) {
+        const dwell = (i + 0.5) / count;
+        const sceneProgress = 0.12 + dwell * 0.76;
+        points.push(scene.start + sceneProgress * span);
+      }
+    } else {
+      points.push(scene.start + span * 0.5);
+    }
+  });
+
+  const getIndex = (progress) => {
+    for (let s = 0; s < scenes.length; s += 1) {
+      const scene = scenes[s];
+      const isLast = s === scenes.length - 1;
+      if (progress < scene.end || isLast) {
+        const offset = offsets[s];
+        if (scene.type === 'scroll') {
+          const n = scene.items.length;
+          const sceneProgress = clamp01((progress - scene.start) / (scene.end - scene.start));
+          const dwell = clamp01((sceneProgress - 0.12) / 0.76);
+          return offset + Math.min(Math.floor(dwell * n), n - 1);
+        }
+        return offset;
+      }
+    }
+    return points.length - 1;
+  };
+
+  return { points, getIndex };
+}
+
+const SNAP_DATA = buildSnapData(SCENES);
 
 /* =========================================================================
  *  Hook：全局滚动进度
@@ -69,25 +123,12 @@ function useScrollProgress(spacerRef) {
 }
 
 /* =========================================================================
- *  场景过渡生命周期
+ *  场景内停留进度
+ *  场景的淡入淡出由父组件统一控制，这里只需计算当前场景各条目的切换进度
  * ========================================================================= */
-function getSceneLifecycle(globalProgress, sceneStart, sceneEnd, isLastScene) {
+function getDwellProgress(globalProgress, sceneStart, sceneEnd) {
   const sceneProgress = Math.min(Math.max((globalProgress - sceneStart) / (sceneEnd - sceneStart), 0), 1);
-  const dwellProgress = Math.min(Math.max((sceneProgress - 0.12) / 0.76, 0), 1);
-
-  const enterStart = sceneStart;
-  const enterEnd = sceneStart + (sceneEnd - sceneStart) * 0.15;
-  const rawEnter = Math.min(Math.max((globalProgress - enterStart) / (enterEnd - enterStart), 0), 1);
-  const enterProgress = sceneStart === 0 ? 1 : rawEnter;
-
-  const exitStart = sceneStart + (sceneEnd - sceneStart) * 0.80;
-  const exitEnd = sceneStart + (sceneEnd - sceneStart) * 0.92;
-  const rawExit = isLastScene ? 0 : Math.min(Math.max((globalProgress - exitStart) / (exitEnd - exitStart), 0), 1);
-  const exitProgress = Math.pow(rawExit, 1.5);
-
-  const isActive = enterProgress > 0 && exitProgress < 1;
-
-  return { sceneProgress, enterProgress, dwellProgress, exitProgress, isActive };
+  return Math.min(Math.max((sceneProgress - 0.12) / 0.76, 0), 1);
 }
 
 /* =========================================================================
@@ -113,12 +154,8 @@ function getItemTransition(dwellProgress, itemCount) {
  *  修复 P2-5：移除 willChange，仅活跃场景保留
  *  修复 P2-7：静态样式迁移到 CSS 类，仅动态值保留 inline style
  * ========================================================================= */
-function ScrollScene({ title, items, progress, start, end, isLastScene, isFirstScene, overrideOpacity, scrollDir, sceneStatusRef }) {
-  const { enterProgress, dwellProgress, exitProgress } = getSceneLifecycle(progress, start, end, isLastScene);
-  const isActive = overrideOpacity !== undefined || (enterProgress > 0 && exitProgress < 1);
-
-  const sceneOpacity = overrideOpacity !== undefined ? overrideOpacity : enterProgress * (1 - exitProgress);
-  const sceneTranslateY = overrideOpacity !== undefined ? 0 : (1 - enterProgress) * 60 - exitProgress * 60;
+function ScrollScene({ title, items, progress, start, end, isFirstScene, sceneOpacity, scrollDir, sceneStatusRef }) {
+  const dwellProgress = getDwellProgress(progress, start, end);
 
   const { currentIndex, nextIndex } = getItemTransition(dwellProgress, items.length);
   const itemSpan = 1 / items.length;
@@ -285,8 +322,6 @@ function ScrollScene({ title, items, progress, start, end, isLastScene, isFirstS
   // 文字高亮与图片动画同步：动画完成切到下一项时，文字也切到下一项
   const displayIndex = anim.phase === 2 ? anim.to : displayItem;
 
-  if (overrideOpacity === undefined && !isActive && sceneOpacity <= 0) return null;
-
   const eagerFirst = isFirstScene;
 
   return (
@@ -294,8 +329,6 @@ function ScrollScene({ title, items, progress, start, end, isLastScene, isFirstS
       className={styles.sceneContainer}
       style={{
         opacity: sceneOpacity,
-        transform: `translateY(${sceneTranslateY}px)`,
-        willChange: isActive ? 'transform, opacity' : 'auto',
         pointerEvents: sceneOpacity > 0.5 ? 'auto' : 'none',
       }}
     >
@@ -418,30 +451,18 @@ function ScrollScene({ title, items, progress, start, end, isLastScene, isFirstS
 /* =========================================================================
  *  组件：链接场景
  * ========================================================================= */
-function LinkScene({ icon, iconAlt, title, desc, link, linkText, image, external, progress, start, end, isLastScene, overrideOpacity }) {
-  const { enterProgress, exitProgress } = getSceneLifecycle(progress, start, end, isLastScene);
-  const isActive = overrideOpacity !== undefined || (enterProgress > 0 && exitProgress < 1);
-  const sceneOpacity = overrideOpacity !== undefined ? overrideOpacity : enterProgress * (1 - exitProgress);
-  const sceneTranslateY = overrideOpacity !== undefined ? 0 : (1 - enterProgress) * 80 - exitProgress * 80;
-
-  if (overrideOpacity === undefined && !isActive && sceneOpacity <= 0) return null;
-
-  const isQQ = title === 'QQ 群';
+function LinkScene({ icon, iconAlt, title, desc, link, linkText, image, external, brand, sceneOpacity }) {
+  const isQQ = brand === 'qq';
 
   return (
     <div
       className={styles.sceneContainer}
       style={{
         opacity: sceneOpacity,
-        transform: `translateY(${sceneTranslateY}px)`,
-        willChange: isActive ? 'transform, opacity' : 'auto',
         pointerEvents: sceneOpacity > 0.5 ? 'auto' : 'none',
       }}
     >
-      <div
-        className={styles.linkSceneInner}
-        style={isQQ ? { flexDirection: 'column', alignItems: 'center', gap: 0, justifyContent: 'center' } : {}}
-      >
+      <div className={`${styles.linkSceneInner} ${isQQ ? styles.linkSceneInnerQQ : ''}`}>
         {isQQ ? (
           <div className={styles.qqSceneCard}>
             <img src={image} alt={title} loading="lazy" className={styles.qqSceneImage} />
@@ -490,21 +511,12 @@ function LinkScene({ icon, iconAlt, title, desc, link, linkText, image, external
 /* =========================================================================
  *  组件：彩蛋场景
  * ========================================================================= */
-function EasterEggScene({ progress, start, end, isLastScene, overrideOpacity }) {
-  const { enterProgress, exitProgress } = getSceneLifecycle(progress, start, end, isLastScene);
-  const isActive = overrideOpacity !== undefined || (enterProgress > 0 && exitProgress < 1);
-  const sceneOpacity = overrideOpacity !== undefined ? overrideOpacity : enterProgress * (1 - exitProgress);
-  const sceneScale = overrideOpacity !== undefined ? 1 : 0.92 + enterProgress * 0.08 - exitProgress * 0.08;
-
-  if (overrideOpacity === undefined && !isActive && sceneOpacity <= 0) return null;
-
+function EasterEggScene({ sceneOpacity }) {
   return (
     <div
       className={styles.sceneContainer}
       style={{
         opacity: sceneOpacity,
-        transform: `scale(${sceneScale})`,
-        willChange: isActive ? 'transform, opacity' : 'auto',
         pointerEvents: sceneOpacity > 0.5 ? 'auto' : 'none',
       }}
     >
@@ -513,10 +525,7 @@ function EasterEggScene({ progress, start, end, isLastScene, overrideOpacity }) 
           <FontAwesomeIcon icon={faBolt} />
           彩蛋
         </div>
-        <p className={sharedStyles.easterEggText}>
-          你说得对，但是「FoldCraft Launcher」是由FCL-Team基于HMCL的核心功能，使用PojavLauncher后端开发的Minecraft
-          Java版启动器。启动器运行在一个被称作「安卓」的系统，在这里，被系统选中的人将被授予「JVM」，导引Java之力。你将扮演一位名为「小白」的神秘用户，在自由的使用中安装不同版本、各有千秋独特的模组，和它们一起运行，找出崩溃闪退的原因，同时逐步发掘「xxException:」的真相。
-        </p>
+        <p className={sharedStyles.easterEggText}>{EASTER_EGG_TEXT}</p>
       </div>
     </div>
   );
@@ -525,120 +534,26 @@ function EasterEggScene({ progress, start, end, isLastScene, overrideOpacity }) 
 /* =========================================================================
  *  组件：开始场景（最后一个，不淡出）
  * ========================================================================= */
-function StartScene({ progress, start, end, isLastScene, overrideOpacity }) {
-  const { enterProgress } = getSceneLifecycle(progress, start, end, isLastScene);
-  const isActive = overrideOpacity !== undefined || enterProgress > 0;
-  const sceneOpacity = overrideOpacity !== undefined ? overrideOpacity : enterProgress;
-  const sceneTranslateY = overrideOpacity !== undefined ? 0 : (1 - enterProgress) * 50;
-
-  if (overrideOpacity === undefined && !isActive && sceneOpacity <= 0) return null;
-
+function StartScene({ title, desc, linkText, to, sceneOpacity }) {
   return (
     <div
       className={styles.sceneContainer}
       style={{
         opacity: sceneOpacity,
-        transform: `translateY(${sceneTranslateY}px)`,
-        willChange: isActive ? 'transform, opacity' : 'auto',
         pointerEvents: sceneOpacity > 0.5 ? 'auto' : 'none',
       }}
     >
       <div className={sharedStyles.startSceneInner}>
-        <h2 className={sharedStyles.startSceneTitle}>准备好了吗？</h2>
-        <p className={sharedStyles.startSceneDesc}>从零开始，在 Android 手机上畅玩 Minecraft Java 版</p>
-        <Link className={sharedStyles.startBtn} to="/docs">
+        <h2 className={sharedStyles.startSceneTitle}>{title}</h2>
+        <p className={sharedStyles.startSceneDesc}>{desc}</p>
+        <Link className={sharedStyles.startBtn} to={to}>
           <FontAwesomeIcon icon={faBookOpen} />
-          开始看教程
+          {linkText}
         </Link>
       </div>
     </div>
   );
 }
-
-/* =========================================================================
- *  场景数据
- *  修复 P1-1：重新分配进度区间，后段场景获得更多滚动距离
- * ========================================================================= */
-const SCENES = [
-  {
-    type: 'scroll',
-    start: 0.00,
-    end: 0.14,
-    title: '什么是 FCL？',
-    items: [
-      { title: 'Fold Craft Launcher（FCL）', desc: '是由 FCL-Team 开发的 Android 平台 Minecraft: Java Edition 启动器。', image: IMG_APP },
-      { title: '基于 HMCL 核心 + PojavLauncher 后端', desc: '基于HMCL的核心功能，使用PojavLauncher后端，让您能在移动设备上畅玩Java版MC，支持模组加载与全版本运行。', image: IMG_1 },
-    ],
-  },
-  {
-    type: 'scroll',
-    start: 0.14,
-    end: 0.36,
-    title: '核心特性',
-    items: [
-      { title: '原生支持 Minecraft 全版本', desc: '包括最新快照，让你始终走在版本最前沿。', image: IMG_VERSION },
-      { title: '支持各种模组加载器', desc: 'Forge / NeoForge / Fabric / Quilt / LiteLoader / OptiFine 一应俱全。', image: IMG_MODLOADER },
-      { title: '光影支持', desc: '需 Zink / MG 渲染器，让画面更加绚丽。', image: IMG_SHADER },
-      { title: '动态资源管理', desc: '模组 / 整合包 / 材质 / 光影 / 存档，一站式管理。', images: [IMG_DYNAMIC1, IMG_DYNAMIC2, IMG_DYNAMIC3, IMG_DYNAMIC4], interval: 600, pause: 3000 },
-    ],
-  },
-  {
-    type: 'scroll',
-    start: 0.36,
-    end: 0.47,
-    title: '核心特性',
-    items: [
-      { title: '内置多版本 Java 运行时', desc: 'Java 8 / 17 / 21 / 25 全版本内置，同时支持导入自定义 Java。', image: IMG_JAVA },
-    ],
-  },
-  {
-    type: 'scroll',
-    start: 0.47,
-    end: 0.62,
-    title: '核心特性',
-    items: [
-      { title: '虚拟鼠标与自定义按键映射', desc: '在手机上也能拥有 PC 级的操作体验。', image: IMG_VIRTUALKEY },
-      { title: '个性化主题定制', desc: '背景 / 颜色方案自由搭配，打造专属启动器。', image: IMG_THEME },
-      { title: '支持渲染器插件化', desc: '通过插件扩展渲染器，解锁更多可能。', images: [IMG_PLUGIN1, IMG_PLUGIN2], interval: 1000, pause: 3000 },
-    ],
-  },
-  {
-    type: 'link',
-    start: 0.62,
-    end: 0.73,
-    icon: <FontAwesomeIcon icon={faGithub} className={sharedStyles.linkIcon} />,
-    iconAlt: <FontAwesomeIcon icon={faGithub} />,
-    title: 'GitHub',
-    desc: '在 GitHub 上查看 FCL 启动器源代码、提交 Issue、参与项目贡献。',
-    link: GITHUB_URL,
-    linkText: '访问 GitHub 仓库',
-    image: IMG_FCLGITHUB,
-    external: true,
-  },
-  {
-    type: 'link',
-    start: 0.73,
-    end: 0.83,
-    icon: <QQIcon className={sharedStyles.qqIcon} />,
-    iconAlt: <QQIcon className={sharedStyles.qqIcon} />,
-    title: 'QQ 群',
-    desc: '加入 QQ 群，与其他玩家交流使用心得。',
-    link: QQ_GROUP_URL,
-    linkText: '加入 QQ 群',
-    image: IMG_QQ,
-    external: true,
-  },
-  {
-    type: 'easter',
-    start: 0.83,
-    end: 0.92,
-  },
-  {
-    type: 'start',
-    start: 0.92,
-    end: 1.00,
-  },
-];
 
 /* =========================================================================
  *  Hook：滑动阻塞器（锁机制）
@@ -655,10 +570,10 @@ const SCENES = [
 function useScrollBlocker(spacerRef, scenes) {
   const gestureSceneRef = useRef(-1);
   const lockedRef = useRef(false);
-  const touchingRef = useRef(false);
-  const lastTouchYRef = useRef(0);
   const clampingRef = useRef(false);
   const unlockTimerRef = useRef(null);
+  const deactivateTimerRef = useRef(null);
+  const blockerActiveRef = useRef(false);
 
   useEffect(() => {
     const el = spacerRef.current;
@@ -707,6 +622,17 @@ function useScrollBlocker(spacerRef, scenes) {
       }, 150);
     };
 
+    /** 滚轮/键盘输入期间保持生效；空闲 200ms 后释放，避免影响触摸慢拖 */
+    const keepAlive = () => {
+      blockerActiveRef.current = true;
+      clearTimeout(deactivateTimerRef.current);
+      deactivateTimerRef.current = setTimeout(() => {
+        blockerActiveRef.current = false;
+        lockedRef.current = false;
+        gestureSceneRef.current = -1;
+      }, 200);
+    };
+
     /** 检查是否到达允许边界，到达则设锁并返回 true */
     const checkAndLock = (dir, p, gs) => {
       if (dir > 0 && gs < scenes.length - 1) {
@@ -727,6 +653,7 @@ function useScrollBlocker(spacerRef, scenes) {
     // === Wheel ===
     const onWheel = (e) => {
       if (e.deltaY === 0 || !isInSection()) return;
+      keepAlive();
 
       // 锁定期：拦截所有 wheel 事件，并尝试钳回
       if (lockedRef.current) {
@@ -763,18 +690,19 @@ function useScrollBlocker(spacerRef, scenes) {
       }
     };
 
-    // === Touch ===
-    const onTouchStart = (e) => {
-      if (!isInSection()) return;
-      touchingRef.current = true;
-      lastTouchYRef.current = e.touches[0].clientY;
-      // touch 开始时不重置 locked — 让上一次的 momentum 自然解锁
-    };
+    // === Keyboard：与滚轮保持一致，单次按键最多跨越一个大场景 ===
+    const NAV_KEYS = ['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', ' ', 'Spacebar'];
+    const onKeyDown = (e) => {
+      if (!isInSection() || !NAV_KEYS.includes(e.key)) return;
+      if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.altKey) return;
 
-    const onTouchMove = (e) => {
-      if (!touchingRef.current || !isInSection()) return;
+      const target = e.target;
+      if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable)) {
+        return;
+      }
 
-      // 锁定期：拦截
+      keepAlive();
+
       if (lockedRef.current) {
         e.preventDefault();
         scheduleUnlock();
@@ -787,9 +715,8 @@ function useScrollBlocker(spacerRef, scenes) {
       const gs = gestureSceneRef.current;
       if (gs < 0) return;
 
-      const y = e.touches[0].clientY;
-      const dir = lastTouchYRef.current > y ? 1 : -1;
-      lastTouchYRef.current = y;
+      const isDown = e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ' || e.key === 'Spacebar';
+      const dir = isDown ? 1 : -1;
       const p = getProgress();
 
       if (checkAndLock(dir, p, gs)) {
@@ -798,11 +725,7 @@ function useScrollBlocker(spacerRef, scenes) {
       }
     };
 
-    const onTouchEnd = () => {
-      touchingRef.current = false;
-    };
-
-    // === Scroll：momentum 兜底 + 解锁调度 ===
+    // === Scroll：仅处理滚轮/键盘的惯性兜底，触摸慢拖不受影响 ===
     const onScroll = () => {
       if (clampingRef.current) return;
 
@@ -810,9 +733,15 @@ function useScrollBlocker(spacerRef, scenes) {
         // 离开区块时重置
         gestureSceneRef.current = -1;
         lockedRef.current = false;
+        blockerActiveRef.current = false;
         clearTimeout(unlockTimerRef.current);
+        clearTimeout(deactivateTimerRef.current);
         return;
       }
+
+      // 非滚轮/键盘输入（例如手机触摸）不参与这里的限制
+      if (!blockerActiveRef.current) return;
+      keepAlive();
 
       // 锁定期：持续调度解锁
       if (lockedRef.current) {
@@ -849,20 +778,188 @@ function useScrollBlocker(spacerRef, scenes) {
     };
 
     window.addEventListener('wheel', onWheel, { passive: false });
-    window.addEventListener('touchstart', onTouchStart, { passive: true });
-    window.addEventListener('touchmove', onTouchMove, { passive: false });
-    window.addEventListener('touchend', onTouchEnd, { passive: true });
+    window.addEventListener('keydown', onKeyDown);
     window.addEventListener('scroll', onScroll, { passive: true });
 
     return () => {
       window.removeEventListener('wheel', onWheel);
-      window.removeEventListener('touchstart', onTouchStart);
-      window.removeEventListener('touchmove', onTouchMove);
-      window.removeEventListener('touchend', onTouchEnd);
+      window.removeEventListener('keydown', onKeyDown);
       window.removeEventListener('scroll', onScroll);
       clearTimeout(unlockTimerRef.current);
+      clearTimeout(deactivateTimerRef.current);
     };
   }, [spacerRef, scenes]);
+}
+
+/* =========================================================================
+ *  Hook：手机触摸的快滑吸附
+ *  - 慢拖：完全不拦截，原生滚动可连续跨越多个场景
+ *  - 快滑：无论滑动多快，只前进/后退一个「小场景（条目）」，并吸附到该条目
+ * ========================================================================= */
+function useTouchFlickSnap(spacerRef, snapData) {
+  useEffect(() => {
+    const el = spacerRef.current;
+    if (!el) return undefined;
+
+    let mode = 'idle'; // idle | drag | flick
+    let touching = false;
+    let lastY = 0;
+    let lastX = 0;
+    let lastTime = 0;
+    let touchStartTime = 0;
+    let startIndex = 0;
+    let dragIndex = 0;
+    let targetProgress = 0;
+    let settleTimer = null;
+    let snapping = false;
+
+    const getProgress = () => {
+      const rect = el.getBoundingClientRect();
+      const top = rect.top + (window.pageYOffset || document.documentElement.scrollTop);
+      const dist = rect.height - window.innerHeight;
+      if (dist <= 0) return 0;
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      return Math.min(Math.max((scrollTop - top) / dist, 0), 1);
+    };
+
+    const progressToScrollY = (p) => {
+      const rect = el.getBoundingClientRect();
+      const top = rect.top + (window.pageYOffset || document.documentElement.scrollTop);
+      const dist = rect.height - window.innerHeight;
+      return top + p * dist;
+    };
+
+    // 仅在 sticky 区块真正吸顶后处理手势，避免从首屏进入时误触发吸附
+    const isPinned = () => {
+      const rect = el.getBoundingClientRect();
+      return rect.top <= 0.5 && rect.bottom >= window.innerHeight;
+    };
+
+    const snapToTarget = () => {
+      if (snapping) return;
+      snapping = true;
+      window.scrollTo(0, progressToScrollY(targetProgress));
+      requestAnimationFrame(() => { snapping = false; });
+    };
+
+    const clearSettle = () => {
+      if (settleTimer) {
+        clearTimeout(settleTimer);
+        settleTimer = null;
+      }
+    };
+
+    const scheduleSettle = () => {
+      clearTimeout(settleTimer);
+      settleTimer = setTimeout(() => {
+        settleTimer = null;
+        mode = 'idle';
+      }, FLICK_SETTLE_MS);
+    };
+
+    const onTouchStart = (e) => {
+      if (!isPinned() || e.touches.length !== 1) return;
+      touching = true;
+      mode = 'drag';
+      clearSettle();
+
+      const t = e.touches[0];
+      lastY = t.clientY;
+      lastX = t.clientX;
+      lastTime = e.timeStamp;
+      touchStartTime = e.timeStamp;
+
+      const idx = snapData.getIndex(getProgress());
+      startIndex = idx;
+      dragIndex = idx;
+    };
+
+    const onTouchMove = (e) => {
+      if (!touching || !isPinned() || e.touches.length !== 1) return;
+
+      const t = e.touches[0];
+      const now = e.timeStamp;
+      const dt = Math.max(8, now - lastTime);
+      const dy = lastY - t.clientY;
+      const dx = lastX - t.clientX;
+
+      if (mode === 'drag') {
+        const speed = Math.abs(dy) / dt;
+        const isVertical = Math.abs(dy) > Math.abs(dx);
+
+        if (
+          Math.abs(dy) >= FLICK_MIN_DISTANCE &&
+          isVertical &&
+          dt <= FLICK_SAMPLE_MS &&
+          speed >= FLICK_VELOCITY
+        ) {
+          mode = 'flick';
+          const dir = dy > 0 ? 1 : -1;
+          const elapsed = now - touchStartTime;
+          // 瞬间快滑按「起始条目」锚定，避免首次采样前已越过条目导致多跳
+          const anchor = elapsed <= FLICK_INSTANT_MS ? startIndex : dragIndex;
+          const maxIndex = snapData.points.length - 1;
+          const nextIndex = Math.max(0, Math.min(maxIndex, anchor + dir));
+
+          targetProgress = nextIndex === anchor
+            ? getProgress()
+            : snapData.points[nextIndex];
+          snapToTarget();
+        } else {
+          dragIndex = snapData.getIndex(getProgress());
+        }
+      }
+
+      if (mode === 'flick') {
+        e.preventDefault();
+        const p = getProgress();
+        if (Math.abs(p - targetProgress) > SNAP_EPSILON) {
+          snapToTarget();
+        }
+      }
+
+      lastY = t.clientY;
+      lastX = t.clientX;
+      lastTime = now;
+    };
+
+    const finishTouch = () => {
+      if (!touching) return;
+      touching = false;
+
+      if (mode === 'flick') {
+        snapToTarget();
+        scheduleSettle();
+      } else {
+        mode = 'idle';
+        clearSettle();
+      }
+    };
+
+    const onScroll = () => {
+      if (mode !== 'flick') return;
+      const p = getProgress();
+      if (Math.abs(p - targetProgress) > SNAP_EPSILON) {
+        snapToTarget();
+      }
+      scheduleSettle();
+    };
+
+    window.addEventListener('touchstart', onTouchStart, { passive: true });
+    window.addEventListener('touchmove', onTouchMove, { passive: false });
+    window.addEventListener('touchend', finishTouch, { passive: true });
+    window.addEventListener('touchcancel', finishTouch, { passive: true });
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('touchstart', onTouchStart);
+      window.removeEventListener('touchmove', onTouchMove);
+      window.removeEventListener('touchend', finishTouch);
+      window.removeEventListener('touchcancel', finishTouch);
+      window.removeEventListener('scroll', onScroll);
+      clearSettle();
+    };
+  }, [spacerRef, snapData]);
 }
 
 /* =========================================================================
@@ -874,6 +971,7 @@ function ScrollDrivenHome() {
   const scrollSpacerRef = useRef(null);
   const progress = useScrollProgress(scrollSpacerRef);
   useScrollBlocker(scrollSpacerRef, SCENES);
+  useTouchFlickSnap(scrollSpacerRef, SNAP_DATA);
 
   // 当前进度所属场景（唯一激活场景）
   const activeIndex = useMemo(() => {
@@ -926,25 +1024,27 @@ function ScrollDrivenHome() {
     return () => { cancelled = true; clearTimeout(timer); };
   }, [activeIndex]);
 
-  const renderScene = (scene, index, isLastScene, overrideOpacity) => {
-    const commonProps = {
-      progress,
-      start: scene.start,
-      end: scene.end,
-      isLastScene,
-      overrideOpacity,
-      scrollDir: mountDirRef.current,
-      sceneStatusRef,
-    };
-
+  const renderScene = (scene, index, sceneOpacity) => {
     if (scene.type === 'scroll') {
-      return <ScrollScene key={index} {...commonProps} title={scene.title} items={scene.items} isFirstScene={index === 0} />;
+      return (
+        <ScrollScene
+          key={index}
+          title={scene.title}
+          items={scene.items}
+          progress={progress}
+          start={scene.start}
+          end={scene.end}
+          isFirstScene={index === 0}
+          sceneOpacity={sceneOpacity}
+          scrollDir={mountDirRef.current}
+          sceneStatusRef={sceneStatusRef}
+        />
+      );
     }
     if (scene.type === 'link') {
       return (
         <LinkScene
           key={index}
-          {...commonProps}
           icon={scene.icon}
           iconAlt={scene.iconAlt}
           title={scene.title}
@@ -953,14 +1053,25 @@ function ScrollDrivenHome() {
           linkText={scene.linkText}
           image={scene.image}
           external={scene.external}
+          brand={scene.brand}
+          sceneOpacity={sceneOpacity}
         />
       );
     }
     if (scene.type === 'easter') {
-      return <EasterEggScene key={index} {...commonProps} />;
+      return <EasterEggScene key={index} sceneOpacity={sceneOpacity} />;
     }
     if (scene.type === 'start') {
-      return <StartScene key={index} {...commonProps} />;
+      return (
+        <StartScene
+          key={index}
+          title={scene.title}
+          desc={scene.desc}
+          linkText={scene.linkText}
+          to={scene.to}
+          sceneOpacity={sceneOpacity}
+        />
+      );
     }
     return null;
   };
@@ -969,12 +1080,7 @@ function ScrollDrivenHome() {
     <div className={styles.scrollDrivenContainer}>
       <div ref={scrollSpacerRef} style={{ height: '350vh' }}>
         <div className={styles.stickyViewport}>
-          {renderScene(
-            SCENES[displayIndex],
-            displayIndex,
-            displayIndex === SCENES.length - 1,
-            sceneOpacity
-          )}
+          {renderScene(SCENES[displayIndex], displayIndex, sceneOpacity)}
         </div>
       </div>
     </div>

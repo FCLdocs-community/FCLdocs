@@ -13,6 +13,7 @@
   position: sticky;
   top: 0;
   height: 100vh;
+  height: 100dvh;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -139,6 +140,14 @@
   min-width: 0;
 }
 
+/* QQ 场景：竖向卡片布局（用类名代替内联样式，便于移动端覆盖） */
+.linkSceneInnerQQ {
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  justify-content: center;
+}
+
 .linkSceneRight {
   flex: 0 0 45%;
   max-width: 45%;
@@ -203,8 +212,10 @@
 
   .stickyImageWrap {
     height: 40vh;
+    height: 40dvh;
     aspect-ratio: auto;
     max-height: 40vh;
+    max-height: 40dvh;
   }
 
   .scrollSceneRight {
@@ -243,5 +254,16 @@
 
   .stickyImageWrap {
     height: 35vh;
+    height: 35dvh;
+  }
+}
+
+/* =========================================================================
+ *  减弱动态效果：关闭过渡动画
+ * ========================================================================= */
+@media (prefers-reduced-motion: reduce) {
+  .sceneContainer,
+  .scrollItem {
+    transition: none;
   }
 }

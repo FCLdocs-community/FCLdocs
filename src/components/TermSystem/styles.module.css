@@ -79,6 +79,28 @@
   background: rgba(0, 0, 0, 0.85);
 }
 
+/* ===== 术语互链返回 ===== */
+.modalHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.backBtn {
+  border: none;
+  background: var(--ifm-color-emphasis-200);
+  color: var(--ifm-font-color-base);
+  border-radius: 9999px;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.backBtn:hover {
+  background: var(--ifm-color-emphasis-300);
+}
+
 /* ===== 内容区 ===== */
 .content {
   color: var(--ifm-font-color-base);

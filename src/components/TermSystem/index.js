@@ -67,8 +67,36 @@ function processTermMarkdown(mdContent, termId) {
   return prefixHtml;
 }
 
-// ========== 弹窗（不变）==========
-function TermModal({ html, loading, error, onClose }) {
+function normalizeTermPath(rawPath) {
+  let path = String(rawPath || '').trim();
+  path = path.replace(/^window:/, '');
+  path = path.split('#')[0];
+  path = path.replace(/^\/+/, '');
+  if (!path.startsWith('term/')) return null;
+  if (!path.endsWith('.md')) path += '.md';
+  return path;
+}
+
+async function loadTermHtml(rawPath, baseUrl) {
+  const mdPath = normalizeTermPath(rawPath);
+  if (!mdPath) throw new Error('无效的术语链接');
+
+  const termId = mdPath.split('/').pop().replace(/\.md$/, '');
+  let mdContent = mdCache.get(mdPath);
+
+  if (!mdContent) {
+    const cleanBase = baseUrl.replace(/\/$/, '');
+    const res = await fetch(`${cleanBase}/${mdPath}`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+    mdContent = await res.text();
+    mdCache.set(mdPath, mdContent);
+  }
+
+  return processTermMarkdown(mdContent, termId);
+}
+
+// ========== 弹窗 ==========
+function TermModal({ html, loading, error, onClose, onBack, canGoBack, onTermNavigate }) {
   const [isClosing, setIsClosing] = useState(false);
 
   const handleClose = useCallback(() => {
@@ -76,6 +104,18 @@ function TermModal({ html, loading, error, onClose }) {
     setIsClosing(true);
     setTimeout(() => onClose(), ANIMATION_DURATION);
   }, [isClosing, onClose]);
+
+  const handleContentClick = useCallback(
+    (e) => {
+      const anchor = e.target?.closest?.('a');
+      if (!anchor) return;
+      const href = anchor.getAttribute('href') || '';
+      if (!href.startsWith('window:')) return;
+      e.preventDefault();
+      onTermNavigate(href);
+    },
+    [onTermNavigate]
+  );
 
   useEffect(() => {
     const handleEsc = (e) => {
@@ -92,6 +132,11 @@ function TermModal({ html, loading, error, onClose }) {
     <div className={overlayClass} onClick={handleClose}>
       <div className={modalClass} onClick={(e) => e.stopPropagation()}>
         <button className={styles.closeBtn} onClick={handleClose} aria-label="关闭">×</button>
+        {canGoBack && (
+          <div className={styles.modalHeader}>
+            <button type="button" className={styles.backBtn} onClick={onBack}>← 返回</button>
+          </div>
+        )}
         {loading && <div className={styles.loading}>加载中...</div>}
         {error && (
           <div className={styles.error}>
@@ -100,64 +145,75 @@ function TermModal({ html, loading, error, onClose }) {
           </div>
         )}
         {html && !loading && !error && (
-          <div className={styles.content} dangerouslySetInnerHTML={{ __html: html }} />
+          <div
+            className={styles.content}
+            onClick={handleContentClick}
+            dangerouslySetInnerHTML={{ __html: html }}
+          />
         )}
       </div>
     </div>
   );
 }
 
-// ========== 术语链接（不变）==========
+// ========== 术语链接 ==========
 export function TermLink({ path, color, children }) {
   const { siteConfig } = useDocusaurusContext();
   const baseUrl = siteConfig.baseUrl || '/';
-  const termId = path.split('/').pop().replace(/\.md$/, '');
-
-  const [isOpen, setIsOpen] = useState(false);
-  const [html, setHtml] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
   const hexColor = color.startsWith('#') ? color : `#${color}`;
 
-  const handleClick = useCallback(
-    async (e) => {
-      e.preventDefault();
-      if (isOpen) return;
+  const [history, setHistory] = useState([]);
+  const requestKeyRef = React.useRef(0);
 
-      setIsOpen(true);
-      setLoading(true);
-      setError(null);
+  const openTerm = useCallback(
+    async (rawPath, push) => {
+      requestKeyRef.current += 1;
+      const key = requestKeyRef.current;
+      const entry = { key, html: '', loading: true, error: null };
+
+      setHistory((prev) => (push ? [...prev, entry] : [entry]));
 
       try {
-        const mdPath = path.endsWith('.md') ? path : `${path}.md`;
-        let mdContent = mdCache.get(mdPath);
-
-        if (!mdContent) {
-          const cleanBase = baseUrl.replace(/\/$/, '');
-          const fullPath = `${cleanBase}${mdPath}`;
-          const res = await fetch(fullPath);
-          if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
-          mdContent = await res.text();
-          mdCache.set(mdPath, mdContent);
-        }
-
-        const processed = processTermMarkdown(mdContent, termId);
-        setHtml(processed);
+        const html = await loadTermHtml(rawPath, baseUrl);
+        setHistory((prev) =>
+          prev.map((item) => (item.key === key ? { ...item, html, loading: false } : item))
+        );
       } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
+        setHistory((prev) =>
+          prev.map((item) =>
+            item.key === key ? { ...item, error: err.message, loading: false } : item
+          )
+        );
       }
     },
-    [path, baseUrl, isOpen, termId]
+    [baseUrl]
   );
 
-  const handleClose = useCallback(() => {
-    setIsOpen(false);
-    setHtml('');
-    setError(null);
+  const handleClick = useCallback(
+    (e) => {
+      e.preventDefault();
+      if (history.length > 0) return;
+      openTerm(path, false);
+    },
+    [history.length, openTerm, path]
+  );
+
+  const handleNavigate = useCallback(
+    (href) => {
+      openTerm(href, true);
+    },
+    [openTerm]
+  );
+
+  const handleBack = useCallback(() => {
+    setHistory((prev) => (prev.length > 1 ? prev.slice(0, -1) : prev));
   }, []);
+
+  const handleClose = useCallback(() => {
+    setHistory([]);
+  }, []);
+
+  const current = history[history.length - 1];
 
   return (
     <>
@@ -171,8 +227,16 @@ export function TermLink({ path, color, children }) {
       >
         {children}
       </span>
-      {isOpen && (
-        <TermModal html={html} loading={loading} error={error} onClose={handleClose} />
+      {current && (
+        <TermModal
+          html={current.html}
+          loading={current.loading}
+          error={current.error}
+          onClose={handleClose}
+          onBack={handleBack}
+          canGoBack={history.length > 1}
+          onTermNavigate={handleNavigate}
+        />
       )}
     </>
   );

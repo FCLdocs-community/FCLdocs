@@ -36,11 +36,38 @@ function useScrollAnimationSupport() {
 }
 
 /* =========================================================================
+ *  用户偏好检测：是否希望减少动态效果
+ *  命中时改用静态回退页，避免强制滚动驱动动画
+ * ========================================================================= */
+function usePrefersReducedMotion() {
+  const [reduced, setReduced] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return undefined;
+
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const update = () => setReduced(mq.matches);
+    update();
+
+    if (typeof mq.addEventListener === 'function') {
+      mq.addEventListener('change', update);
+      return () => mq.removeEventListener('change', update);
+    }
+    mq.addListener(update);
+    return () => mq.removeListener(update);
+  }, []);
+
+  return reduced;
+}
+
+/* =========================================================================
  *  主组件：入口
- *  根据 API 检测结果条件渲染 ScrollDrivenHome 或 FallbackHome
+ *  根据 API 检测结果与用户偏好条件渲染 ScrollDrivenHome 或 FallbackHome
  * ========================================================================= */
 export default function Home() {
   const scrollSupported = useScrollAnimationSupport();
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const useAnimatedHome = scrollSupported && !prefersReducedMotion;
 
   return (
     <Layout title="FCL 新手教程" description="Fold Craft Launcher 新手小白易看懂的教程">
@@ -57,7 +84,7 @@ export default function Home() {
             </div>
           </header>
 
-          {scrollSupported ? <ScrollDrivenHome /> : <FallbackHome />}
+          {useAnimatedHome ? <ScrollDrivenHome /> : <FallbackHome />}
         </div>
       </div>
     </Layout>

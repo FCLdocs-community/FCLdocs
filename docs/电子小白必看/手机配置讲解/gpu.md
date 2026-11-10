@@ -5,7 +5,7 @@ description: 用大白话讲清楚手机 GPU 是什么、它和 CPU 的区别、
 ---
 
 :::tip 专有名词
-本文涉及到的专有名词：[CPU](window:/term/CPU) 、 [独立显卡](window:/term/独立显卡) 、 [GPU](window:/term/GPU) 、 [SoC](window:/term/SoC)
+本文涉及到的专有名词：[CPU](window:/term/CPU) 、 [独立显卡](window:/term/独立显卡) 、 [GPU](window:/term/GPU) 、 [SoC](window:/term/SoC) 、 [Adreno](window:/term/Adreno) 、 [Mali](window:/term/Mali)
 :::
 
 # GPU 介绍
@@ -29,8 +29,8 @@ description: 用大白话讲清楚手机 GPU 是什么、它和 CPU 的区别、
 
 手机 GPU 都是集成在 SoC 里的，没有独立显卡。主流的有：
 
-- **Adreno**：高通骁龙自带，比如 Adreno 750、Adreno 740。
-- **Mali**：ARM 公司设计，联发科天玑、华为麒麟常用，比如 Mali-G715、Mali-G720。
+- **[Adreno](window:/term/Adreno)**：高通骁龙自带，比如 Adreno 750、Adreno 740。
+- **[Mali](window:/term/Mali)**：ARM 公司设计，联发科天玑、华为麒麟常用，比如 Mali-G715、Mali-G720。
 - **PowerVR**：Imagination 公司设计，早年苹果 A 系列用过，现在主要是一些中低端 SoC。
 - **Apple GPU**：苹果自研，A 系列自带，比如 A17 Pro 的 6 核 GPU。
 

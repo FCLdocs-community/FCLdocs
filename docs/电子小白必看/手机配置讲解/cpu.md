@@ -51,9 +51,9 @@ CPU 性能好不好，主要看三个参数：**频率、核心数、架构**。
 
 ## 三、架构（指令集架构）
 
-**架构**这里特指 **指令集架构（ISA，Instruction Set Architecture）**，可以理解为 CPU 能听懂的「语言」。
+**架构**这里特指 **[指令集架构](window:/term/指令集架构)（ISA，Instruction Set Architecture）**，可以理解为 CPU 能听懂的「语言」。
 
-手机 CPU 几乎都用 **ARM 架构**（英国 ARM 公司设计）。ARM 架构的特点是**省电**，所以手机、平板、手表都用它。电脑上的 CPU（Intel、AMD）用的是 **x86 架构**，性能强但费电。
+手机 CPU 几乎都用 **[ARM 架构](window:/term/ARM和x86架构)**（英国 ARM 公司设计）。ARM 架构的特点是**省电**，所以手机、平板、手表都用它。电脑上的 CPU（Intel、AMD）用的是 **x86 架构**，性能强但费电。
 
 ARM 架构下又分具体型号，比如：
 

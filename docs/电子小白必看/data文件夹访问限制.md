@@ -48,7 +48,7 @@ description: 用大白话讲清楚 Android 11 之后为什么 Android/data 文�
 
 ### 方法 2：让文件管理器APP提权后访问（最优雅）
 
-使用Shizuku授予文件管理器APP（需适配Shizuku，如 MT 管理器）adb权限，就可以访问 Android/data 了，或者已 Root 用户也可直接授予 Root 权限。
+使用Shizuku授予文件管理器APP（需适配Shizuku，如 MT 管理器）[adb](window:/term/ADB)权限，就可以访问 Android/data 了，或者已 [Root](window:/term/Root) 用户也可直接授予 Root 权限。
 
 ### 方法 3：用电脑通过 USB 访问
 
@@ -74,7 +74,7 @@ ADB 后面会专门讲。
 
 ### 方法 5：双向配合访问
 
-以上所述方法都是文件管理器单方面尝试访问文件，但是安卓系统还允许 APP 主动对外提供文件，也就是 SAF 框架。部分 APP （如 FCL ZL2 Termux ）就提供了这个接口，支持 SAF 的文件管理器可以直接向用户请求访问以上 APP 提供的文件。而且这种方式是 APP 主动提供文件，甚至可以用来访问（一般情况下）绝对私有外部无法访问的文件。
+以上所述方法都是文件管理器单方面尝试访问文件，但是安卓系统还允许 APP 主动对外提供文件，也就是 [SAF](window:/term/SAF) 框架。部分 APP（如 FCL、ZL2、Termux）就提供了这个接口，支持 SAF 的文件管理器可以直接向用户请求访问以上 APP 提供的文件。而且这种方式是 APP 主动提供文件，甚至可以用来访问（一般情况下）绝对私有外部无法访问的文件。
 
 :::note 名词解释
 **SAF**：Storage Access Framework，存储访问框架。
@@ -104,6 +104,6 @@ QQ 下载的文件默认存在 `Android/data/com.tencent.mobileqq/Tencent/QQfile
 - 原因：防止 App 偷看其他 App 数据。
 - 访问方法：系统自带文件管理器、电脑 USB、ADB、Root。
 
-## 拓展：/storage /sdcard是什么东西
+## 拓展：/storage 与 /sdcard 是什么
 
 /storage/emulated/0 和 /sdcard 都是（二者等价）安卓内部存储的路径，也就是一般访问“手机存储”实际访问的路径，上面说的“Android/data”实际上是“/storage/emulated/0/Android/data”或“/sdcard/Android/data”。

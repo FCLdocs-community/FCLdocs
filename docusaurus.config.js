@@ -51,7 +51,7 @@ module.exports = {
         indexBlog: false,
         indexPages: false,
 
-        docsRouteBasePath: ['/docs', '/FAQ', '/SuperDocs'],
+        docsRouteBasePath: ['/docs', '/FAQ', '/SuperDocs', '/error'],
         blogRouteBasePath: '/blog',
 
         language: ['zh', 'en'],
@@ -77,6 +77,10 @@ module.exports = {
           {
             path: '/SuperDocs',
             label: '高阶教程文档',
+          },
+          {
+            path: '/error',
+            label: '错误日志排查',
           },
         ],
 
@@ -117,6 +121,14 @@ module.exports = {
           docsPluginId: 'faq',
           position: 'left',
           label: 'FAQ 常见问题',
+        },
+
+        {
+          type: 'docSidebar',
+          sidebarId: 'errorSidebar',
+          docsPluginId: 'error',
+          position: 'left',
+          label: '错误日志排查',
         },
 
         {
@@ -262,6 +274,32 @@ module.exports = {
         path: 'SuperDocs',
         routeBasePath: 'SuperDocs',
         sidebarPath: require.resolve('./sidebarsSuper.js'),
+        editUrl: 'https://github.com/FCLdocs-community/FCLdocs/edit/main/',
+        remarkPlugins: [remarkWindowPlugin],
+      },
+    ],
+
+    // error（错误日志排查）独立 docs plugin
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'error',
+        path: 'error',
+        routeBasePath: 'error',
+        sidebarPath: require.resolve('./sidebarsError.js'),
+        editUrl: 'https://github.com/FCLdocs-community/FCLdocs/edit/main/',
+        remarkPlugins: [remarkWindowPlugin],
+      },
+    ],
+
+    // stinger（花絮）独立 docs plugin（暂不加入导航，等确认后再挂）
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'stinger',
+        path: 'stinger',
+        routeBasePath: 'stinger',
+        sidebarPath: require.resolve('./sidebarsStinger.js'),
         editUrl: 'https://github.com/FCLdocs-community/FCLdocs/edit/main/',
         remarkPlugins: [remarkWindowPlugin],
       },

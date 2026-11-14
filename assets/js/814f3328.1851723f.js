@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[7472],{5513(e){e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"\u66f4\u65b0\u65e5\u5fd7","permalink":"/blog/changelog","unlisted":false,"date":"2026-07-20T00:00:00.000Z"}]}')}}]);

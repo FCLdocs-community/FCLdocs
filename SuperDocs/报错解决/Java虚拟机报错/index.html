@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr" class="docs-wrapper plugin-docs plugin-id-super docs-version-current docs-doc-page docs-doc-id-报错解决/Java虚拟机报错" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.10.2">
+<title data-rh="true">Java虚拟机报错 | FCL新手文档</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://fcldocs.top/SuperDocs/报错解决/Java虚拟机报错"><meta data-rh="true" property="og:locale" content="zh_Hans"><meta data-rh="true" name="docusaurus_locale" content="zh-Hans"><meta data-rh="true" name="docsearch:language" content="zh-Hans"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-super-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-super-current"><meta data-rh="true" property="og:title" content="Java虚拟机报错 | FCL新手文档"><meta data-rh="true" name="description" content="区分 JVM 自身的异常与游戏、模组问题，并处理 Java 版本、内存、本地库和 JVM 崩溃。"><meta data-rh="true" property="og:description" content="区分 JVM 自身的异常与游戏、模组问题，并处理 Java 版本、内存、本地库和 JVM 崩溃。"><link data-rh="true" rel="icon" href="/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://fcldocs.top/SuperDocs/报错解决/Java虚拟机报错"><link data-rh="true" rel="alternate" href="https://fcldocs.top/SuperDocs/报错解决/Java虚拟机报错" hreflang="zh-Hans"><link data-rh="true" rel="alternate" href="https://fcldocs.top/SuperDocs/报错解决/Java虚拟机报错" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Java虚拟机报错","item":"https://fcldocs.top/SuperDocs/报错解决/Java虚拟机报错"}]}</script><link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="FCL新手文档 RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="FCL新手文档 Atom Feed">
+
+
+
+
+
+
+
+
+
+
+<style>
+        #fcl-site-bg {
+          position: fixed; inset: 0; z-index: -1;
+          background:
+            linear-gradient(rgba(255,255,255,0.15), rgba(255,255,255,0.15)),
+            url('/img/bj/樱花-浅.png') center / cover no-repeat;
+        }
+
+        html[data-theme='dark'] #fcl-site-bg {
+          background:
+            linear-gradient(rgba(13,15,20,0.25), rgba(13,15,20,0.25)),
+            url('/img/bj/樱花-暗.png') center / cover no-repeat;
+        }
+
+        #fcl-loading-overlay {
+          position: fixed; inset: 0; z-index: 99999;
+          display: flex; flex-direction: column;
+          align-items: center; justify-content: center;
+          background: #0d0f14; color: #e8e8e8;
+          transition: opacity 0.35s ease;
+          will-change: opacity;
+        }
+
+        #fcl-loading-overlay[data-theme='light'] {
+          background: #ffffff; color: #1c1e21;
+        }
+
+        #fcl-loading-overlay.fcl-loading-hidden {
+          opacity: 0; pointer-events: none;
+        }
+
+        #fcl-loading-overlay .fcl-loading-spinner {
+          width: 42px; height: 42px; border-radius: 50%;
+          border: 3px solid rgba(128,128,128,0.3);
+          border-top-color: #25c2a0;
+          animation: fcl-loading-spin 0.8s linear infinite;
+        }
+
+        #fcl-loading-overlay .fcl-loading-text {
+          margin-top: 14px; font-size: 15px;
+          font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+          letter-spacing: 2px; opacity: 0.8;
+        }
+
+        @keyframes fcl-loading-spin {
+          to { transform: rotate(360deg); }
+        }
+      </style>
+<script>!function(){var e="dark";try{e=localStorage.getItem("theme")||"dark"}catch(e){}document.documentElement.setAttribute("data-theme",e);var t=document.createElement("div");if(t.id="fcl-site-bg",document.documentElement.appendChild(t),"/"===location.pathname){var d=document.createElement("div");d.id="fcl-loading-overlay",d.setAttribute("data-theme","light"===e?"light":"dark"),d.innerHTML='<div class="fcl-loading-spinner"></div><div class="fcl-loading-text">FCL 新手文档</div>',(document.body||document.documentElement).appendChild(d)}}()</script><link rel="stylesheet" href="/assets/css/styles.5e776e2b.css">
+<script src="/assets/js/runtime~main.3bae35b0.js" defer="defer"></script>
+<script src="/assets/js/main.93b6481f.js" defer="defer"></script>
+</head>
+<body>
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||"dark"),document.documentElement.setAttribute("data-theme-choice",t||"dark")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><div role="region" aria-label="跳到主要内容"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">跳到主要内容</a></div><nav aria-label="主导航" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="切换导航栏" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/"><b class="navbar__title text--truncate">FCL 教程</b></a><a class="navbar__item navbar__link" href="/docs/">FCL 新手教程</a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/SuperDocs/">FCL 高阶教程</a><a class="navbar__item navbar__link" href="/FAQ/">FAQ 常见问题</a><a class="navbar__item navbar__link" href="/error/">错误日志排查</a><a href="https://github.com/FCL-Team/FoldCraftLauncher" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">FCL 代码仓库</a><a href="https://foldcraftlauncher.cn" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">FCL 下载站(非官方)</a><a class="navbar__item navbar__link" href="/about">关于本站</a><a class="navbar__item navbar__link" href="/blog">更新内容</a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="切换浅色/暗黑模式（当前为system mode）"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"><div class="navbar__search searchBarContainer_NW3z" dir="ltr"><input placeholder="搜索" aria-label="Search" class="navbar__search-input searchInput_YFbd" value=""><div class="loadingRing_RJI3 searchBarLoadingRing_YnHq"><div></div><div></div><div></div><div></div></div></div></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="回到顶部" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="文档侧边栏" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/SuperDocs/"><span class="linkLabel_WmDU">FCL 高阶教程</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/SuperDocs/手机启动器原理/minecraft移植到手机"><span class="categoryLinkLabel_W154">手机启动器原理</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/SuperDocs/FCL 启动器选项/全局游戏设置"><span class="categoryLinkLabel_W154">FCL 启动器选项</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/SuperDocs/布局创建/"><span class="categoryLinkLabel_W154">布局创建</span></a><button aria-label="展开侧边栏分类 &#x27;布局创建&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" href="/SuperDocs/报错解决/游戏加载错误"><span class="categoryLinkLabel_W154">报错解决</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/SuperDocs/报错解决/游戏加载错误"><span class="linkLabel_WmDU">游戏加载错误</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/SuperDocs/报错解决/闪退至主界面"><span class="linkLabel_WmDU">闪退至主界面</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/SuperDocs/报错解决/Crash报错"><span class="linkLabel_WmDU">Crash报错</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/SuperDocs/报错解决/Java虚拟机报错"><span class="linkLabel_WmDU">Java虚拟机报错</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/SuperDocs/报错解决/Vulkan报错"><span class="linkLabel_WmDU">Vulkan报错</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/SuperDocs/报错解决/渲染器选择错误"><span class="linkLabel_WmDU">渲染器选择错误</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/SuperDocs/报错解决/模组不兼容 或 缺少前置模组"><span class="linkLabel_WmDU">模组不兼容/缺少前置模组</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/SuperDocs/报错解决/光影错误"><span class="linkLabel_WmDU">光影错误</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/SuperDocs/报错解决/存档错误"><span class="linkLabel_WmDU">存档错误</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/SuperDocs/联机途径/局域网连接"><span class="categoryLinkLabel_W154">联机途径</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/SuperDocs/开一个属于自己的服务器/认识服务器核心"><span class="categoryLinkLabel_W154">开一个属于自己的服务器</span></a></div></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="页面路径"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="主页面" class="breadcrumbs__link" href="/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">报错解决</span></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">Java虚拟机报错</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">本页总览</button></div><div class="theme-doc-markdown markdown"><div class="theme-admonition theme-admonition-tip admonition_xJq3 alert alert--success"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></span>专有名词</div><div class="admonitionContent_BuS1"><p>本文涉及到的专有名词：<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">mod</span>、<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">日志</span>、<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">Vulkan</span>、<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">EGL</span>、<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">JRE</span></p></div></div>
+<header><h1>Java虚拟机报错</h1></header>
+<p><span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">Java</span> 虚拟机（<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">JVM</span>）<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">报错</span>，指的是异常类型以 <code>java.lang.</code> 开头、由 JVM 或 Java 运行时直接抛出的错误。它和<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">模组</span>报错、<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">渲染器</span>报错要分开看：</p>
+<ul>
+<li class="">JVM 报错：<code>UnsupportedClassVersionError</code>、<code>OutOfMemoryError</code>、<code>UnsatisfiedLinkError</code> 等。</li>
+<li class="">游戏或模组报错 ：<code>NoClassDefFoundError</code>、<code>NoSuchMethodError</code>、各类模组加载异常，通常去 <a class="" href="/SuperDocs/报错解决/游戏加载错误">游戏加载错误</a> 或 <a class="" href="/SuperDocs/报错解决/模组不兼容 或 缺少前置模组">模组不兼容或缺少前置模组</a> 排查。</li>
+<li class="">图形库报错：<code>GL_</code>、<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">Vulkan</span>、<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">EGL</span> 相关，见 <a class="" href="/SuperDocs/报错解决/Vulkan报错">Vulkan报错</a>。</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="先确认-java-版本">先确认 Java 版本<a href="#先确认-java-版本" class="hash-link" aria-label="先确认 Java 版本的直接链接" title="先确认 Java 版本的直接链接" translate="no">​</a></h2>
+<p>版本设置里有「Java 版本」，默认是「自动选择」。FCL 内置 Java 8、17、21、25，会根据版本要求自动挑选。</p>
+<p>手动选择时的对应关系：</p>
+<table><thead><tr><th>游戏版本</th><th>需要的 Java</th></tr></thead><tbody><tr><td>1.16.5 及以下</td><td>Java 8</td></tr><tr><td>1.17 – 1.20.4</td><td>Java 17</td></tr><tr><td>1.20.5 – 1.21.x</td><td>Java 21</td></tr><tr><td>26.1 及以后</td><td>Java 25</td></tr></tbody></table>
+<p>如果手动选的 Java 和版本要求不一致，启动器会弹「你正在使用不推荐的 Java 版本」，可以选择「自动选择」纠正。</p>
+<p>如果提示「未能找到合适的 Java！」，说明启动器里没有可用的运行时。改用自动选择，或者重新安装内置 Java，不要随便导入电脑上的 <span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">JRE</span>。</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="unsupportedclassversionerror">UnsupportedClassVersionError<a href="#unsupportedclassversionerror" class="hash-link" aria-label="UnsupportedClassVersionError的直接链接" title="UnsupportedClassVersionError的直接链接" translate="no">​</a></h2>
+<p>典型<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">日志</span>：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">java.lang.UnsupportedClassVersionError: com/example/ExampleMod has been compiled</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">by a more recent version of the Java Runtime (class file version 69.0),</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">this version of the Java Runtime only recognizes class file versions up to 65.0</span><br></div></code></pre></div></div>
+<p><code>class file version</code> 和 Java 版本的对应关系：</p>
+<table><thead><tr><th>class file version</th><th>Java 版本</th></tr></thead><tbody><tr><td>52</td><td>8</td></tr><tr><td>55</td><td>11</td></tr><tr><td>61</td><td>17</td></tr><tr><td>65</td><td>21</td></tr><tr><td>69</td><td>25</td></tr></tbody></table>
+<p>这条报错的意思是：代码是用更高的 Java 编译的，当前 Java 太旧。</p>
+<p>常见原因：</p>
+<ul>
+<li class="">游戏版本要求 Java 25，但手动选了 21 或 17。</li>
+<li class="">模组是用更高 Java 编译的，游戏自带的 Java 跟不上。</li>
+<li class="">旧版 <span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">Forge</span> 配了过新的 Java，或新版 Forge 配了 Java 8。</li>
+</ul>
+<p>处理：</p>
+<ol>
+<li class="">Java 版本改为「自动选择」。</li>
+<li class="">26.x 版本确认使用 Java 25。</li>
+<li class="">模组报这个错时，更新模组，或删除要求更高 Java 的模组。</li>
+<li class="">旧版 Forge 反而需要 Java 8，不要一律选最高版本。</li>
+</ol>
+<p>有时日志里是 <code>Unsupported class file major version 69</code>，出现在<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">模组加载器</span>或 ASM 里，本质相同，按上面处理。</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="内存不足">内存不足<a href="#内存不足" class="hash-link" aria-label="内存不足的直接链接" title="内存不足的直接链接" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="java-heap-space">Java heap space<a href="#java-heap-space" class="hash-link" aria-label="Java heap space的直接链接" title="Java heap space的直接链接" translate="no">​</a></h3>
+<p>典型日志：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">java.lang.OutOfMemoryError: Java heap space</span><br></div></code></pre></div></div>
+<p>意思是堆<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">内存</span>不够。常见于大型<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">整合包</span>、<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">光影</span>、高<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">视距</span>、模组过多。</p>
+<p>处理：</p>
+<ol>
+<li class="">在<a class="" href="/SuperDocs/FCL 启动器选项/全局游戏设置">全局游戏设置</a>或版本设置里调大「游戏内存」。</li>
+<li class="">一次加 256–512 MB，不要直接拉满。</li>
+<li class="">同时降低视距、关闭光影、减少常驻模组。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="gc-overhead-limit-exceeded">GC overhead limit exceeded<a href="#gc-overhead-limit-exceeded" class="hash-link" aria-label="GC overhead limit exceeded的直接链接" title="GC overhead limit exceeded的直接链接" translate="no">​</a></h3>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">java.lang.OutOfMemoryError: GC overhead limit exceeded</span><br></div></code></pre></div></div>
+<p>垃圾回收占用了过多时间，实际可用内存太少。处理方式和 Java heap space 相同。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="metaspace">Metaspace<a href="#metaspace" class="hash-link" aria-label="Metaspace的直接链接" title="Metaspace的直接链接" translate="no">​</a></h3>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">java.lang.OutOfMemoryError: Metaspace</span><br></div></code></pre></div></div>
+<p>类元数据区（<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">Metaspace</span>）不足，通常是模组太多、类加载量太大。减少模  组，或换用更新的 Java 运行时。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="unable-to-create-native-thread">unable to create native thread<a href="#unable-to-create-native-thread" class="hash-link" aria-label="unable to create native thread的直接链接" title="unable to create native thread的直接链接" translate="no">​</a></h3>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">java.lang.OutOfMemoryError: unable to create native thread</span><br></div></code></pre></div></div>
+<p>线程或系统资源耗尽。关闭<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">后台</span>应用、减少模组、重启设备再试。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="内存不是越大越好">内存不是越大越好<a href="#内存不是越大越好" class="hash-link" aria-label="内存不是越大越好的直接链接" title="内存不是越大越好的直接链接" translate="no">​</a></h3>
+<p>分配过大会出现另一类错误：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">Could not reserve enough space for object heap</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">Invalid maximum heap size</span><br></div></code></pre></div></div>
+<p>FCL 也会提示「当前游戏因为分配  的内存过大，无法继续运行」或「超过了 32 位 Java 内存限制」。</p>
+<p>处理：降低分配值。不要超过设备实际可用内存，自动分配通常比手动拉满更稳。</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="本地库缺失">本地库缺失<a href="#本地库缺失" class="hash-link" aria-label="本地库缺失的直接链接" title="本地库缺失的直接链接" translate="no">​</a></h2>
+<p>典型日志：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">java.lang.UnsatisfiedLinkError: dlopen failed: library &quot;libawt_xawt.so&quot; not found</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">java.lang.UnsatisfiedLinkError: libfreetype.so.6: cannot open shared object file</span><br></div></code></pre></div></div>
+<p>FCL 的提示是「当前游戏因为缺少本地库：xxx，无法继续运行」。</p>
+<p>常见原因：</p>
+<ul>
+<li class="">手动导入了不完整的 Java 运行时。</li>
+<li class="">导入了电脑上的 JRE，架构或依赖不匹配。</li>
+<li class=""><span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">压缩包</span>解压层级不对，<code>lib</code> <span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">目录</span>结构不正确。</li>
+<li class="">运行时文件被杀毒软件或清理软件删除。</li>
+</ul>
+<p>处理：</p>
+<ol>
+<li class="">优先使用启动器内置的 Java。</li>
+<li class="">删除损坏的自定义 Java，重新安装或重新导入。</li>
+<li class="">导入时确认是 Android 可用的 arm64 运行时，并且目录 结构完整。</li>
+<li class="">不要直接把电脑上的 JRE 复制进手机。</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="vm-初始化失败和主类问题">VM 初始化失败和主类问题<a href="#vm-初始化失败和主类问题" class="hash-link" aria-label="VM 初始化失败和主类问题的直接链接" title="VM 初始化失败和主类问题的直接链接" translate="no">​</a></h2>
+<p>典型日志：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">Error occurred during initialization of VM</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">Error: Could not find or load main class ...</span><br></div></code></pre></div></div>
+<p>或者直接提示找不到 <code>libjvm.so</code>、<code>OpenJDK exited with code : 1</code>。</p>
+<ul>
+<li class=""><code>Error occurred during initialization of VM</code>：Java 运行时损坏或参数不合法。重装 Java，检查自定义 JVM 参数。</li>
+<li class=""><code>Could not find or load main class</code>：主类或 classpath 有问题，不是 JVM 本身的问题，按 <a class="" href="/SuperDocs/报错解决/游戏加载错误">游戏加载错误</a> 检查版本文件。</li>
+<li class=""><code>OpenJDK exited with code : 1</code>：只说明进程退出，具体原因要往上找异常。</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="jvm-原生崩溃">JVM 原生崩溃<a href="#jvm-原生崩溃" class="hash-link" aria-label="JVM 原生崩溃的直接链接" title="JVM 原生崩溃的直接链接" translate="no">​</a></h2>
+<p>典型日志：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain"># A fatal error has been detected by the Java Runtime Environment:</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">#  SIGSEGV (0xb) ...</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain"># Problematic frame:</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain"># C  [libOSMesa_8.so+0x4ced18]  OSMesaMakeCurrent+0x6c</span><br></div></code></pre></div></div>
+<p>同时会生成 <code>hs_err_pid&lt;数字&gt;.log</code>。</p>
+<p>这类不是普通 Java 配置错误，而是 JVM 在原生代码里<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">崩溃</span>。重点看 <code>Problematic frame</code>：</p>
+<ul>
+<li class="">出现在 <code>libOSMesa</code>、<code>libGL</code>、<code>libEGL</code>、<code>libvulkan</code> 等图形库：渲染器或<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">驱动</span>问题。</li>
+<li class="">出现在某个模组的本地库：该模组的原生部分有问题。</li>
+<li class="">出现在 <code>libjvm.so</code>、<code>libart.so</code>：Java 运行时或系统环境问题。</li>
+</ul>
+<p>处理顺序：换渲染器、换驱动、更新启动器；如果和 Vulkan 有关，看 <a class="" href="/SuperDocs/报错解决/Vulkan报错">Vulkan报错</a>。内存不足和 Java 版本通常不会以 <code>SIGSEGV</code> 的形式出现。</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="forge-和-java-版本冲突">Forge 和 Java 版本冲突<a href="#forge-和-java-版本冲突" class="hash-link" aria-label="Forge 和 Java 版本冲突的直接链接" title="Forge 和 Java 版本冲突的直接链接" translate="no">​</a></h2>
+<p>FCL 的提示：</p>
+<blockquote>
+<p>当前游戏因为您所使用的 Forge 版本与当前使用的 Java 冲突崩溃，请尝试更新 Forge。</p>
+</blockquote>
+<p>老版本 Forge 需要 Java 8，新版本需要 Java 17、21 或 25。版本选错时，Forge 会在启动阶段直接崩溃。</p>
+<p>处理：按游戏版本选择 Java，或者更新 Forge。不要为了「用新 Java」强行给老 Forge 配高版本 Java。</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="排查顺序">排查顺序<a href="#排查顺序" class="hash-link" aria-label="排查顺序的直接链接" title="排查顺序的直接链接" translate="no">​</a></h2>
+<ol>
+<li class="">先看异常类名和第一个 <code>Caused by</code>。</li>
+<li class="">确认 Java 版本是否匹配，优先用自动选择。</li>
+<li class="">内存问题先调分配值，再减模组和光影。</li>
+<li class="">出现 <code>UnsatisfiedLinkError</code> 先怀疑 Java 运行时，不要先改游戏文件。</li>
+<li class="">出现 <code>hs_err_pid</code> 先看 <code>Problematic frame</code>，按图形库或原生库分类。</li>
+<li class="">还无法判断时，导出 <code>latest_game.log</code> 和启动器日志一起求助。</li>
+</ol></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/FCLdocs-community/FCLdocs/edit/main/SuperDocs/4.报错解决/4.Java虚拟机报错.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>编辑此页</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="文件选项卡"><a class="pagination-nav__link pagination-nav__link--prev" href="/SuperDocs/报错解决/Crash报错"><div class="pagination-nav__sublabel">上一页</div><div class="pagination-nav__label">Crash报错</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/SuperDocs/报错解决/Vulkan报错"><div class="pagination-nav__sublabel">下一页</div><div class="pagination-nav__label">Vulkan报错</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#先确认-java-版本" class="table-of-contents__link toc-highlight">先确认 Java 版本</a></li><li><a href="#unsupportedclassversionerror" class="table-of-contents__link toc-highlight">UnsupportedClassVersionError</a></li><li><a href="#内存不足" class="table-of-contents__link toc-highlight">内存不足</a><ul><li><a href="#java-heap-space" class="table-of-contents__link toc-highlight">Java heap space</a></li><li><a href="#gc-overhead-limit-exceeded" class="table-of-contents__link toc-highlight">GC overhead limit exceeded</a></li><li><a href="#metaspace" class="table-of-contents__link toc-highlight">Metaspace</a></li><li><a href="#unable-to-create-native-thread" class="table-of-contents__link toc-highlight">unable to create native thread</a></li><li><a href="#内存不是越大越好" class="table-of-contents__link toc-highlight">内存不是越大越好</a></li></ul></li><li><a href="#本地库缺失" class="table-of-contents__link toc-highlight">本地库缺失</a></li><li><a href="#vm-初始化失败和主类问题" class="table-of-contents__link toc-highlight">VM 初始化失败和主类问题</a></li><li><a href="#jvm-原生崩溃" class="table-of-contents__link toc-highlight">JVM 原生崩溃</a></li><li><a href="#forge-和-java-版本冲突" class="table-of-contents__link toc-highlight">Forge 和 Java 版本冲突</a></li><li><a href="# 排查顺序" class="table-of-contents__link toc-highlight">排查顺序</a></li></ul></div></div></div></div></main></div></div></div></div>
+</body>
+</html>

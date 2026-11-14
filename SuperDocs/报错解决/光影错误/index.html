@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr" class="docs-wrapper plugin-docs plugin-id-super docs-version-current docs-doc-page docs-doc-id-报错解决/光影错误" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.10.2">
+<title data-rh="true">光影错误 | FCL新手文档</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://fcldocs.top/SuperDocs/报错解决/光影错误"><meta data-rh="true" property="og:locale" content="zh_Hans"><meta data-rh="true" name="docusaurus_locale" content="zh-Hans"><meta data-rh="true" name="docsearch:language" content="zh-Hans"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-super-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-super-current"><meta data-rh="true" property="og:title" content="光影错误 | FCL新手文档"><meta data-rh="true" name="description" content="分辨 Iris、Oculus、OptiFine 的问题：加载器选择、依赖、渲染器兼容性，以及光影编译和加载失败的常见日志。"><meta data-rh="true" property="og:description" content="分辨 Iris、Oculus、OptiFine 的问题：加载器选择、依赖、渲染器兼容性，以及光影编译和加载失败的常见日志。"><link data-rh="true" rel="icon" href="/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://fcldocs.top/SuperDocs/报错解决/光影错误"><link data-rh="true" rel="alternate" href="https://fcldocs.top/SuperDocs/报错解决/光影错误" hreflang="zh-Hans"><link data-rh="true" rel="alternate" href="https://fcldocs.top/SuperDocs/报错解决/光影错误" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"光影错误","item":"https://fcldocs.top/SuperDocs/报错解决/光影错误"}]}</script><link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="FCL新手文档 RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="FCL新手文档 Atom Feed">
+
+
+
+
+
+
+
+
+
+
+<style>
+        #fcl-site-bg {
+          position: fixed; inset: 0; z-index: -1;
+          background:
+            linear-gradient(rgba(255,255,255,0.15), rgba(255,255,255,0.15)),
+            url('/img/bj/樱花-浅.png') center / cover no-repeat;
+        }
+
+        html[data-theme='dark'] #fcl-site-bg {
+          background:
+            linear-gradient(rgba(13,15,20,0.25), rgba(13,15,20,0.25)),
+            url('/img/bj/樱花-暗.png') center / cover no-repeat;
+        }
+
+        #fcl-loading-overlay {
+          position: fixed; inset: 0; z-index: 99999;
+          display: flex; flex-direction: column;
+          align-items: center; justify-content: center;
+          background: #0d0f14; color: #e8e8e8;
+          transition: opacity 0.35s ease;
+          will-change: opacity;
+        }
+
+        #fcl-loading-overlay[data-theme='light'] {
+          background: #ffffff; color: #1c1e21;
+        }
+
+        #fcl-loading-overlay.fcl-loading-hidden {
+          opacity: 0; pointer-events: none;
+        }
+
+        #fcl-loading-overlay .fcl-loading-spinner {
+          width: 42px; height: 42px; border-radius: 50%;
+          border: 3px solid rgba(128,128,128,0.3);
+          border-top-color: #25c2a0;
+          animation: fcl-loading-spin 0.8s linear infinite;
+        }
+
+        #fcl-loading-overlay .fcl-loading-text {
+          margin-top: 14px; font-size: 15px;
+          font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+          letter-spacing: 2px; opacity: 0.8;
+        }
+
+        @keyframes fcl-loading-spin {
+          to { transform: rotate(360deg); }
+        }
+      </style>
+<script>!function(){var e="dark";try{e=localStorage.getItem("theme")||"dark"}catch(e){}document.documentElement.setAttribute("data-theme",e);var t=document.createElement("div");if(t.id="fcl-site-bg",document.documentElement.appendChild(t),"/"===location.pathname){var d=document.createElement("div");d.id="fcl-loading-overlay",d.setAttribute("data-theme","light"===e?"light":"dark"),d.innerHTML='<div class="fcl-loading-spinner"></div><div class="fcl-loading-text">FCL 新手文档</div>',(document.body||document.documentElement).appendChild(d)}}()</script><link rel="stylesheet" href="/assets/css/styles.5e776e2b.css">
+<script src="/assets/js/runtime~main.3bae35b0.js" defer="defer"></script>
+<script src="/assets/js/main.93b6481f.js" defer="defer"></script>
+</head>
+<body>
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||"dark"),document.documentElement.setAttribute("data-theme-choice",t||"dark")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><div role="region" aria-label="跳到主要内容"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">跳到主要内容</a></div><nav aria-label="主导航" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="切换导航栏" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/"><b class="navbar__title text--truncate">FCL 教程</b></a><a class="navbar__item navbar__link" href="/docs/">FCL 新手教程</a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/SuperDocs/">FCL 高阶教程</a><a class="navbar__item navbar__link" href="/FAQ/">FAQ 常见问题</a><a class="navbar__item navbar__link" href="/error/">错误日志排查</a><a href="https://github.com/FCL-Team/FoldCraftLauncher" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">FCL 代码仓库</a><a href="https://foldcraftlauncher.cn" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">FCL 下载站(非官方)</a><a class="navbar__item navbar__link" href="/about">关于本站</a><a class="navbar__item navbar__link" href="/blog">更新内容</a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="切换浅色/暗黑模式（当前为system mode）"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"><div class="navbar__search searchBarContainer_NW3z" dir="ltr"><input placeholder="搜索" aria-label="Search" class="navbar__search-input searchInput_YFbd" value=""><div class="loadingRing_RJI3 searchBarLoadingRing_YnHq"><div></div><div></div><div></div><div></div></div></div></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="回到顶部" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="文档侧边栏" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/SuperDocs/"><span class="linkLabel_WmDU">FCL 高阶教程</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/SuperDocs/手机启动器原理/minecraft移植到手机"><span class="categoryLinkLabel_W154">手机启动器原理</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/SuperDocs/FCL 启动器选项/全局游戏设置"><span class="categoryLinkLabel_W154">FCL 启动器选项</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/SuperDocs/布局创建/"><span class="categoryLinkLabel_W154">布局创建</span></a><button aria-label="展开侧边栏分类 &#x27;布局创建&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" href="/SuperDocs/报错解决/游戏加载错误"><span class="categoryLinkLabel_W154">报错解决</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/SuperDocs/报错解决/游戏加载错误"><span class="linkLabel_WmDU">游戏加载错误</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/SuperDocs/报错解决/闪退至主界面"><span class="linkLabel_WmDU">闪退至主界面</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/SuperDocs/报错解决/Crash报错"><span class="linkLabel_WmDU">Crash报错</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/SuperDocs/报错解决/Java虚拟机报错"><span class="linkLabel_WmDU">Java虚拟机报错</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/SuperDocs/报错解决/Vulkan报错"><span class="linkLabel_WmDU">Vulkan报错</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/SuperDocs/报错解决/渲染器选择错误"><span class="linkLabel_WmDU">渲染器选择错误</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/SuperDocs/报错解决/模组不兼容 或 缺少前置模组"><span class="linkLabel_WmDU">模组不兼容/缺少前置模组</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/SuperDocs/报错解决/光影错误"><span class="linkLabel_WmDU">光影错误</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/SuperDocs/报错解决/存档错误"><span class="linkLabel_WmDU">存档错误</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/SuperDocs/联机途径/局域网连接"><span class="categoryLinkLabel_W154">联机途径</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/SuperDocs/开一个属于自己的服务器/认识服务器核心"><span class="categoryLinkLabel_W154">开一个属于自己的服务器</span></a></div></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="页面路径"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="主页面" class="breadcrumbs__link" href="/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">报错解决</span></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">光影错误</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">本页总览</button></div><div class="theme-doc-markdown markdown"><div class="theme-admonition theme-admonition-tip admonition_xJq3 alert alert--success"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></span>专有名词</div><div class="admonitionContent_BuS1"><p>本文涉及到的专有名词：<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">光影</span>、<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">mod</span>、<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">GPU</span>、<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">日志</span>、<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">OpenGL</span>、<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">Vulkan</span>、<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">MobileGlues</span>、<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">Zink</span>、<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">GLSL</span>、<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">GL4ES</span>、<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">ANGLE</span>、<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">Turnip</span></p></div></div>
+<header><h1>光影错误</h1></header>
+<p><span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">光影</span>问题基本来自三部分：光影加载器、光影包本身、以及手机上的<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">渲染器</span>和<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">驱动</span>。三者任意一个不匹配，都可能表现为聊天框<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">报错</span>、白屏、全虚空、花屏或直接<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">崩溃</span>。</p>
+<p>FCL 不实现光影，也不负责修复某个具体光影包。FCL 只提供 <span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">OpenGL</span> 环境和渲染器；光影能不能跑，取决于加载器、渲染器和驱动的组合。上游维护者的态度也很明确：这类问题通常需要换渲染器或更新驱动，而不是等启动器修。</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="先分清三个光影加载器">先分清三个光影加载器<a href="#先分清三个光影加载器" class="hash-link" aria-label="先分清三个光影加载器的直接链接" title="先分清三个光影加载器的直接链接" translate="no">​</a></h2>
+<table><thead><tr><th>加载器</th><th><span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">模组加载器</span></th><th>依赖</th><th>说明</th></tr></thead><tbody><tr><td><span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">Iris</span></td><td><span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">Fabric</span> / <span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">NeoForge</span></td><td><span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">Sodium</span></td><td>现代版本的主流选择，兼 容大多数 <span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">OptiFine</span> 光影包</td></tr><tr><td><span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">Oculus</span></td><td><span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">Forge</span></td><td><span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">Rubidium</span>（1.20.1 分支改用 <span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">Embeddium</span>）</td><td>Iris 的 Forge 移植，官方声明永远不兼容 OptiFine</td></tr><tr><td>OptiFine</td><td>独立安装，可搭配 Forge</td><td>无</td><td>自带光影功能，更新较慢，与 Iris、Oculus、Sodium 都不兼容</td></tr></tbody></table>
+<p>几个硬性规则：</p>
+<ul>
+<li class="">只装一个光影加载器。OptiFine 和 Iris 同时装、OptiFine 和 Oculus 同时装，都会冲突。</li>
+<li class="">Iris 必须搭配 Sodium，否则可能启动失败或渲染异常。</li>
+<li class="">Oculus 必须搭配对应版本的 Rubidium 或 Embeddium，缺依赖时通常不是光影报错，而是启动阶段直接崩溃。</li>
+<li class="">光影包要和加载器、游戏版本对应。给 1.20.1 准备的光影包，不保证能在 1.21 或 26.x 上编译。</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="手机上的实际情况">手机上的实际情况<a href="#手机上的实际情况" class="hash-link" aria-label="手机上的实际情况的直接链接" title="手机上的实际情况的直接链接" translate="no">​</a></h2>
+<p>Iris 官方文档把移动端（PojavLauncher 等）列为「不支持」，意思是官方不测试、不保证、也不处理移动端问题，并不是说在手机上绝对跑不起来。</p>
+<p>实际测试中，用 <span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">MobileGlues</span> 加载 Iris 可以正常进入游戏并加载部分光影，只是并非所有光影包都能工作。<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">Zink</span> 配合较好的 <span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">Vulkan</span> 驱动也能跑一部分。能不能成，取决于渲染器对光影所用 <span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">GLSL</span> 特性的转换能力。</p>
+<p>光影对图形能力的要求比原版高：</p>
+<ul>
+<li class="">Minecraft 本身要求 OpenGL 3.3。</li>
+<li class="">Sodium 官方支持的是 OpenGL 4.5 及以上的驱动。</li>
+<li class="">含几何着色器的光影需要 OpenGL 3.2 及以上。</li>
+<li class="">含计算着色器的光影需要 GLSL 430，也就是 OpenGL 4.3 及以上。</li>
+</ul>
+<p><span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">GL4ES</span> 只到 GLES2，复杂光影基本跑不了；Krypton Wrapper（NG-GL4ES）通过 glslang 和 SPIRV-Cross 提升了一截，但仍然有转换损耗；MobileGlues 和 Zink 的能力更强，是尝试光影的首选。各渲染器的差异见<a class="" href="/SuperDocs/手机启动器原理/渲染器">渲染器</a>和<a class="" href="/SuperDocs/手机启动器原理/着色器">着色器</a>。</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="报错在哪看">报错在哪看<a href="#报错在哪看" class="hash-link" aria-label="报错在哪看的直接链接" title="报错在哪看的直接链接" translate="no">​</a></h2>
+<p>光影错误经常只出现在聊天框里，容易被忽略。除了<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">截图</span>聊天框，还可以看<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">日志</span>：</p>
+<ul>
+<li class="">游戏日志：<code>/sdcard/FCL/log/latest_game.log</code></li>
+<li class="">游戏内：菜单 → 设置 → 「显示日志」</li>
+<li class="">搜索关键词：<code>Iris</code>、<code>Oculus</code>、<code>OptiFine</code>、<code>Shaders</code>、<code>shader</code>、<code>GLSL</code>、<code>compilation</code>、<code>Failed to load</code></li>
+</ul>
+<p>Iris 和 Oculus 的日志文案基本一致，常见的几类：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">Failed to load the shaderpack &quot;&lt;名称&gt;&quot;!</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">Failed to load the shaderpack &quot;&lt;名称&gt;&quot; because it does not exist in your shaderpacks folder!</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">Failed to load the shaderpack &quot;&lt;名称&gt;&quot; because it contains invalid characters in its path</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">The shaderpack &quot;&lt;名称&gt;&quot; appears to be corrupted, please try downloading it again!</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">Could not load the shaderpack &quot;&lt;名称&gt;&quot; because it appears to lack a &quot;shaders&quot; directory</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">Pack &quot;&lt;名称&gt;&quot; is not valid! Can&#x27;t load it.</span><br></div></code></pre></div></div>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">Shader compilation failed for &lt;程序名&gt;!</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">Shader compilation log for &lt;程序名&gt;: &lt;编译日志&gt;</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">Shader storage buffers/immutable buffer storage is not supported on this graphics card</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">Image units are not supported on this platform</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">Falling back to normal rendering without shaders because the shaderpack could not be loaded</span><br></div></code></pre></div></div>
+<p>OptiFine 的报错通常直接显示在聊天框，带 <code>Shaders</code> 或 <code>OptiFine</code> 前缀，同时写入日志。看到编译失败时，重点不是背报错，而是判断是「包的问题」还是「图形环境不支持」。</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="按现象处理">按现象处理<a href="#按现象处理" class="hash-link" aria-label="按现象处理的直接链接" title="按现象处理的直接链接" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="光影列表里选了但没有效果">光影列表里选了，但没有效果<a href="#光影列表里选了但没有效果" class="hash-link" aria-label="光影列表里选了，但没有效果的直接链接" title="光影列表里选了，但没有效果的直接链接" translate="no">​</a></h3>
+<ol>
+<li class="">确认选中的光影包还在 <code>shaderpacks</code> <span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">目录</span>里，没有被删除或改名。</li>
+<li class="">重新<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">下载</span>光影包。日志出现 <code>corrupted</code> 或 <code>not valid</code> 时，基本是<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">压缩包</span>损坏。</li>
+<li class="">检查压缩包结构。光影包根目录必须直接有 <code>shaders</code> 文件夹，不能是「压缩包里面再套一层文件夹」。</li>
+<li class="">确认光影包支持当前游戏版本和加载器。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="一进世界就白屏全虚空或黑屏">一进世界就白屏、全虚空或黑屏<a href="#一进世界就白屏全虚空或黑屏" class="hash-link" aria-label="一进世界就白屏、全虚空或黑屏的直接链接" title="一进世界就白屏、全虚空或黑屏的直接链接" translate="no">​</a></h3>
+<p>这类通常不是光影包坏了，而是渲染器没能正确转换光影的着色器。典型情况是画面全是虚空、方块贴图异常、地形变黑。</p>
+<p>处理顺序：</p>
+<ol>
+<li class="">换成 MobileGlues 再试，必要时叠加 <span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">ANGLE</span>。</li>
+<li class="">有条件和驱动<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">插件</span>时，试 Zink + <span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">Turnip</span>。</li>
+<li class="">降低光影画质，关闭计算着色器相关的特效。</li>
+<li class="">换一个较轻的光影包（例如 BSL、Complementary）做对比。轻量包能跑、重包不行，说明是性能或特性不足，不是安装错误。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="聊天框提示编译失败">聊天框提示编译失败<a href="#聊天框提示编译失败" class="hash-link" aria-label="聊天框提示编译失败的直接链接" title="聊天框提示编译失败的直接链接" translate="no">​</a></h3>
+<p>看到 <code>Shader compilation failed</code> 或 GLSL 编译错误时：</p>
+<ol>
+<li class="">确认当前渲染器不是 GL4ES。GL4ES 的 GLES2 能力不足，复杂光影必然失败。</li>
+<li class="">换 MobileGlues 或 Zink，再重新加载光影。</li>
+<li class="">更新渲染器和 Vulkan 驱动。部分编译错误是驱动 bug，换驱动版本可能直接消失。</li>
+<li class="">换光影包版本。同一个光影的新版本可能用了更多特性，旧版本反而能跑。</li>
+<li class="">仍然失败时，这属于上游渲染器或驱动的转换限制，换包比继续修更快。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="日志提示缺少-storage-bufferimage-unit-等特性">日志提示缺少 storage buffer、image unit 等特性<a href="#日志提示缺少-storage-bufferimage-unit-等特性" class="hash-link" aria-label="日志提示缺少 storage buffer、image unit 等特性的直接链接" title="日志提示缺少 storage buffer、image unit 等特性的直接链接" translate="no">​</a></h3>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">Shader storage buffers/immutable buffer storage is not supported on this graphics card</span><br></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">Image units are not supported on this platform</span><br></div></code></pre></div></div>
+<p>意思是当前图形环境没有提供光影需要的 OpenGL 特性。GL4ES 和部分老渲染器不会有这些能力。换 MobileGlues 或 Zink，或者换一个不使用这些特性的光影包。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="玩几分钟后崩溃掉帧过热">玩几分钟后崩溃、掉帧、过热<a href="#玩几分钟后崩溃掉帧过热" class="hash-link" aria-label="玩几分钟后崩溃、掉帧、过热的直接链接" title="玩几分钟后崩溃、掉帧、过热的直接链接" translate="no">​</a></h3>
+<p>这类不是光影安装错误，而是设备负载过高。手机 <span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">GPU</span> 在光影下的功耗和发热远高于原版，长时间运行可能触发降频、驱动崩溃或系统杀进程。</p>
+<p>可以尝试：</p>
+<ul>
+<li class="">降低光影画质和<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">分辨率</span>。</li>
+<li class="">降低<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">视距</span>、关闭高开销特效。</li>
+<li class="">关闭其他<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">后台</span>应用，避免边充电边玩。</li>
+<li class="">换更轻的光影包。</li>
+</ul>
+<p>如果日志里出现驱动或渲染器相关的崩溃，按<a class="" href="/SuperDocs/报错解决/渲染器选择错误">渲染器选择错误</a>和 <a class="" href="/SuperDocs/报错解决/Vulkan报错">Vulkan报错</a>继续排查。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="装了光影模组后游戏启动不了">装了光影模组后游戏启动不了<a href="#装了光影模组后游戏启动不了" class="hash-link" aria-label="装了光影模组后游戏启动不了的直接链接" title="装了光影模组后游戏启动不了的直接链接" translate="no">​</a></h3>
+<p>先确认不是光影本身的问题：</p>
+<ol>
+<li class="">检查加载器和游戏版本是否匹配，Iris、Oculus、OptiFine 是否只装了一个。</li>
+<li class="">Iris 是否装了 Sodium，Oculus 是否装了 Rubidium 或 Embeddium。</li>
+<li class="">删除光影<span class="termLink_DYJw" style="color:#var(--ifm-color-primary)" role="button" tabindex="0">模组</span>，确认游戏能正常启动；能启动说明问题在光影侧。</li>
+<li class="">重新安装对应版本的光影加载器，不要混用不同版本。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="光影和-optifine-冲突">光影和 OptiFine 冲突<a href="#光影和-optifine-冲突" class="hash-link" aria-label="光影和 OptiFine 冲突的直接链接" title="光影和 OptiFine 冲突的直接链接" translate="no">​</a></h3>
+<ul>
+<li class="">Iris 与 OptiFine 不兼容。</li>
+<li class="">Oculus 官方声明永远不兼容 OptiFine。</li>
+<li class="">OptiFine 与 Sodium 也不兼容。</li>
+</ul>
+<p>需要 OptiFine 的其他功能时，不要在 Iris 环境里再装 OptiFine，改用对应的替代模组。需要光影时，优先保留 Iris 或 Oculus。</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="光影管理">光影管理<a href="#光影管理" class="hash-link" aria-label="光影管理的直接链接" title="光影管理的直接链接" translate="no">​</a></h2>
+<p>FCL 的管理页提供光影管理，可以导入、重命名和删除光影包。光影包实际放在游戏目录的 <code>shaderpacks</code> 文件夹里，手动放入也能识别。</p>
+<p>加载失败时，可以先把 <code>shaderpacks</code> 里的包移走，进入游戏关闭光影，再把包放回来逐个测试。Iris 默认按 <code>K</code> 可以快速开关光影，方便对比。</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="排查顺序">排查顺序<a href="#排查顺序" class="hash-link" aria-label="排查顺序的直接链接" title="排查顺序的直接链接" translate="no">​</a></h2>
+<ol>
+<li class="">确认加载器、游戏版本、模组加载器三者匹配，只装一个光影加载器。</li>
+<li class="">确认依赖齐全：Iris 要 Sodium，Oculus 要 Rubidium 或 Embeddium。</li>
+<li class="">看聊天框 和日志里的关键句，区分「加载失败」「编译失败」「运行崩溃」。</li>
+<li class="">换渲染器：优先 MobileGlues，其次 Zink；GL4ES 不适合复杂光影。</li>
+<li class="">用轻量光影做对照，判断是包的问题还是环境的问题。</li>
+<li class="">换包、换驱动版本。仍然不行时，记录日志和光影名称，向渲染器或光影作者反馈。</li>
+</ol></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/FCLdocs-community/FCLdocs/edit/main/SuperDocs/4.报错解决/8.光影错误.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>编辑此页</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="文件选项卡"><a class="pagination-nav__link pagination-nav__link--prev" href="/SuperDocs/报错解决/模组不兼容 或 缺少前置模组"><div class="pagination-nav__sublabel">上一页</div><div class="pagination-nav__label">模组不兼容/缺少前置模组</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/SuperDocs/报错解决/存档错误"><div class="pagination-nav__sublabel">下一页</div><div class="pagination-nav__label">存档错误</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#先分清三个光影加载器" class="table-of-contents__link toc-highlight">先分清三个光影加载器</a></li><li><a href="#手机上的实际情况" class="table-of-contents__link toc-highlight">手机上的实际情况</a></li><li><a href="#报错在哪看" class="table-of-contents__link toc-highlight">报错在哪看</a></li><li><a href="#按现象处理" class="table-of-contents__link toc-highlight">按现象处理</a><ul><li><a href="#光影列表里选了但没有效果" class="table-of-contents__link toc-highlight">光影列表里选了，但没有效果</a></li><li><a href="#一进世界就白屏全虚空或黑屏" class="table-of-contents__link toc-highlight">一进世界就白屏、全虚空或黑屏</a></li><li><a href="#聊天框提示编译失败" class="table-of-contents__link toc-highlight">聊天框提示编译失败</a></li><li><a href="#日志提示缺少-storage-bufferimage-unit-等特性" class="table-of-contents__link toc-highlight">日志提示缺少 storage buffer、image unit 等特性</a></li><li><a href="#玩几分钟后崩溃掉帧过热" class="table-of-contents__link toc-highlight">玩几分钟后崩溃、掉帧、过热</a></li><li><a href="#装了光影模组后游戏启动不了" class="table-of-contents__link toc-highlight">装了光影模组后游戏启动不了</a></li><li><a href="#光影和-optifine-冲突" class="table-of-contents__link toc-highlight">光影和 OptiFine 冲突</a></li></ul></li><li><a href="#光影管理" class="table-of-contents__link toc-highlight">光影管理</a></li><li><a href="#排查顺序" class="table-of-contents__link toc-highlight">排查顺序</a></li></ul></div></div></div></div></main></div></div></div></div>
+</body>
+</html>

@@ -1,0 +1,241 @@
+{
+  "generatedAt": "2026-11-21T16:31:21.370Z",
+  "repo": "FCLdocs-community/FCLdocs",
+  "limit": 8,
+  "contributors": {
+    "WaterGodFurina": [
+      {
+        "sha": "f76718b72243885c8f81a87baed55b700c907a3c",
+        "message": "修改交互逻辑",
+        "date": "2026-11-21T12:13:38Z"
+      },
+      {
+        "sha": "978be31bb7535cfa175bbf4af26b127d216d73ff",
+        "message": "添加了子文档 错误日志排查 和修正了专业名词放置位置",
+        "date": "2026-11-10T10:08:29Z"
+      },
+      {
+        "sha": "8145c4cf687c009e61585f11f4dc7df8934d4981",
+        "message": "更新了进阶文档中的部分的内容",
+        "date": "2026-11-07T12:31:00Z"
+      },
+      {
+        "sha": "de9b9bc39467a9e5932150a0cc5d12db0cadca5e",
+        "message": "添加更多专业术语弹窗",
+        "date": "2026-10-02T02:15:11Z"
+      },
+      {
+        "sha": "85cc2cf87755bafa8d78348d9c1c332aa5362732",
+        "message": "进阶教程和新手教程分离",
+        "date": "2026-09-13T06:58:39Z"
+      },
+      {
+        "sha": "672b51ec343421221840f7507389e7a9c2576f83",
+        "message": "把img引用的链接修正",
+        "date": "2026-08-12T09:18:31Z"
+      },
+      {
+        "sha": "cb9116aa08f585638187d98f482cb1c8924c8217",
+        "message": "修改首页（第三部分）",
+        "date": "2026-08-06T03:37:06Z"
+      },
+      {
+        "sha": "25b008a99b5cc085ce4399595537be5b405de96b",
+        "message": "修改首页（第二部分）",
+        "date": "2026-08-05T06:03:25Z"
+      }
+    ],
+    "yang09-yang": [
+      {
+        "sha": "467ae3bac1fec5eff511cb2aa8c831b521cf3023",
+        "message": "更新了渲染器下载与安装.md内容",
+        "date": "2026-11-15T16:29:07Z"
+      },
+      {
+        "sha": "1e094de6a0b9355feda27d04ffb6af0363645848",
+        "message": "Fcl yang (#38)",
+        "date": "2026-08-15T14:23:02Z"
+      },
+      {
+        "sha": "2a61f5232025c3aba248b1327bf7acd97f002e2d",
+        "message": "docs: 完善3.自动安装教程 (#33)",
+        "date": "2026-07-27T08:17:01Z"
+      },
+      {
+        "sha": "e17764ad326ef9dc4abe974a91ff78727c9e6ff4",
+        "message": "docs: 新增 1.游戏设置 新手教程 (#32)",
+        "date": "2026-07-27T06:01:42Z"
+      },
+      {
+        "sha": "b4acdbefad7146afd007ded663e28a960bcf6483",
+        "message": "Merge pull request #18 from FCLdocs-community/update-layout-tutorial",
+        "date": "2026-07-21T05:58:37Z"
+      },
+      {
+        "sha": "cebe3a9d0f435c9e5181d27df63823056bc4a26c",
+        "message": "更新并完善按键布局教程内容",
+        "date": "2026-07-21T05:52:33Z"
+      },
+      {
+        "sha": "7aa71591efad3e6a3d58671c08b914cd06b46afb",
+        "message": "Merge pull request #10 from leemwood/main",
+        "date": "2026-07-17T13:31:12Z"
+      },
+      {
+        "sha": "9fc505538aaa067ffcf09181a4b6e9533bd53842",
+        "message": "Revise resource pack download guide and add details",
+        "date": "2026-07-17T03:45:22Z"
+      }
+    ],
+    "Xirren": [
+      {
+        "sha": "8d45cd5e7d29f261fd212b1247bb6f3f5e1dc4c8",
+        "message": "优化存储方面说明 (#39)",
+        "date": "2026-08-22T05:33:49Z"
+      },
+      {
+        "sha": "043346dd9fdbd95947be57475ca2faf5dd6b04bb",
+        "message": "修正一些问题 (#37)",
+        "date": "2026-08-12T12:02:13Z"
+      }
+    ],
+    "zeplh": [
+      {
+        "sha": "829fb9d67f964e6f1eb87d270aa064fecbab15ee",
+        "message": "关于mt管理器文件操作的修改 (#34)",
+        "date": "2026-08-12T09:14:12Z"
+      }
+    ],
+    "saltfishxyb": [
+      {
+        "sha": "4d4564d5e06b6ed34664518c6aa6a99f9f468356",
+        "message": "修改：编辑和修改了一些内容 (#36)",
+        "date": "2026-08-07T05:42:11Z"
+      },
+      {
+        "sha": "2d944ac124def01d1e80356e3a5e8377992688dc",
+        "message": "修改：重写大部分 光影下载.md (#19)",
+        "date": "2026-07-21T09:23:11Z"
+      },
+      {
+        "sha": "ac4b491ed5cca2c3c41f8d36ab14cbf0c1eefc5a",
+        "message": "移除了图片中的敏感内容",
+        "date": "2026-07-19T02:38:36Z"
+      },
+      {
+        "sha": "04c45a04cbe514716216b35a38b8ed758239c7f6",
+        "message": "Merge remote-tracking branch 'origin/main'",
+        "date": "2026-07-17T00:56:38Z"
+      },
+      {
+        "sha": "488969f03d9c4627feee5f8a8c614fea0fa16dde",
+        "message": "Merge remote-tracking branch 'origin/main'",
+        "date": "2026-07-17T00:48:55Z"
+      },
+      {
+        "sha": "ebd828d11bd875eddd0f34f9b69e66598463e129",
+        "message": "编辑了光影下载.md",
+        "date": "2026-07-17T00:40:55Z"
+      },
+      {
+        "sha": "e09c74d79ab94b223674a85c050b8b2a6b9d70b6",
+        "message": "修正锚点、路径的错误，优化逻辑结构",
+        "date": "2026-07-16T10:17:44Z"
+      },
+      {
+        "sha": "1127eb177cd5b080c978b2aab484fa3436aea846",
+        "message": "编辑了存档下载的教程",
+        "date": "2026-07-16T07:52:12Z"
+      }
+    ],
+    "XiaoluoFoxington": [
+      {
+        "sha": "ba70b4f8525f6291c5b335573a49dac0cacbf101",
+        "message": "修改了从FCL下载站下载的教程 (#31)",
+        "date": "2026-07-27T08:23:59Z"
+      }
+    ],
+    "mengcha114": [
+      {
+        "sha": "146c75da37b33ffd813ee247d068cc719cd16597",
+        "message": "写了认识服务器核心 (#29)",
+        "date": "2026-07-25T09:47:57Z"
+      },
+      {
+        "sha": "449f5aad6054dffca5a255aeca89398f7ead6182",
+        "message": "为文档中的出现过的第三方工具及网站添加超链接跳转 (#26)",
+        "date": "2026-07-24T06:27:40Z"
+      },
+      {
+        "sha": "2aec96a2b8948538bd795531cf315042f8bc525f",
+        "message": "fix: 修复低端GPU的强烈花屏问题 (#23)",
+        "date": "2026-07-22T05:20:31Z"
+      }
+    ],
+    "InfinityYeah": [
+      {
+        "sha": "fb36b1e7e404b8540a8fd132b8673b07f6c524da",
+        "message": "新增异地组网 (#28)",
+        "date": "2026-07-24T11:01:46Z"
+      },
+      {
+        "sha": "ee6463f7d1a749feb19bcb605db9f02ddeeec94e",
+        "message": "新增：局域网联机",
+        "date": "2026-07-17T12:03:15Z"
+      },
+      {
+        "sha": "72cbaabb4b57ef9ab669ef71ba11a560f8593a09",
+        "message": "新增：模组不兼容或缺少前置模组",
+        "date": "2026-07-17T06:27:53Z"
+      }
+    ],
+    "GuGuIsNotAPigeon": [
+      {
+        "sha": "4745fe08458bfdb1aea49df20f19dcc7212f1a73",
+        "message": "完善Windows开服 (#24)",
+        "date": "2026-07-22T12:01:01Z"
+      },
+      {
+        "sha": "c89d088b15c83469e47892563756beb81c3db64a",
+        "message": "补充了Termux开服教程,修复了UUID.md语法错误问题 (#17)",
+        "date": "2026-07-21T03:35:22Z"
+      }
+    ],
+    "6VuI1c4Q": [
+      {
+        "sha": "fb76dedd4bc4a6bc8a30ebb707474f81e19f0a13",
+        "message": "增加了联机操作，修正了部分错误 (#25)",
+        "date": "2026-07-22T12:00:34Z"
+      }
+    ],
+    "leemwood": [
+      {
+        "sha": "6ae581bbc52476496f2abcfa9421c46346e67f50",
+        "message": "添加首屏全屏加载覆盖层，避免页面初加载时图标/字体闪烁 (#15)",
+        "date": "2026-07-18T21:35:05Z"
+      },
+      {
+        "sha": "0872f21d20ef095c3d9a7244f1a82e52a844ab51",
+        "message": "合并上游 main：解决冲突并保留首页视觉重做",
+        "date": "2026-07-17T13:20:19Z"
+      },
+      {
+        "sha": "4d73f64fb8616d3cb47118875787b36c90a158d2",
+        "message": "首页视觉重做：新增樱花背景图、毛玻璃卡片、默认暗色模式与中文界面",
+        "date": "2026-07-17T13:10:26Z"
+      }
+    ],
+    "KongXing0819": [
+      {
+        "sha": "14f86effb5f5fb7fbd04bf5fd117399baf372d2d",
+        "message": "添加开服教程目录",
+        "date": "2026-07-18T09:02:00Z"
+      },
+      {
+        "sha": "d92bdbeb5fa9b9896d300dca99ff14f047c27a26",
+        "message": "在模组不兼容解决步骤中添加注意事项",
+        "date": "2026-07-17T13:38:48Z"
+      }
+    ]
+  }
+}

@@ -26,3 +26,18 @@ body {
 .main-wrapper {
   background-color: var(--content-bg);
 }
+
+.navbar-external-link::after {
+  content: '↗';
+  display: inline-block;
+  margin-left: 0.3em;
+  font-size: 0.9em;
+  font-weight: 700;
+  line-height: 1;
+  opacity: 0.65;
+  transform: translateY(-1px);
+}
+
+.navbar-external-link:hover::after {
+  opacity: 1;
+}

@@ -8,6 +8,9 @@
   align-items: center;
   gap: 1rem;
   margin-bottom: 0.75rem;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .labelText {

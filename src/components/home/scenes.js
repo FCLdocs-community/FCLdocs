@@ -99,6 +99,5 @@ export const SCENES = [
     title: '准备好了吗？',
     desc: '从零开始，在 Android 手机上畅玩 Minecraft Java 版',
     linkText: '开始看教程',
-    to: '/docs',
   },
 ];

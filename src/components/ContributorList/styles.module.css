@@ -1,0 +1,302 @@
+.wrapper {
+  margin-top: 1.5rem;
+}
+
+/* 头像列表：参考 smolcss.dev 的 avatar list，头像略微重叠 */
+.avatarList {
+  --avatar-size: 3rem;
+  --avatar-overlap: -0.125em;
+  --avatar-row-spacing: 0.25em;
+  --avatar-outline-width: 2px;
+  --avatar-outline-offset: 0.08em;
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: var(--avatar-size);
+}
+
+.avatarList li {
+  position: relative;
+  --avatar-row-margin: calc(
+    var(--avatar-outline-offset) + var(--avatar-outline-width) + var(--avatar-row-spacing) / 2
+  );
+  margin: var(--avatar-row-margin) var(--avatar-overlap) var(--avatar-row-margin) 0;
+}
+
+.avatarList li:hover,
+.avatarList li:has(:focus-visible) {
+  z-index: 2;
+}
+
+.avatarButton {
+  display: block;
+  width: var(--avatar-size);
+  height: var(--avatar-size);
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: transparent;
+  font: inherit;
+  line-height: 0;
+  cursor: pointer;
+}
+
+.avatarButton img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--ifm-color-emphasis-200);
+  box-shadow: 0 0 0 var(--avatar-outline-width) var(--ifm-background-color);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.avatarButton:hover img {
+  transform: translateY(-2px) scale(1.08);
+  box-shadow: 0 0 0 var(--avatar-outline-width) var(--ifm-background-color), 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.avatarButton:focus-visible {
+  outline: none;
+}
+
+.avatarButton:focus-visible img {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: var(--avatar-outline-offset);
+  transform: scale(1.08);
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+}
+
+.modal {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 1.5rem;
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 16px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+}
+
+.closeBtn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ifm-color-emphasis-700);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.closeBtn:hover {
+  background: var(--ifm-color-emphasis-100);
+}
+
+.closeBtn:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-right: 2rem;
+}
+
+.modalAvatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--ifm-color-primary);
+}
+
+.modalName {
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+
+.githubLink {
+  font-size: 0.85rem;
+  color: var(--ifm-color-primary);
+}
+
+.contributions {
+  margin: 1rem 0 0;
+  line-height: 1.7;
+  color: var(--ifm-color-emphasis-800);
+}
+
+.social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.socialLink {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.socialLink:hover {
+  color: #fff;
+  text-decoration: none;
+  opacity: 0.9;
+}
+
+.qqLink {
+  background: #12b7f5;
+}
+
+.bilibiliLink {
+  background: #fb7299;
+}
+
+.commits {
+  margin-top: 1.5rem;
+}
+
+.commitsHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.commitsHeader h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.commitsHeader a {
+  font-size: 0.85rem;
+  color: var(--ifm-color-primary);
+  white-space: nowrap;
+}
+
+.commitState {
+  margin: 0.75rem 0 0;
+  color: var(--ifm-color-emphasis-600);
+  font-size: 0.9rem;
+}
+
+.commitNote {
+  margin: 0.75rem 0 0;
+  color: var(--ifm-color-emphasis-500);
+  font-size: 0.75rem;
+}
+
+.commitList {
+  list-style: none;
+  padding: 0;
+  margin: 0.25rem 0 0;
+}
+
+.commitItem {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid var(--ifm-color-emphasis-100);
+}
+
+.commitItem:last-child {
+  border-bottom: 0;
+}
+
+.commitMessage {
+  color: var(--ifm-font-color-base);
+  font-size: 0.9rem;
+  line-height: 1.4;
+  text-decoration: none;
+}
+
+.commitMessage:hover {
+  color: var(--ifm-color-primary);
+  text-decoration: underline;
+}
+
+.commitMeta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.15rem;
+  flex-shrink: 0;
+  color: var(--ifm-color-emphasis-500);
+  font-size: 0.75rem;
+}
+
+.commitSha {
+  font-family: var(--ifm-font-family-monospace);
+}
+
+@media (max-width: 480px) {
+  .avatarList {
+    --avatar-size: 2.6rem;
+  }
+
+  .modal {
+    max-height: 88vh;
+    padding: 1.25rem;
+  }
+
+  .modalHeader {
+    align-items: flex-start;
+  }
+
+  .modalAvatar {
+    width: 56px;
+    height: 56px;
+  }
+
+  .modalName {
+    font-size: 1.25rem;
+  }
+
+  .commitItem {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .commitMeta {
+    flex-direction: row;
+    align-items: center;
+  }
+}

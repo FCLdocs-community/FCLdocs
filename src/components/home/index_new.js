@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { FontAwesomeIcon, faRocket, faCheck, faBolt, faBookOpen, Link, StackedImageCycler } from './shared';
+import { FontAwesomeIcon, faRocket, faCheck, faBolt, faBookOpen, StackedImageCycler } from './shared';
 import { SCENES, EASTER_EGG_TEXT } from './scenes';
 import styles from './index_new.module.css';
 import sharedStyles from './shared.module.css';
@@ -534,7 +534,7 @@ function EasterEggScene({ sceneOpacity }) {
 /* =========================================================================
  *  组件：开始场景（最后一个，不淡出）
  * ========================================================================= */
-function StartScene({ title, desc, linkText, to, sceneOpacity }) {
+function StartScene({ title, desc, linkText, onStart, sceneOpacity }) {
   return (
     <div
       className={styles.sceneContainer}
@@ -546,10 +546,10 @@ function StartScene({ title, desc, linkText, to, sceneOpacity }) {
       <div className={sharedStyles.startSceneInner}>
         <h2 className={sharedStyles.startSceneTitle}>{title}</h2>
         <p className={sharedStyles.startSceneDesc}>{desc}</p>
-        <Link className={sharedStyles.startBtn} to={to}>
+        <button type="button" className={sharedStyles.startBtn} onClick={onStart}>
           <FontAwesomeIcon icon={faBookOpen} />
           {linkText}
-        </Link>
+        </button>
       </div>
     </div>
   );
@@ -967,7 +967,7 @@ function useTouchFlickSnap(spacerRef, snapData) {
  *  场景切换：滚动越过场景边界时触发 300ms 时间动画（150ms 淡出 → 150ms 淡入），
  *  一次滚动即完成切换，不随滚动距离拉长
  * ========================================================================= */
-function ScrollDrivenHome() {
+function ScrollDrivenHome({ onStart }) {
   const scrollSpacerRef = useRef(null);
   const progress = useScrollProgress(scrollSpacerRef);
   useScrollBlocker(scrollSpacerRef, SCENES);
@@ -1068,7 +1068,7 @@ function ScrollDrivenHome() {
           title={scene.title}
           desc={scene.desc}
           linkText={scene.linkText}
-          to={scene.to}
+          onStart={onStart}
           sceneOpacity={sceneOpacity}
         />
       );

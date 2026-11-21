@@ -26,20 +26,20 @@ export default function SlideButton({ label, children }) {
 
   return (
     <div className={styles.slideContainer}>
-      <div className={styles.header}>
+      <label className={styles.header}>
         <span className={styles.labelText}>{label}</span>
-        <label className={styles.switch}>
+        <span className={styles.switch}>
           <input
             type="checkbox"
             checked={isChecked}
             onChange={(e) => setIsChecked(e.target.checked)}
           />
           <span className={styles.slider}></span>
-        </label>
+        </span>
         <span className={styles.statusText}>
           {isChecked ? '是' : '否'}
         </span>
-      </div>
+      </label>
 
       <div className={styles.contentArea}>
         {/* MDX 解析的内容会传入 */}

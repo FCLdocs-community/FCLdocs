@@ -64,6 +64,12 @@
   transform: translateY(-2px);
 }
 
+button.startBtn {
+  border: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+
 .icon {
   margin-right: 0.5rem;
 }

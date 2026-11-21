@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Layout from '@theme/Layout';
-import { FontAwesomeIcon, faBookOpen, Link, IMG_FCL_ICON } from '../components/home/shared';
+import { FontAwesomeIcon, faBookOpen, IMG_FCL_ICON } from '../components/home/shared';
 import sharedStyles from '../components/home/shared.module.css';
 import ScrollDrivenHome from '../components/home/index_new';
 import FallbackHome from '../components/home/index_old';
+import StartGuideModal from '../components/home/StartGuideModal';
 
 /* =========================================================================
  *  API 检测：检测浏览器是否支持滚动驱动动画所需的 API
@@ -68,6 +69,9 @@ export default function Home() {
   const scrollSupported = useScrollAnimationSupport();
   const prefersReducedMotion = usePrefersReducedMotion();
   const useAnimatedHome = scrollSupported && !prefersReducedMotion;
+  const [guideOpen, setGuideOpen] = useState(false);
+  const openGuide = useCallback(() => setGuideOpen(true), []);
+  const closeGuide = useCallback(() => setGuideOpen(false), []);
 
   return (
     <Layout title="FCL 新手教程" description="Fold Craft Launcher 新手小白易看懂的教程">
@@ -78,15 +82,17 @@ export default function Home() {
               <img src={IMG_FCL_ICON} alt="FCL 图标" className={sharedStyles.heroLogo} />
               <h1>FCL 启动器新手教程</h1>
               <p>从零开始，在 Android 手机上畅玩 Minecraft Java 版</p>
-              <Link className={sharedStyles.startBtn} to="/docs">
+              <button type="button" className={sharedStyles.startBtn} onClick={openGuide}>
                 <FontAwesomeIcon icon={faBookOpen} />开始看教程
-              </Link>
+              </button>
             </div>
           </header>
 
-          {useAnimatedHome ? <ScrollDrivenHome /> : <FallbackHome />}
+          {useAnimatedHome ? <ScrollDrivenHome onStart={openGuide} /> : <FallbackHome onStart={openGuide} />}
         </div>
       </div>
+
+      <StartGuideModal open={guideOpen} onClose={closeGuide} />
     </Layout>
   );
 }

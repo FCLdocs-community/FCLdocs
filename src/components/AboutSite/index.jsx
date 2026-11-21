@@ -256,13 +256,13 @@ export default function AboutSite() {
 
         <div className="about-card">
           <h3 style={titleStyle}>
-            <span>💝</span> 给新人的话
+            <span>🎬</span> 花絮
           </h3>
           <p style={descStyle}>
-            欢迎来到 Minecraft Java 的世界！愿你在这里收获快乐与创造。
+            社区提问指南、避坑经验和一些杂谈。
           </p>
-          <Link to="/about/MessageforNewPlayers" style={buttonStyle}>
-            查看祝福
+          <Link to="/stinger/高效提问" style={buttonStyle}>
+            查看花絮 →
           </Link>
         </div>
 

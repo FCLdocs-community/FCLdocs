@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  FontAwesomeIcon, faRocket, faCheck, faBolt, faGithub, faBookOpen, QQIcon, Link,
+  FontAwesomeIcon, faRocket, faCheck, faBolt, faGithub, faBookOpen, QQIcon,
 } from './shared';
 import { SCENES, EASTER_EGG_TEXT } from './scenes';
 import styles from './index_old.module.css';
@@ -76,7 +76,7 @@ function FeatureCard({ item }) {
   );
 }
 
-function FallbackHome() {
+function FallbackHome({ onStart }) {
   return (
     <div className={styles.staticContainer}>
       <section className={styles.staticSection}>
@@ -146,10 +146,10 @@ function FallbackHome() {
         <section className={`${styles.staticSection} ${styles.staticStart}`}>
           <h2 className={styles.startSceneTitle}>{startScene.title}</h2>
           <p className={styles.startSceneDesc}>{startScene.desc}</p>
-          <Link className={styles.startBtn} to={startScene.to}>
+          <button type="button" className={styles.startBtn} onClick={onStart}>
             <FontAwesomeIcon icon={faBookOpen} />
             {startScene.linkText}
-          </Link>
+          </button>
         </section>
       )}
     </div>

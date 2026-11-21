@@ -135,12 +135,14 @@ module.exports = {
           to: 'https://github.com/FCL-Team/FoldCraftLauncher',
           label: 'FCL 代码仓库',
           position: 'left',
+          className: 'navbar-external-link',
         },
 
         {
           to: 'https://foldcraftlauncher.cn',
           label: 'FCL 下载站(非官方)',
           position: 'left',
+          className: 'navbar-external-link',
         },
 
         {

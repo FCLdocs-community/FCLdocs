@@ -3,93 +3,84 @@ title: 贡献者名单
 sidebar_position: 2
 ---
 
-import ContributorCard from '@site/src/components/ContributorCard';
+import ContributorList from '@site/src/components/ContributorList';
 import AboutBackButton from '@site/src/components/AboutBackButton';
 
 <AboutBackButton />
 
 # 👥 贡献者名单
 
-感谢以下贡献者的无私付出，让本教程变得更好！
+感谢以下贡献者的无私付出，让本教程变得更好！点击头像可以查看他们的贡献和 GitHub 提交记录。
 
-<div style={{
-  display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
-  gap: '16px',
-  marginTop: '24px'
-}}>
-
-<ContributorCard
-  name="WaterGodFurina"
-  avatar="https://avatars.githubusercontent.com/u/220435532?v=4"
-  qq="0"
-  bilibili="0"
-  contributions="创建了教程文档，提供了教程域名，主要编写者，对其他人的文档进行了勘误和修改"
+<ContributorList
+  contributors={[
+    {
+      name: 'WaterGodFurina',
+      avatar: 'https://avatars.githubusercontent.com/u/220435532?v=4',
+      contributions: '创建了教程文档，提供了教程域名，主要编写者，对其他人的文档进行了勘误和修改',
+    },
+    {
+      name: 'saltfishxyb',
+      avatar: 'https://avatars.githubusercontent.com/u/172914485?v=4',
+      contributions: '主要编写者，提供了部分教程图片',
+    },
+    {
+      name: 'yang09-yang',
+      avatar: 'https://avatars.githubusercontent.com/u/190231213?v=4',
+      contributions: '主要编写者',
+    },
+    {
+      name: 'InfinityYeah',
+      avatar: 'https://avatars.githubusercontent.com/u/183677919?v=4',
+      contributions: '编写了“局域网联机”文档和部分“报错解决”文档',
+    },
+    {
+      name: 'KongXing0819',
+      avatar: 'https://avatars.githubusercontent.com/u/159509632?v=4',
+      contributions: '勘误了部分文档，调整了文章结构，贡献了“开服教程”',
+    },
+    {
+      name: 'leemwood',
+      avatar: 'https://avatars.githubusercontent.com/u/170352190?v=4',
+      contributions: '修改了文档的首页，加入了加载动画',
+    },
+    {
+      name: 'GuGuIsNotAPigeon',
+      avatar: 'https://avatars.githubusercontent.com/u/212193102?v=4',
+      contributions: '贡献了“开服教程”，修复了一些语法错误',
+    },
+    {
+      name: 'mengcha114',
+      avatar: 'https://avatars.githubusercontent.com/u/158115327?v=4',
+      contributions: '减缓了低端GPU看本文档的花屏问题，为部分文档中的第三方工具及网站添加超链接跳转',
+    },
+    {
+      name: 'Xirren',
+      avatar: 'https://avatars.githubusercontent.com/u/172970503?v=4',
+      contributions: '修正了部分文档问题，优化了存储方面的说明',
+    },
+    {
+      name: 'zeplh',
+      avatar: 'https://avatars.githubusercontent.com/u/270659324?v=4',
+      contributions: '修改了 MT 管理器文件操作相关文档',
+    },
+    {
+      name: 'Huangjiang-a11y',
+      avatar: 'https://avatars.githubusercontent.com/u/279459477?v=4',
+      contributions: '贡献了“首次使用”文档',
+    },
+    {
+      name: '6VuI1c4Q',
+      avatar: 'https://avatars.githubusercontent.com/u/300451282?v=4',
+      contributions: '贡献了“联机操作”文档，修正了部分语法错误',
+    },
+    {
+      name: 'XiaoluoFoxington',
+      avatar: 'https://avatars.githubusercontent.com/u/89125608?v=4',
+      contributions: '修正了有关FCL下载的文档',
+    },
+  ]}
 />
-
-<ContributorCard
-  name="saltfishxyb"
-  avatar="https://avatars.githubusercontent.com/u/172914485?v=4"
-  qq="0"
-  contributions="主要编写者，提供了部分教程图片"
-/>
-
-<ContributorCard
-  name="yang09-yang"
-  avatar="https://avatars.githubusercontent.com/u/190231213?v=4"
-  bilibili="0"
-  contributions="主要编写者"
-/>
-
-<ContributorCard
-  name="InfinityYeah"
-  avatar="https://avatars.githubusercontent.com/u/183677919?v=4"
-  contributions="编写了“局域网联机”文档和部分“报错解决”文档"
-/>
-
-<ContributorCard
-  name="KongXing0819"
-  avatar="https://avatars.githubusercontent.com/u/159509632?v=4"
-  contributions="勘误了部分文档，调整了文章结构，贡献了“开服教程”"
-/>
-
-<ContributorCard
-  name="leemwood"
-  avatar="https://avatars.githubusercontent.com/u/170352190?v=4"
-  contributions="修改了文档的首页，加入了加载动画"
-/>
-
-<ContributorCard
-  name="GuGuIsNotAPigeon"
-  avatar="https://avatars.githubusercontent.com/u/212193102?v=4"
-  contributions="贡献了“开服教程”，修复了一些语法错误"
-/>
-
-<ContributorCard
-  name="mengcha114"
-  avatar="https://avatars.githubusercontent.com/u/158115327?v=4"
-  contributions="减缓了低端GPU看本文档的花屏问题，为部分文档中的第三方工具及网站添加超链接跳转"
-/>
-
-<ContributorCard
-  name="Huangjiang-a11y"
-  avatar="https://avatars.githubusercontent.com/u/279459477?v=4"
-  contributions="贡献了“首次使用”文档"
-/>
-
-<ContributorCard
-  name="6VuI1c4Q"
-  avatar="https://avatars.githubusercontent.com/u/300451282?v=4"
-  contributions="贡献了“联机操作”文档，修正了部分语法错误"
-/>
-
-<ContributorCard
-  name="XiaoluoFoxington"
-  avatar="https://avatars.githubusercontent.com/u/89125608?v=4"
-  contributions="修正了有关FCL下载的文档"
-/>
-
-</div>
 
 # 🙏 致谢
 感谢以下人员的图片提供，为本教程提供了更多参考

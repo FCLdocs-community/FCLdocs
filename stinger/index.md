@@ -3,8 +3,12 @@ sidebar_position: 1
 title: 花絮
 ---
 
+import AboutBackButton from '@site/src/components/AboutBackButton';
+
+<AboutBackButton />
+
 # 花絮
 
-:::warning 内容待补充
-本页面尚未完成，欢迎通过 GitHub 参与编写。
-:::
+教程之外的一些内容。
+
+- [如何高效提问](/stinger/高效提问)

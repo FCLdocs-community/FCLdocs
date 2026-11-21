@@ -28,6 +28,11 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
 
+      - name: Sync contributor commits
+        run: yarn sync:contributors
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+
       - name: Build website
         run: yarn build
 

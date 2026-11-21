@@ -2,7 +2,8 @@
   "scripts": {
     "start": "docusaurus start",
     "build": "docusaurus build",
-    "serve": "docusaurus serve"
+    "serve": "docusaurus serve",
+    "sync:contributors": "node scripts/sync-contributor-commits.mjs"
   },
   "dependencies": {
     "@docusaurus/core": "^3.7.0",
